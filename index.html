@@ -1047,15 +1047,29 @@
 <script>
 // Custom Cursor
 const cursor = document.getElementById('cursor');
-document.addEventListener('mousemove', (e) => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-});
+const isTouchDevice = window.matchMedia('(hover: none)').matches || navigator.maxTouchPoints > 0;
 
-document.querySelectorAll('.hoverable, a, button').forEach(el => {
-  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-});
+if (isTouchDevice && cursor) {
+  cursor.remove();
+} else if (cursor) {
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+
+  document.addEventListener('mouseleave', () => {
+    cursor.style.opacity = '0';
+  });
+
+  document.addEventListener('mouseenter', () => {
+    cursor.style.opacity = '1';
+  });
+
+  document.querySelectorAll('.hoverable, a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+}
 
 // Navbar scroll effect
 const nav = document.getElementById('nav');
