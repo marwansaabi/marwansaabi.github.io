@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marwan El Saabi — Bioinformatician</title>
+<meta name="description" content="Portfolio of Marwan El Saabi, Bioinformatician specializing in genomic data analysis, computational pipeline development, and AI-powered drug discovery tools.">
+<meta property="og:title" content="Marwan El Saabi — Bioinformatician">
+<meta property="og:description" content="Bioinformatician specializing in genomic data analysis, computational pipeline development, and AI-powered drug discovery tools.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://marwansaabi.github.io">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,7 +24,10 @@
     --accent-light: #D1FAE5;
   }
 
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+  }
   
   body {
     font-family: 'Space Grotesk', sans-serif;
@@ -37,8 +47,14 @@
     pointer-events: none;
     z-index: 9999;
     transition: transform 0.15s ease, opacity 0.3s ease;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.35);
   }
-  #cursor.hover { transform: scale(3); background: var(--black); }
+  #cursor.hover { transform: scale(2.2); background: var(--black); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { cursor: auto !important; }
+    #cursor { display: none; }
+  }
 
   /* HERO SECTION - FULL VIEWPORT */
   .hero-full {
@@ -247,11 +263,13 @@
     transition: width 0.3s ease;
   }
 
-  .nav-links a:hover {
+  .nav-links a:hover,
+  .nav-links a.active {
     color: var(--black);
   }
 
-  .nav-links a:hover::after {
+  .nav-links a:hover::after,
+  .nav-links a.active::after {
     width: 100%;
   }
 
@@ -654,6 +672,47 @@
     50% { transform: translateY(10px); opacity: 0.5; }
   }
 
+  /* MENU TOGGLE */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 5px;
+    z-index: 1001;
+  }
+  .menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--black);
+    transition: all 0.3s ease;
+  }
+  .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .menu-toggle.open span:nth-child(2) { opacity: 0; }
+  .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+  @media (max-width: 768px) {
+    .menu-toggle { display: flex; }
+    .nav-links {
+      position: fixed;
+      top: 0; right: -100%;
+      width: 70%; height: 100vh;
+      background: rgba(250, 250, 249, 0.98);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 999;
+    }
+    .nav-links.open { right: 0; }
+    .nav-links a { font-size: 16px; }
+    .cv-btn-nav { font-size: 14px; }
+  }
+
   /* RESPONSIVE */
   @media (max-width: 968px) {
     .project-card,
@@ -722,6 +781,11 @@
 <!-- Navigation -->
 <nav id="nav">
   <div class="logo">Marwan El Saabi</div>
+  <button class="menu-toggle" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
   <ul class="nav-links">
     <li><a href="#projects" class="hoverable">Projects</a></li>
     <li><a href="#skills" class="hoverable">Skills</a></li>
@@ -1054,6 +1118,42 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
+  });
+});
+
+// Active section indicator in nav
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + entry.target.id) {
+          link.classList.add('active');
+        }
+      });
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-80px 0px -50% 0px' });
+
+sections.forEach(section => sectionObserver.observe(section));
+
+// Mobile menu toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinksContainer = document.querySelector('.nav-links');
+
+menuToggle.addEventListener('click', () => {
+  menuToggle.classList.toggle('open');
+  navLinksContainer.classList.toggle('open');
+});
+
+// Close mobile menu when clicking a link
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    menuToggle.classList.remove('open');
+    navLinksContainer.classList.remove('open');
   });
 });
 </script>
