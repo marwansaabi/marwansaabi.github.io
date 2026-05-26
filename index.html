@@ -31,15 +31,14 @@
   * { cursor: none !important; }
   #cursor {
     width: 12px; height: 12px;
-    border: 2px solid var(--black);
+    background: var(--black);
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
     z-index: 9999;
     transition: transform 0.15s ease, opacity 0.3s ease;
-    mix-blend-mode: difference;
   }
-  #cursor.hover { transform: scale(3); border-color: var(--accent); }
+  #cursor.hover { transform: scale(3); background: var(--black); }
 
   /* HERO SECTION - FULL VIEWPORT */
   .hero-full {
