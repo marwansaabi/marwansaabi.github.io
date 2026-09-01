@@ -423,11 +423,17 @@
     flex-wrap: wrap;
   }
 
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 1.2rem;
+  }
+
   .project-link {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
-    margin-top: 1.2rem;
     color: var(--accent);
     text-decoration: none;
     font-size: 13px;
@@ -437,6 +443,12 @@
     transition: all 0.3s ease;
   }
   .project-link:hover {
+    color: var(--black);
+  }
+  .project-link.secondary {
+    color: var(--gray);
+  }
+  .project-link.secondary:hover {
     color: var(--black);
   }
 
@@ -898,7 +910,10 @@
           <span class="tag">Pandas</span>
           <span class="tag">Scikit-learn</span>
         </div>
-        <a href="https://marwan-rnaseq-dashboard.streamlit.app" class="project-link hoverable" target="_blank">View Live App →</a>
+        <div class="project-links">
+          <a href="https://marwan-rnaseq-dashboard.streamlit.app" class="project-link hoverable" target="_blank">View Live App →</a>
+          <a href="https://github.com/marwansaabi/rnaseq-dashboard" class="project-link secondary hoverable" target="_blank">View Code →</a>
+        </div>
       </div>
     </div>
 
@@ -919,7 +934,10 @@
           <span class="tag">RDKit</span>
           <span class="tag">py3Dmol</span>
         </div>
-        <a href="https://marwan-drug-discovery.streamlit.app" class="project-link hoverable" target="_blank">View Live App →</a>
+        <div class="project-links">
+          <a href="https://marwan-drug-discovery.streamlit.app" class="project-link hoverable" target="_blank">View Live App →</a>
+          <a href="https://github.com/marwansaabi/ai-drug-designer" class="project-link secondary hoverable" target="_blank">View Code →</a>
+        </div>
       </div>
     </div>
 
@@ -939,7 +957,9 @@
           <span class="tag">Biopython</span>
           <span class="tag">ML</span>
         </div>
-        <a href="https://github.com/marwansaabi/ml-alzheimer-classifier" class="project-link hoverable" target="_blank">View on GitHub →</a>
+        <div class="project-links">
+          <a href="https://github.com/marwansaabi/ml-alzheimer-classifier" class="project-link hoverable" target="_blank">View on GitHub →</a>
+        </div>
       </div>
     </div>
   </div>
