@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marwan El Saabi — Data Science &amp; Machine Learning</title>
 <meta name="description" content="Portfolio of Marwan El Saabi — MSc Bioinformatics student building machine learning systems end to end: demand forecasting, drug discovery models and genomic analysis pipelines.">
-<meta property="og:title" content="Marwan El Saabi — Bioinformatician">
-<meta property="og:description" content="Bioinformatician specializing in genomic data analysis, computational pipeline development, and AI-powered drug discovery tools.">
+<meta property="og:title" content="Marwan El Saabi — Data Science &amp; Machine Learning">
+<meta property="og:description" content="MSc Bioinformatics student building machine learning systems end to end: demand forecasting, computer vision, drug discovery models and genomic analysis pipelines.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://marwansaabi.github.io">
 <meta name="twitter:card" content="summary_large_image">
@@ -916,13 +916,43 @@
     </div>
 
     <div class="project-card scroll-reveal">
+      <div class="project-visual">🔬</div>
+      <div class="project-content">
+        <div class="project-number">001</div>
+        <h3 class="project-title">Melanoma Detection (Classical CV)</h3>
+        <p class="project-desc">
+          Fully automatic segmentation and classification of dermoscopic skin
+          lesions — benign vs. melanoma — using only classical computer vision,
+          no deep learning. An ensemble of Otsu, K-means and watershed
+          segmentation selected by IoU, then 40 shape, color and texture
+          (LBP/GLCM) features classified with SVM under 5-fold cross-validation.
+        </p>
+        <p class="project-desc">
+          0.735 mean IoU, 90.2% accuracy, 84% melanoma sensitivity on the
+          ISIC 2018 dataset. MSc coursework, published with full methodology
+          and an honest discussion of its limitations.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">Scikit-learn</span>
+          <span class="tag">Scikit-image</span>
+          <span class="tag">Computer Vision</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/marwansaabi/melanoma-detection" class="project-link hoverable" target="_blank">View Code →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card scroll-reveal">
       <div class="project-visual">
         <a href="https://marwan-rnaseq-dashboard.streamlit.app" target="_blank">
           <img src="rnaseq_preview.png" alt="RNA-seq Dashboard Preview">
         </a>
       </div>
       <div class="project-content">
-        <div class="project-number">001</div>
+        <div class="project-number">002</div>
         <h3 class="project-title">RNA-seq Analysis Dashboard</h3>
         <p class="project-desc">
           Interactive Streamlit application for exploratory RNA-seq analysis. 
@@ -947,7 +977,7 @@
     <div class="project-card scroll-reveal">
       <div class="project-visual">🧬</div>
       <div class="project-content">
-        <div class="project-number">002</div>
+        <div class="project-number">003</div>
         <h3 class="project-title">AI-Powered De Novo Drug Designer</h3>
         <p class="project-desc">
           Interactive web application leveraging generative LLMs to design molecules de novo. 
@@ -971,7 +1001,7 @@
     <div class="project-card scroll-reveal">
       <div class="project-visual">🧠</div>
       <div class="project-content">
-        <div class="project-number">003</div>
+        <div class="project-number">004</div>
         <h3 class="project-title">Alzheimer's ML Pipeline</h3>
         <p class="project-desc">
           Machine learning model for the classification of pharmacological compounds with
