@@ -302,21 +302,6 @@
   }
 
   /* PROJECTS: shared type/tag/link styles */
-  .project-content .featured {
-    display: inline-block;
-    font-family: 'Fragment Mono', monospace;
-    color: var(--accent);
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-
-  .project-content .featured::before {
-    content: '// ';
-  }
-
   .project-number {
     font-family: 'Fragment Mono', monospace;
     font-size: 12px;
@@ -400,57 +385,7 @@
     color: var(--ink-soft);
   }
 
-  /* PROJECT: featured banner card (layout family 1, used once) */
-  .project-featured {
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 3rem;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .project-featured.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .featured-visual {
-    width: 100%;
-    aspect-ratio: 20/9;
-    background: var(--paper-alt);
-    overflow: hidden;
-  }
-
-  .featured-visual a {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .featured-visual img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
-    display: block;
-  }
-
-  .featured-body {
-    padding: 2.6rem 2.8rem 2.8rem;
-  }
-
-  .featured-body .project-title {
-    font-size: clamp(1.6rem, 3vw, 2.1rem);
-    margin-bottom: 1rem;
-  }
-
-  .featured-body .project-desc {
-    max-width: 70ch;
-  }
-
-  /* PROJECTS: secondary tile grid (layout family 2, used for the rest) */
+  /* PROJECTS: uniform tile grid */
   .projects-secondary {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -863,41 +798,37 @@
     </p>
   </div>
 
-  <!-- Featured project: full-width banner layout, used once -->
-  <div class="project-featured scroll-reveal">
-    <div class="featured-visual">
-      <a href="https://marwan-retail-demand-forecasting.streamlit.app" target="_blank">
-        <img src="retail_preview.jpg" alt="Retail Demand Forecasting app: backtest metrics and model comparison charts">
-      </a>
-    </div>
-    <div class="fig-caption">Fig. 01. Backtest results: model comparison and fold stability.</div>
-    <div class="featured-body project-content">
-      <span class="featured">Current Project</span>
-      <div class="project-number">Fig. 01</div>
-      <h3 class="project-title">Retail Demand Forecasting</h3>
-      <p class="project-desc">
-        Weekly SKU-level demand forecasting on 1M+ real e-commerce transactions.
-        A global LightGBM model benchmarked against naive, seasonal-naive and
-        moving-average baselines under rolling-origin backtesting, 4.8% better
-        wMAPE than the strongest baseline, with every feature read at the
-        forecast origin to rule out leakage.
-      </p>
-      <div class="project-tags">
-        <span class="tag">Python</span>
-        <span class="tag">LightGBM</span>
-        <span class="tag">Time Series</span>
-        <span class="tag">Pandas</span>
-        <span class="tag">Streamlit</span>
-      </div>
-      <div class="project-links">
-        <a href="https://marwan-retail-demand-forecasting.streamlit.app" class="project-link" target="_blank">View Live App →</a>
-        <a href="https://github.com/marwansaabi/retail-demand-forecasting" class="project-link secondary" target="_blank">View Code →</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Remaining projects: compact tile grid, a different layout family -->
+  <!-- Uniform tile grid, in order: RNA-seq, Melanoma, AI Drug Designer, Forecasting, Alzheimer's -->
   <div class="projects-secondary">
+    <div class="project-tile scroll-reveal">
+      <div class="tile-visual">
+        <a href="https://marwan-rnaseq-dashboard.streamlit.app" target="_blank">
+          <img src="rnaseq_preview.png" alt="RNA-seq Dashboard Preview">
+        </a>
+      </div>
+      <div class="fig-caption">Fig. 01. PCA, volcano plot and heatmap views.</div>
+      <div class="tile-body project-content">
+        <div class="project-number">Fig. 01</div>
+        <h3 class="project-title">RNA-seq Analysis Dashboard</h3>
+        <p class="project-desc">
+          Interactive Streamlit application for exploratory RNA-seq analysis.
+          Features differential expression (DEseq-style), PCA, volcano plots,
+          heatmaps, and pathway enrichment, with both synthetic and real
+          airway datasets (Himes et al., 2014).
+        </p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">Plotly</span>
+          <span class="tag">Pandas</span>
+        </div>
+        <div class="project-links">
+          <a href="https://marwan-rnaseq-dashboard.streamlit.app" class="project-link" target="_blank">View Live App →</a>
+          <a href="https://github.com/marwansaabi/rnaseq-dashboard" class="project-link secondary" target="_blank">View Code →</a>
+        </div>
+      </div>
+    </div>
+
     <div class="project-tile scroll-reveal">
       <div class="tile-visual contain-fit">
         <a href="https://marwan-melanoma-detection.streamlit.app" target="_blank">
@@ -932,42 +863,13 @@
 
     <div class="project-tile scroll-reveal">
       <div class="tile-visual">
-        <a href="https://marwan-rnaseq-dashboard.streamlit.app" target="_blank">
-          <img src="rnaseq_preview.png" alt="RNA-seq Dashboard Preview">
-        </a>
-      </div>
-      <div class="fig-caption">Fig. 03. PCA, volcano plot and heatmap views.</div>
-      <div class="tile-body project-content">
-        <div class="project-number">Fig. 03</div>
-        <h3 class="project-title">RNA-seq Analysis Dashboard</h3>
-        <p class="project-desc">
-          Interactive Streamlit application for exploratory RNA-seq analysis.
-          Features differential expression (DEseq-style), PCA, volcano plots,
-          heatmaps, and pathway enrichment, with both synthetic and real
-          airway datasets (Himes et al., 2014).
-        </p>
-        <div class="project-tags">
-          <span class="tag">Python</span>
-          <span class="tag">Streamlit</span>
-          <span class="tag">Plotly</span>
-          <span class="tag">Pandas</span>
-        </div>
-        <div class="project-links">
-          <a href="https://marwan-rnaseq-dashboard.streamlit.app" class="project-link" target="_blank">View Live App →</a>
-          <a href="https://github.com/marwansaabi/rnaseq-dashboard" class="project-link secondary" target="_blank">View Code →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="project-tile scroll-reveal">
-      <div class="tile-visual">
         <a href="https://marwan-drug-discovery.streamlit.app" target="_blank">
           <img src="drugdesigner_preview.jpg" alt="De Novo AI Drug Designer interface: molecule generation prompt and validation engine">
         </a>
       </div>
-      <div class="fig-caption">Fig. 04. Generation interface and validation engine.</div>
+      <div class="fig-caption">Fig. 03. Generation interface and validation engine.</div>
       <div class="tile-body project-content">
-        <div class="project-number">Fig. 04</div>
+        <div class="project-number">Fig. 03</div>
         <h3 class="project-title">AI-Powered De Novo Drug Designer</h3>
         <p class="project-desc">
           Interactive web application leveraging generative LLMs to design molecules de novo.
@@ -983,6 +885,36 @@
         <div class="project-links">
           <a href="https://marwan-drug-discovery.streamlit.app" class="project-link" target="_blank">View Live App →</a>
           <a href="https://github.com/marwansaabi/ai-drug-designer" class="project-link secondary" target="_blank">View Code →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-tile scroll-reveal">
+      <div class="tile-visual">
+        <a href="https://marwan-retail-demand-forecasting.streamlit.app" target="_blank">
+          <img src="retail_preview.jpg" alt="Retail Demand Forecasting app: backtest metrics and model comparison charts">
+        </a>
+      </div>
+      <div class="fig-caption">Fig. 04. Backtest results: model comparison and fold stability.</div>
+      <div class="tile-body project-content">
+        <div class="project-number">Fig. 04</div>
+        <h3 class="project-title">Retail Demand Forecasting</h3>
+        <p class="project-desc">
+          Weekly SKU-level demand forecasting on 1M+ real e-commerce transactions.
+          A global LightGBM model benchmarked against naive, seasonal-naive and
+          moving-average baselines under rolling-origin backtesting, 4.8% better
+          wMAPE than the strongest baseline, with every feature read at the
+          forecast origin to rule out leakage.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">LightGBM</span>
+          <span class="tag">Time Series</span>
+          <span class="tag">Streamlit</span>
+        </div>
+        <div class="project-links">
+          <a href="https://marwan-retail-demand-forecasting.streamlit.app" class="project-link" target="_blank">View Live App →</a>
+          <a href="https://github.com/marwansaabi/retail-demand-forecasting" class="project-link secondary" target="_blank">View Code →</a>
         </div>
       </div>
     </div>
