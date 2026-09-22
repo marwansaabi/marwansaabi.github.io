@@ -370,7 +370,7 @@
     background: transparent;
     color: var(--ink-soft);
     font-family: 'Fragment Mono', monospace;
-    font-size: 10.5px;
+    font-size: 11px;
     letter-spacing: 0.03em;
     border: 1px solid var(--line);
     border-radius: 3px;
@@ -380,7 +380,7 @@
     padding: 0.7rem 1rem;
     border-top: 1px solid var(--line);
     font-family: 'Fragment Mono', monospace;
-    font-size: 10.5px;
+    font-size: 11px;
     letter-spacing: 0.04em;
     color: var(--ink-soft);
   }
@@ -446,8 +446,16 @@
     margin-bottom: 0.9rem;
   }
 
+  .project-tile.no-visual {
+    grid-column: 1 / -1;
+  }
+
   .project-tile.no-visual .tile-body {
     padding-top: 2.2rem;
+  }
+
+  .project-tile.no-visual .project-desc {
+    max-width: 65ch;
   }
 
   /* SKILLS - grouped ledger, no percentage bars */
@@ -504,7 +512,7 @@
 
   .skill-row-level {
     font-family: 'Fragment Mono', monospace;
-    font-size: 10.5px;
+    font-size: 11px;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--ink-soft);
@@ -637,8 +645,7 @@
     color: var(--ink-soft);
     font-family: 'Fragment Mono', monospace;
     font-size: 11px;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
+    letter-spacing: 0.02em;
   }
 
   /* ANIMATIONS */
@@ -677,7 +684,7 @@
       position: fixed;
       top: 0; right: -100%;
       width: 75%; height: 100vh;
-      background: rgba(244, 240, 230, 0.98);
+      background: var(--paper);
       backdrop-filter: blur(20px);
       flex-direction: column;
       align-items: flex-start;
@@ -694,6 +701,14 @@
 
     .projects-secondary {
       grid-template-columns: 1fr;
+    }
+
+    section {
+      padding: 4rem 5%;
+    }
+
+    .section-header {
+      margin-bottom: 2.5rem;
     }
   }
 
@@ -772,8 +787,8 @@
       MSc Bioinformatics student who builds and ships working machine learning applications: demand forecasting, drug discovery, genomics.
     </p>
 
-    <a href="https://github.com/marwansaabi" class="hero-cta" target="_blank">
-      View GitHub →
+    <a href="#projects" class="hero-cta">
+      See the Work ↓
     </a>
   </div>
 </section>
@@ -835,7 +850,7 @@
           <img src="melanoma_preview.png" alt="Segmentation example: original lesion, ground truth mask, and automatic segmentation output">
         </a>
       </div>
-      <div class="fig-caption">Fig. 02. Segmentation output vs. ground truth (IoU 0.717).</div>
+      <div class="fig-caption">Fig. 02. Example segmentation (IoU 0.717); 0.735 mean IoU across the test set.</div>
       <div class="tile-body project-content">
         <div class="project-number">Fig. 02</div>
         <h3 class="project-title">Melanoma Detection (Classical CV)</h3>
@@ -984,7 +999,7 @@
 
       <div class="skill-row">
         <span class="skill-row-name">Machine Learning</span>
-        <span class="skill-row-level">Interm./Adv.</span>
+        <span class="skill-row-level">Intermediate-Advanced</span>
       </div>
       <div class="skill-detail">LightGBM, XGBoost, model benchmarking, cross-validation</div>
 

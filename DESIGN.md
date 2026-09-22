@@ -118,7 +118,7 @@ Warm and desaturated, with exactly one saturated color in the entire system.
 - **Headline** (400, `clamp(2.1rem, 4.2vw, 3rem)`, line-height 1.2): section titles ("Selected Work", "Technical Expertise", "Academic Background").
 - **Title** (500, `1.3rem`, line-height 1.25): project titles, degree names, skill-row names (at `1.06rem`).
 - **Body** (400, `1rem`, line-height 1.7–1.8): project/section/contact descriptions. Runs in Soft Ink, not full Ink, for anything that isn't a heading.
-- **Label** (400, `10.5–12px`, letter-spacing `0.03–0.14em`, uppercase, Fragment Mono): nav links, buttons, tags, `project-number`/`fig-caption` figure labels, skill levels, education years, footer.
+- **Label** (400, `11–12px`, letter-spacing `0.03–0.14em`, uppercase, Fragment Mono): nav links, buttons, tags, `project-number`/`fig-caption` figure labels, skill levels, education years. Bumped from an original 10.5px floor after a critique pass flagged it as sub-readable; the footer runs the same size but without the uppercase transform (see below), since its two lines are sentence-length, not short labels.
 
 ### Named Rules
 **The No-Em-Dash Rule.** No em dash (`—`) or en dash used as a separator (`–`) appears anywhere in visible text — titles, captions, body copy, dates, attribution. Ranges and compounds use a plain hyphen (`2025-2027`, not `2025–2027`). This was fixed once across the entire site; do not reintroduce it.
@@ -159,7 +159,7 @@ Every interactive control in the system is built from one outline-based language
 - **Variants:** identical language at three sizes — hero CTA (`13px 28px`), nav CV button (`7px 18px`), contact links (`11px 22px`, with a leading 14px SVG icon).
 
 ### Chips (Tags)
-- **Style:** transparent background, Soft Ink text, `1px solid var(--line)` border, `3px` radius, `3px 10px` padding, Fragment Mono `10.5px` uppercase-adjacent (tags are not uppercased, unlike labels).
+- **Style:** transparent background, Soft Ink text, `1px solid var(--line)` border, `3px` radius, `3px 10px` padding, Fragment Mono `11px` (tags are not uppercased, unlike labels).
 
 ### Cards / Containers (Project Tiles)
 - **Corner Style:** `8px` radius.
@@ -178,7 +178,7 @@ Every interactive control in the system is built from one outline-based language
 The skills section's alternative to a percentage/progress-bar widget: each skill is a row with the name in serif Title weight on the left, the level (`Advanced` / `Intermediate` / `Interm./Adv.`) in Fragment Mono on the right, separated by a `1px` top hairline from the row above. A supporting detail line runs below in Soft Ink at `0.88rem`. This pattern exists specifically to avoid the "arbitrary skill percentage" pattern the previous design used — see Do's and Don'ts.
 
 ### Signature: Figure Caption
-Every project visual that has a real image carries a `fig-caption` strip directly beneath it: `Fig. 0N. <one-line factual description>`, Fragment Mono, `10.5px`, Soft Ink, separated from the image by a `1px` top hairline. This is the site's evidentiary device — it never contains an em dash, never enumerates decoratively, and always describes the actual visible content of the image, not a category label.
+Every project visual that has a real image carries a `fig-caption` strip directly beneath it: `Fig. 0N. <one-line factual description>`, Fragment Mono, `11px`, Soft Ink, separated from the image by a `1px` top hairline. This is the site's evidentiary device — it never contains an em dash, never enumerates decoratively, and always describes the actual visible content of the image, not a category label. When a card cites two different values for the same metric (e.g. a per-example score vs. a dataset mean), the caption disambiguates which is which; it never lets two numbers sit next to each other unexplained.
 
 ## Do's and Don'ts
 
