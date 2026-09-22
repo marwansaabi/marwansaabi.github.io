@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-22T11:54:58Z",
+  "generatedAt": "2026-09-22T12:30:00Z",
   "title": "Design System: Marwan El Saabi — Portfolio",
   "extensions": {
     "colorMeta": {
@@ -36,7 +36,7 @@
       "kind": "button",
       "refersTo": "button-outline",
       "description": "The system's only button language: transparent/bordered at rest, fills on hover. Used for the hero CTA, nav CV download, and contact links.",
-      "html": "<a class=\"ds-btn-outline\" href=\"#\">View GitHub →</a>",
+      "html": "<a class=\"ds-btn-outline\" href=\"#\">See the Work ↓</a>",
       "css": ".ds-btn-outline { display: inline-flex; align-items: center; gap: 0.6rem; padding: 13px 28px; background: transparent; color: var(--ink); text-decoration: none; font-family: 'Fragment Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--ink); border-radius: 3px; transition: all 0.3s ease; } .ds-btn-outline:hover, .ds-btn-outline:focus-visible { background: var(--ink); color: var(--paper); transform: translateY(-2px); outline: none; }"
     },
     {
@@ -45,7 +45,7 @@
       "refersTo": "tag",
       "description": "Technology tag shown on project cards. Bordered, never filled.",
       "html": "<span class=\"ds-tag\">LightGBM</span>",
-      "css": ".ds-tag { display: inline-block; padding: 3px 10px; background: transparent; color: var(--ink-soft); font-family: 'Fragment Mono', monospace; font-size: 10.5px; letter-spacing: 0.03em; border: 1px solid var(--line); border-radius: 3px; }"
+      "css": ".ds-tag { display: inline-block; padding: 3px 10px; background: transparent; color: var(--ink-soft); font-family: 'Fragment Mono', monospace; font-size: 11px; letter-spacing: 0.03em; border: 1px solid var(--line); border-radius: 3px; }"
     },
     {
       "name": "Project Tile",
@@ -53,7 +53,7 @@
       "refersTo": "project-tile",
       "description": "The uniform card used for all five project entries: image slot, figure caption, then title/description/tags/links.",
       "html": "<div class=\"ds-tile\"><div class=\"ds-tile-visual\"><img src=\"preview.jpg\" alt=\"\" /></div><div class=\"ds-tile-caption\">Fig. 01. Backtest results: model comparison and fold stability.</div><div class=\"ds-tile-body\"><div class=\"ds-tile-number\">Fig. 01</div><h3 class=\"ds-tile-title\">Retail Demand Forecasting</h3><p class=\"ds-tile-desc\">Weekly SKU-level demand forecasting on 1M+ real e-commerce transactions.</p></div></div>",
-      "css": ".ds-tile { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--paper); } .ds-tile-visual { width: 100%; aspect-ratio: 16/10; background: var(--paper-alt); overflow: hidden; } .ds-tile-visual img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; } .ds-tile-caption { padding: 0.7rem 1rem; border-top: 1px solid var(--line); font-family: 'Fragment Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: var(--ink-soft); } .ds-tile-body { padding: 1.8rem 1.9rem 2rem; } .ds-tile-number { font-family: 'Fragment Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.6rem; } .ds-tile-title { font-family: 'Spectral', serif; font-weight: 500; font-size: 1.3rem; margin: 0 0 0.9rem; } .ds-tile-desc { font-family: 'Spectral', serif; font-size: 1rem; line-height: 1.8; color: var(--ink-soft); margin: 0; }"
+      "css": ".ds-tile { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--paper); } .ds-tile-visual { width: 100%; aspect-ratio: 16/10; background: var(--paper-alt); overflow: hidden; } .ds-tile-visual img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; } .ds-tile-caption { padding: 0.7rem 1rem; border-top: 1px solid var(--line); font-family: 'Fragment Mono', monospace; font-size: 11px; letter-spacing: 0.04em; color: var(--ink-soft); } .ds-tile-body { padding: 1.8rem 1.9rem 2rem; } .ds-tile-number { font-family: 'Fragment Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.6rem; } .ds-tile-title { font-family: 'Spectral', serif; font-weight: 500; font-size: 1.3rem; margin: 0 0 0.9rem; } .ds-tile-desc { font-family: 'Spectral', serif; font-size: 1rem; line-height: 1.8; color: var(--ink-soft); margin: 0; }"
     },
     {
       "name": "Navigation Bar",
@@ -69,15 +69,15 @@
       "refersTo": "skill-row",
       "description": "Signature component. The system's deliberate replacement for a percentage/progress-bar skill widget: serif name left, mono level right, hairline divider above, detail line below in Soft Ink.",
       "html": "<div class=\"ds-ledger-row\"><span class=\"ds-ledger-name\">Python</span><span class=\"ds-ledger-level\">Advanced</span></div><div class=\"ds-ledger-detail\">NumPy, Pandas, Scikit-learn, OpenCV, Biopython</div>",
-      "css": ".ds-ledger-row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.9rem 0; border-top: 1px solid var(--line); } .ds-ledger-name { font-family: 'Spectral', serif; font-weight: 500; font-size: 1.06rem; color: var(--ink); } .ds-ledger-level { font-family: 'Fragment Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap; } .ds-ledger-detail { font-family: 'Spectral', serif; font-size: 0.88rem; color: var(--ink-soft); margin-top: -0.5rem; margin-bottom: 0.9rem; }"
+      "css": ".ds-ledger-row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.9rem 0; border-top: 1px solid var(--line); } .ds-ledger-name { font-family: 'Spectral', serif; font-weight: 500; font-size: 1.06rem; color: var(--ink); } .ds-ledger-level { font-family: 'Fragment Mono', monospace; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap; } .ds-ledger-detail { font-family: 'Spectral', serif; font-size: 0.88rem; color: var(--ink-soft); margin-top: -0.5rem; margin-bottom: 0.9rem; }"
     },
     {
       "name": "Figure Caption",
       "kind": "custom",
       "refersTo": "fig-caption",
       "description": "Signature component. The evidentiary device under every real project image: 'Fig. 0N.' followed by a one-line factual description, never decorative.",
-      "html": "<div class=\"ds-fig-caption\">Fig. 02. Segmentation output vs. ground truth (IoU 0.717).</div>",
-      "css": ".ds-fig-caption { padding: 0.7rem 1rem; border-top: 1px solid var(--line); font-family: 'Fragment Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: var(--ink-soft); }"
+      "html": "<div class=\"ds-fig-caption\">Fig. 02. Example segmentation (IoU 0.717); 0.735 mean IoU across the test set.</div>",
+      "css": ".ds-fig-caption { padding: 0.7rem 1rem; border-top: 1px solid var(--line); font-family: 'Fragment Mono', monospace; font-size: 11px; letter-spacing: 0.04em; color: var(--ink-soft); }"
     }
   ],
   "narrative": {
