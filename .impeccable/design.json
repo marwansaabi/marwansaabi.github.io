@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-22T11:54:58Z",
+  "title": "Design System: Marwan El Saabi — Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "paper": { "role": "neutral", "displayName": "Warm Paper", "canonical": "#F4F0E6" },
+      "paper-alt": { "role": "neutral", "displayName": "Paper Alt", "canonical": "#EAE2CE" },
+      "ink": { "role": "neutral", "displayName": "Espresso Ink", "canonical": "#1B1712" },
+      "ink-soft": { "role": "neutral", "displayName": "Soft Ink", "canonical": "#6B6355" },
+      "line": { "role": "neutral", "displayName": "Hairline", "canonical": "#D6CBAE" },
+      "accent": { "role": "primary", "displayName": "Burnt Terracotta", "canonical": "#9C3B1D" },
+      "accent-deep": { "role": "primary", "displayName": "Deep Terracotta", "canonical": "#6E2A14" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headline only, two lines max." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles (Selected Work, Technical Expertise, Academic Background)." },
+      "title": { "displayName": "Title", "purpose": "Project titles, degree names, skill-row names." },
+      "body": { "displayName": "Body", "purpose": "Descriptions and supporting copy, usually in Soft Ink." },
+      "label": { "displayName": "Label / Mono", "purpose": "Nav, buttons, tags, figure captions, data labels. Never used for prose." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Default easing for reveal and hover transitions across the whole system." },
+      { "name": "duration-hover", "value": "0.3s", "purpose": "Button/link hover and focus transitions." },
+      { "name": "duration-reveal", "value": "0.6s-0.7s", "purpose": "Scroll-reveal fade/translate on cards, ledger categories, and education items, staggered by index." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "768px" },
+      { "name": "md", "value": "968px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "The system's only button language: transparent/bordered at rest, fills on hover. Used for the hero CTA, nav CV download, and contact links.",
+      "html": "<a class=\"ds-btn-outline\" href=\"#\">View GitHub →</a>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; gap: 0.6rem; padding: 13px 28px; background: transparent; color: var(--ink); text-decoration: none; font-family: 'Fragment Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--ink); border-radius: 3px; transition: all 0.3s ease; } .ds-btn-outline:hover, .ds-btn-outline:focus-visible { background: var(--ink); color: var(--paper); transform: translateY(-2px); outline: none; }"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Technology tag shown on project cards. Bordered, never filled.",
+      "html": "<span class=\"ds-tag\">LightGBM</span>",
+      "css": ".ds-tag { display: inline-block; padding: 3px 10px; background: transparent; color: var(--ink-soft); font-family: 'Fragment Mono', monospace; font-size: 10.5px; letter-spacing: 0.03em; border: 1px solid var(--line); border-radius: 3px; }"
+    },
+    {
+      "name": "Project Tile",
+      "kind": "card",
+      "refersTo": "project-tile",
+      "description": "The uniform card used for all five project entries: image slot, figure caption, then title/description/tags/links.",
+      "html": "<div class=\"ds-tile\"><div class=\"ds-tile-visual\"><img src=\"preview.jpg\" alt=\"\" /></div><div class=\"ds-tile-caption\">Fig. 01. Backtest results: model comparison and fold stability.</div><div class=\"ds-tile-body\"><div class=\"ds-tile-number\">Fig. 01</div><h3 class=\"ds-tile-title\">Retail Demand Forecasting</h3><p class=\"ds-tile-desc\">Weekly SKU-level demand forecasting on 1M+ real e-commerce transactions.</p></div></div>",
+      "css": ".ds-tile { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--paper); } .ds-tile-visual { width: 100%; aspect-ratio: 16/10; background: var(--paper-alt); overflow: hidden; } .ds-tile-visual img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; } .ds-tile-caption { padding: 0.7rem 1rem; border-top: 1px solid var(--line); font-family: 'Fragment Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: var(--ink-soft); } .ds-tile-body { padding: 1.8rem 1.9rem 2rem; } .ds-tile-number { font-family: 'Fragment Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.6rem; } .ds-tile-title { font-family: 'Spectral', serif; font-weight: 500; font-size: 1.3rem; margin: 0 0 0.9rem; } .ds-tile-desc { font-family: 'Spectral', serif; font-size: 1rem; line-height: 1.8; color: var(--ink-soft); margin: 0; }"
+    },
+    {
+      "name": "Navigation Bar",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Fixed top bar, translucent paper with backdrop blur, gains a hairline border once scrolled.",
+      "html": "<nav class=\"ds-nav\"><div class=\"ds-nav-logo\">Marwan El Saabi</div><ul class=\"ds-nav-links\"><li><a href=\"#\" class=\"ds-nav-link is-active\">Projects</a></li><li><a href=\"#\" class=\"ds-nav-link\">Skills</a></li></ul></nav>",
+      "css": ".ds-nav { display: flex; justify-content: space-between; align-items: center; padding: 1.6rem 5%; background: rgba(244, 240, 230, 0.88); backdrop-filter: blur(8px); border-bottom: 1px solid transparent; } .ds-nav-logo { font-family: 'Spectral', serif; font-style: italic; font-weight: 500; font-size: 18px; } .ds-nav-links { display: flex; gap: 2.2rem; list-style: none; margin: 0; padding: 0; } .ds-nav-link { text-decoration: none; color: var(--ink-soft); font-family: 'Fragment Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; position: relative; } .ds-nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.3s ease; } .ds-nav-link:hover, .ds-nav-link.is-active { color: var(--ink); } .ds-nav-link:hover::after, .ds-nav-link.is-active::after { width: 100%; }"
+    },
+    {
+      "name": "Ledger Row",
+      "kind": "custom",
+      "refersTo": "skill-row",
+      "description": "Signature component. The system's deliberate replacement for a percentage/progress-bar skill widget: serif name left, mono level right, hairline divider above, detail line below in Soft Ink.",
+      "html": "<div class=\"ds-ledger-row\"><span class=\"ds-ledger-name\">Python</span><span class=\"ds-ledger-level\">Advanced</span></div><div class=\"ds-ledger-detail\">NumPy, Pandas, Scikit-learn, OpenCV, Biopython</div>",
+      "css": ".ds-ledger-row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.9rem 0; border-top: 1px solid var(--line); } .ds-ledger-name { font-family: 'Spectral', serif; font-weight: 500; font-size: 1.06rem; color: var(--ink); } .ds-ledger-level { font-family: 'Fragment Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap; } .ds-ledger-detail { font-family: 'Spectral', serif; font-size: 0.88rem; color: var(--ink-soft); margin-top: -0.5rem; margin-bottom: 0.9rem; }"
+    },
+    {
+      "name": "Figure Caption",
+      "kind": "custom",
+      "refersTo": "fig-caption",
+      "description": "Signature component. The evidentiary device under every real project image: 'Fig. 0N.' followed by a one-line factual description, never decorative.",
+      "html": "<div class=\"ds-fig-caption\">Fig. 02. Segmentation output vs. ground truth (IoU 0.717).</div>",
+      "css": ".ds-fig-caption { padding: 0.7rem 1rem; border-top: 1px solid var(--line); font-family: 'Fragment Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: var(--ink-soft); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Lab Notebook",
+    "overview": "This is a data-science and bioinformatics portfolio built to be read the way a reviewer reads a methods section: claims are numbered, figures are captioned, and every result links back to the app or repo that produced it. The system borrows its authority from scientific publication rather than from product marketing — warm paper, a serif built for long reading, a monospace reserved for labels and data, and a single terracotta accent used the way a red pen marks a proof. Nothing is decorative; every mark on the page is either content or the structure that organizes it.\n\nIt is restrained and academic by deliberate contrast with the genre it replaced: this project previously used an emerald-on-white \"creative dev portfolio\" look (custom cursor, emoji icons, pill buttons, percentage-bar skill widgets). The rejection of that language is load-bearing, not incidental.",
+    "keyCharacteristics": [
+      "Warm paper background with a single burnt-terracotta accent; no second brand color, ever.",
+      "Spectral serif for both display and body copy; Fragment Mono reserved for labels, data, and UI chrome.",
+      "Flat by current implementation: zero shadows anywhere; depth comes from 1px hairline borders and paper/paper-alt tonal shifts.",
+      "Sharp-leaning corner radius (3-8px); no pill shapes.",
+      "Every project claim is evidence-backed: a real screenshot or a real methodology figure, a live-app link, a code link."
+    ],
+    "rules": [
+      { "name": "The One Accent Rule", "body": "Terracotta is the only saturated color anywhere in the system. A second brand color, a status-color palette, or a gradient is a system violation, not a stylistic option.", "section": "colors" },
+      { "name": "The No-Em-Dash Rule", "body": "No em dash (—) or en-dash separator (–) appears anywhere in visible text: titles, captions, body copy, dates, attribution. Ranges and compounds use a plain hyphen. This was fixed once across the entire site; do not reintroduce it.", "section": "typography" },
+      { "name": "The No-Pill Rule", "body": "Maximum corner radius anywhere in the system is 8px. A border-radius: 9999px / pill-shaped button or badge is a system violation.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do keep terracotta as the only saturated color on the page (The One Accent Rule).",
+      "Do use hairline borders and paper/paper-alt tonal shifts for depth; never a generic shadow.",
+      "Do back every project claim with a real screenshot, a real methodology figure, a live-app link, or a code link, never a placeholder panel standing in for evidence.",
+      "Do reserve Fragment Mono for labels, data, and UI chrome; keep prose in Spectral.",
+      "Do caption real images with the Fig. 0N. pattern, describing what's actually visible."
+    ],
+    "donts": [
+      "Don't use an em dash or an en-dash separator anywhere in visible text (The No-Em-Dash Rule). Use a plain hyphen.",
+      "Don't introduce a second accent color, a status-color system, or a gradient (The One Accent Rule).",
+      "Don't use a pill-shaped or fully-rounded button/badge; the system caps at 8px radius (The No-Pill Rule).",
+      "Don't default any button to a filled/solid state; every button in this system is outline-at-rest, filled-on-hover.",
+      "Don't replace a real project image with an empty numbered placeholder panel when no screenshot exists yet; either source a real image (including a real figure from the project's own repo) or state plainly that there's no public demo, as the Alzheimer's ML Pipeline card does."
+    ]
+  }
+}
