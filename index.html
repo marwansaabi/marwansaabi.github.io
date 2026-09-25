@@ -9,7 +9,12 @@
 <meta property="og:description" content="Biologist turned data scientist building machine learning systems end to end: demand forecasting, generative AI applications, computer vision and biomedical data analysis.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://marwansaabi.github.io">
+<meta property="og:image" content="https://marwansaabi.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Marwan El Saabi, biologist turned data scientist">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://marwansaabi.github.io/og-image.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%231B1712'/><text x='50' y='68' font-family='Georgia,serif' font-style='italic' font-size='58' fill='%23F4F0E6' text-anchor='middle'>M</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Fragment+Mono&display=swap" rel="stylesheet">
 <style>
@@ -526,6 +531,36 @@
     margin-bottom: 0.9rem;
   }
 
+  /* ABOUT */
+  .about-body {
+    max-width: 760px;
+    font-size: 1.15rem;
+    line-height: 1.75;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .about-body.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .about-body p + p {
+    margin-top: 1.3rem;
+  }
+
+  .edu-degree a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 4px;
+  }
+
+  .edu-degree a:hover {
+    text-decoration-color: var(--accent);
+  }
+
   /* EDUCATION */
   .education-list {
     margin-top: 1rem;
@@ -707,6 +742,20 @@
       padding: 4rem 5%;
     }
 
+    .hero-full {
+      min-height: auto;
+      padding: 8rem 5% 4rem;
+    }
+
+    .expertise-inner {
+      gap: 0.5rem 1.2rem;
+    }
+
+    .expertise-inner span {
+      border-left: none;
+      padding: 0.2rem 0;
+    }
+
     .section-header {
       margin-bottom: 2.5rem;
     }
@@ -765,6 +814,7 @@
     <span></span>
   </button>
   <ul class="nav-links">
+    <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#education">Education</a></li>
@@ -804,6 +854,17 @@
   </div>
 </div>
 
+<!-- About Section -->
+<section id="about">
+  <div class="section-header">
+    <h2 class="section-title">About</h2>
+  </div>
+  <div class="about-body scroll-reveal">
+    <p>I trained as a biologist, but the part I always enjoyed most was the data. Biostatistics was my favourite subject, and my undergraduate thesis came down to turning photographs of salamanders into a number that could be measured and compared, work that later became part of a peer-reviewed paper. That's what took me to the MSc in Bioinformatics, and to building projects in my own time, well beyond biology.</p>
+    <p>What I care about most is honest validation. It's easy to report a model that looks brilliant because it was quietly handed information from the future; most of my effort goes into making sure that hasn't happened.</p>
+  </div>
+</section>
+
 <!-- Projects Section -->
 <section id="projects">
   <div class="section-header">
@@ -813,7 +874,7 @@
     </p>
   </div>
 
-  <!-- Uniform tile grid, in order: AI Drug Designer, Forecasting, RNA-seq, Melanoma, Alzheimer's (text-only tile last) -->
+  <!-- Uniform tile grid, in order: AI Drug Designer, Forecasting, RNA-seq, Melanoma, Alzheimer's -->
   <div class="projects-secondary">
     <div class="project-tile scroll-reveal">
       <div class="tile-visual">
@@ -876,7 +937,7 @@
     <div class="project-tile scroll-reveal">
       <div class="tile-visual">
         <a href="https://marwan-rnaseq-dashboard.streamlit.app" target="_blank">
-          <img src="rnaseq_preview.png" alt="RNA-seq Dashboard Preview">
+          <img src="rnaseq_preview.jpg" alt="RNA-seq Dashboard Preview">
         </a>
       </div>
       <div class="fig-caption">Fig. 03. PCA, volcano plot and heatmap views.</div>
@@ -934,14 +995,21 @@
       </div>
     </div>
 
-    <div class="project-tile no-visual scroll-reveal">
+    <div class="project-tile scroll-reveal">
+      <div class="tile-visual contain-fit">
+        <a href="https://github.com/marwansaabi/ml-alzheimer-classifier" target="_blank">
+          <img src="alzheimer_preview.jpg" alt="ROC curves comparing KNN, SVM, Random Forest and XGBoost; Random Forest and XGBoost reach AUC 0.96">
+        </a>
+      </div>
+      <div class="fig-caption">Fig. 05. ROC comparison of the four models (5-fold CV, 300 selected features).</div>
       <div class="tile-body project-content">
-        <div class="project-number">No public demo</div>
+        <div class="project-number">Fig. 05</div>
         <h3 class="project-title">Alzheimer's Drug Classifier</h3>
         <p class="project-desc">
           Virtual screening pipeline on curated ChEMBL IC50 bioactivity data: compounds
           encoded as 1024-bit Morgan fingerprints, with Random Forest, SVM, XGBoost and
           KNN benchmarked under stratified 5-fold cross-validation and leakage control.
+          Random Forest led with 0.96 AUROC.
         </p>
         <div class="project-tags">
           <span class="tag">Python</span>
@@ -962,7 +1030,7 @@
   <div class="section-header">
     <h2 class="section-title">Technical Expertise</h2>
     <p class="section-desc">
-      Grouped by area of application, not by arbitrary score.
+      Grouped by area of application.
     </p>
   </div>
 
@@ -972,25 +1040,21 @@
 
       <div class="skill-row">
         <span class="skill-row-name">Python</span>
-        <span class="skill-row-level">Advanced</span>
       </div>
-      <div class="skill-detail">NumPy, Pandas, Scikit-learn, OpenCV, Biopython</div>
+      <div class="skill-detail">NumPy, Pandas, Scikit-learn, OpenCV, Matplotlib</div>
 
       <div class="skill-row">
         <span class="skill-row-name">SQL</span>
-        <span class="skill-row-level">Intermediate</span>
       </div>
       <div class="skill-detail">Relational modelling, ER design, querying</div>
 
       <div class="skill-row">
         <span class="skill-row-name">R / Bioconductor</span>
-        <span class="skill-row-level">Intermediate</span>
       </div>
       <div class="skill-detail">Tidyverse, DESeq2, ggplot2</div>
 
       <div class="skill-row">
         <span class="skill-row-name">MATLAB</span>
-        <span class="skill-row-level">Intermediate</span>
       </div>
       <div class="skill-detail">Neural networks, SVMs &amp; image processing</div>
     </div>
@@ -1000,15 +1064,18 @@
 
       <div class="skill-row">
         <span class="skill-row-name">Machine Learning</span>
-        <span class="skill-row-level">Intermediate-Advanced</span>
       </div>
       <div class="skill-detail">LightGBM, XGBoost, model benchmarking, cross-validation</div>
 
       <div class="skill-row">
         <span class="skill-row-name">Time Series Forecasting</span>
-        <span class="skill-row-level">Intermediate</span>
       </div>
       <div class="skill-detail">Rolling-origin backtesting, demand models, wMAPE / MASE</div>
+
+      <div class="skill-row">
+        <span class="skill-row-name">Generative AI</span>
+      </div>
+      <div class="skill-detail">LLM APIs (Google Gemini), generation with rule-based validation</div>
     </div>
 
     <div class="skill-category scroll-reveal">
@@ -1016,21 +1083,23 @@
 
       <div class="skill-row">
         <span class="skill-row-name">Streamlit</span>
-        <span class="skill-row-level">Advanced</span>
       </div>
       <div class="skill-detail">Interactive data applications</div>
 
       <div class="skill-row">
         <span class="skill-row-name">Git / GitHub</span>
-        <span class="skill-row-level">Advanced</span>
       </div>
-      <div class="skill-detail">Version control &amp; collaboration</div>
+      <div class="skill-detail">Version control, GitHub Actions</div>
 
       <div class="skill-row">
         <span class="skill-row-name">Nextflow</span>
-        <span class="skill-row-level">Intermediate</span>
       </div>
       <div class="skill-detail">Bioinformatics pipeline orchestration</div>
+
+      <div class="skill-row">
+        <span class="skill-row-name">Linux &amp; HPC</span>
+      </div>
+      <div class="skill-detail">Bash, Docker, Conda, SLURM on the FinisTerrae III supercomputer (CESGA)</div>
     </div>
   </div>
 </section>
@@ -1057,6 +1126,22 @@
         <div class="edu-school">University of Vigo</div>
       </div>
     </div>
+
+    <div class="edu-item scroll-reveal">
+      <div class="edu-year">2026<br>Publication</div>
+      <div>
+        <div class="edu-degree"><a href="https://doi.org/10.1111/jzo.70133" target="_blank">Melanism in salamanders: effects of insularity, sex and size on dorsal colouration in <em>Salamandra salamandra</em></a></div>
+        <div class="edu-school">Alarcón-Ríos, L., Saabi González, M. &amp; Velo-Antón, G. · Journal of Zoology</div>
+      </div>
+    </div>
+
+    <div class="edu-item scroll-reveal">
+      <div class="edu-year">2025<br>Certification</div>
+      <div>
+        <div class="edu-degree">English B2 (CertAcles)</div>
+        <div class="edu-school">University of Vigo</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1065,8 +1150,9 @@
   <div class="contact-container">
     <h2 class="contact-title">Let's Work Together</h2>
     <p class="contact-desc">
-      Currently looking for a data science internship for 2026-27, and open to work in machine
-      learning, forecasting and health data. Available in English, Spanish, and Galician.
+      Currently looking for a data internship or junior role for 2026-27, in data science,
+      machine learning or data analysis, with a particular interest in health and life sciences
+      data. Available in English, Spanish, and Galician.
     </p>
     <div class="contact-links">
       <a href="mailto:marwansaabi@gmail.com" class="contact-link">
