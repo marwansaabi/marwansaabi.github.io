@@ -133,7 +133,7 @@ Two structural grid patterns:
 
 Lists that would default to a middle-dot-separated inline string instead use hairline-divided rows or `border-left` between inline items (see the expertise strip below the hero). Middle dots are rationed to one per line (e.g., `MSc Bioinformatics · A Coruña, Spain`).
 
-Responsive collapse happens at two breakpoints: `768px` (nav becomes a slide-in drawer, project grid becomes one column) and `968px` (education/skills grids collapse to one column).
+Responsive collapse happens at three breakpoints: `1024px` (nav becomes a slide-in drawer; the full nav needs ~900px of content width in its longest language, Galician), `968px` (education/skills grids collapse to one column) and `768px` (project grid becomes one column, section padding tightens).
 
 ## Elevation & Depth
 
@@ -172,7 +172,14 @@ Every interactive control in the system is built from one outline-based language
 - **Style:** fixed top bar, translucent Paper (`rgba(244,240,230,0.88)`) with `blur(8px)` backdrop filter; gains a hairline bottom border once scrolled (via `IntersectionObserver` on a sentinel element, never a raw scroll listener).
 - **Typography:** Fragment Mono, `12px`, uppercase, `0.06em` tracking.
 - **States:** default Soft Ink; hover/active Ink with a `1px` accent underline that animates in from `width: 0`.
-- **Mobile:** below `768px`, collapses to a hamburger opening a full-height right-side drawer on blurred Paper.
+- **Mobile:** at `1024px` and below, collapses to a hamburger opening a full-height right-side drawer (capped at `420px` wide) on solid Paper. Logo and links are `nowrap`; nothing in the bar may wrap to a second line.
+
+### Language Switch
+- **Languages:** EN (source, lives in the HTML), ES, GL. These are the three languages the owner actually speaks; do not add a language nobody can proofread.
+- **Style:** three bare Fragment Mono `11px` uppercase buttons (`EN`, `ES`, `GL`) separated by `1px` hairlines, Soft Ink at rest, Ink on hover. The active language is Ink with a `1px` accent underline (`text-underline-offset: 6px`), the same accent-as-marker logic as the active nav link. No pill, no dropdown, no flag icons.
+- **Placement:** right end of the nav bar after the links; on mobile it stays visible in the bar next to the hamburger (above the drawer), never hidden inside it. Mobile tap targets are at least ~28x40px.
+- **Behavior:** `?lang=` URL param, then the saved choice (`localStorage`), then the browser language, then English. `aria-pressed` marks the active button; `<html lang>`, the tab title and image alt text switch with the page.
+- **Translations:** every new piece of visible copy needs a `data-i18n` key and ES + GL strings. Translations obey the same rules as English (no em dash, real metrics only, official degree names). Paper titles, citations and issuer names stay in their original language.
 
 ### Signature: Ledger Row
 The skills section's alternative to a percentage/progress-bar widget: each skill is a row with the name in serif Title weight on the left, the level (`Advanced` / `Intermediate` / `Interm./Adv.`) in Fragment Mono on the right, separated by a `1px` top hairline from the row above. A supporting detail line runs below in Soft Ink at `0.88rem`. This pattern exists specifically to avoid the "arbitrary skill percentage" pattern the previous design used — see Do's and Don'ts.

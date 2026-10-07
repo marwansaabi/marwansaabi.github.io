@@ -24,7 +24,7 @@ Two combined, user-confirmed differentiators:
 ## Operating Context
 
 - MSc Bioinformatics Applied to Health Sciences student at the University of A Coruña (UDC), program MUBICS; BSc Biology (Biotechnology) from University of Vigo.
-- Based in A Coruña, Spain. Trilingual: English, Spanish, Galician.
+- Based in A Coruña, Spain. Trilingual: English, Spanish, Galician. The site is available in all three via a language switch; English is the source text (and what search engines index), Spanish and Galician are maintained translations.
 - Site is a single static page deployed on GitHub Pages (`marwansaabi.github.io`, push to `main` auto-deploys).
 - Each project's "live app" is a Streamlit Community Cloud deployment; "code" links to its own GitHub repo.
 - The downloadable CV is a separate PDF file (`Marwan_El_Saabi_CV.pdf`) kept in sync with the site, not generated from it.
