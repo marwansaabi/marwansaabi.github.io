@@ -1,198 +1,213 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-07T12:00:00Z",
-  "title": "Design System: Marwan El Saabi — Portfolio",
+  "generatedAt": "2026-10-11T12:00:00Z",
+  "title": "Design System: Marwan El Saabi - Portfolio",
   "extensions": {
     "colorMeta": {
-      "paper": {
+      "bg": {
         "role": "neutral",
-        "displayName": "Warm Paper",
-        "canonical": "#F4F0E6"
+        "displayName": "White",
+        "canonical": "#ffffff"
       },
-      "paper-alt": {
+      "bg-alt": {
         "role": "neutral",
-        "displayName": "Paper Alt",
-        "canonical": "#EAE2CE"
+        "displayName": "Light Gray",
+        "canonical": "#f5f5f7"
       },
       "ink": {
         "role": "neutral",
-        "displayName": "Espresso Ink",
-        "canonical": "#1B1712"
+        "displayName": "Ink",
+        "canonical": "#1d1d1f"
       },
-      "ink-soft": {
+      "ink-2": {
         "role": "neutral",
-        "displayName": "Soft Ink",
-        "canonical": "#6B6355"
+        "displayName": "Gray 2",
+        "canonical": "#6e6e73"
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Gray 3 (large text only)",
+        "canonical": "#86868b"
       },
       "line": {
         "role": "neutral",
         "displayName": "Hairline",
-        "canonical": "#D6CBAE"
+        "canonical": "#d2d2d7"
       },
-      "accent": {
+      "link": {
         "role": "primary",
-        "displayName": "Burnt Terracotta",
-        "canonical": "#9C3B1D"
+        "displayName": "Link Blue",
+        "canonical": "#0066cc"
       },
-      "accent-deep": {
+      "link-hover": {
         "role": "primary",
-        "displayName": "Deep Terracotta",
-        "canonical": "#6E2A14"
+        "displayName": "Link Blue Hover",
+        "canonical": "#004f9e"
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Hero headline only, two lines max."
+        "purpose": "Hero headline only."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Section titles (Selected Work, Technical Expertise, Academic Background)."
+        "purpose": "Two-tone section headlines: subject in ink, result in gray."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Project titles, degree names, skill-row names."
+        "purpose": "Bento tile titles."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Descriptions and supporting copy, usually in Soft Ink."
+        "purpose": "Descriptions in Gray 2, about 62ch max."
       },
       "label": {
-        "displayName": "Label / Mono",
-        "purpose": "Nav, buttons, tags, figure captions, data labels. Never used for prose."
+        "displayName": "Label",
+        "purpose": "Nav links, language switch, footer. Never uppercase."
       }
     },
-    "shadows": [],
+    "shadows": [
+      {
+        "name": "window",
+        "value": "0 32px 64px -24px rgba(29,29,31,.28), 0 12px 24px -12px rgba(29,29,31,.14)",
+        "purpose": "Screenshot windows only."
+      }
+    ],
     "motion": [
       {
-        "name": "ease-standard",
-        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
-        "purpose": "Default easing for reveal and hover transitions across the whole system."
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All transitions and the hero entrance."
       },
       {
-        "name": "duration-hover",
-        "value": "0.3s",
-        "purpose": "Button/link hover and focus transitions."
-      },
-      {
-        "name": "duration-reveal",
-        "value": "0.6s-0.7s",
-        "purpose": "Scroll-reveal fade/translate on cards, ledger categories, and education items, staggered by index."
+        "name": "hero-fan",
+        "value": "1.6s, 0.25s delay",
+        "purpose": "The three hero screenshots fan out from a visible stacked state once on load. The page's only entrance animation."
       }
     ],
     "breakpoints": [
       {
-        "name": "sm",
-        "value": "768px"
+        "name": "phone",
+        "value": "640px"
       },
       {
-        "name": "md",
-        "value": "968px"
+        "name": "tablet",
+        "value": "834px"
       },
       {
         "name": "nav",
-        "value": "1024px"
+        "value": "960px"
+      },
+      {
+        "name": "narrow",
+        "value": "1068px"
       }
     ]
   },
   "components": [
     {
-      "name": "Outline Button",
+      "name": "Primary Button",
       "kind": "button",
-      "refersTo": "button-outline",
-      "description": "The system's only button language: transparent/bordered at rest, fills on hover. Used for the hero CTA, nav CV download, and contact links.",
-      "html": "<a class=\"ds-btn-outline\" href=\"#\">See the Work ↓</a>",
-      "css": ".ds-btn-outline { display: inline-flex; align-items: center; gap: 0.6rem; padding: 13px 28px; background: transparent; color: var(--ink); text-decoration: none; font-family: 'Fragment Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--ink); border-radius: 3px; transition: all 0.3s ease; } .ds-btn-outline:hover, .ds-btn-outline:focus-visible { background: var(--ink); color: var(--paper); transform: translateY(-2px); outline: none; }"
+      "refersTo": "button-primary",
+      "description": "Blue pill for the main action of a section.",
+      "html": "<a class=\"ds-btn\" href=\"#\">See the work</a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border-radius: 980px; background: #0066cc; color: #fff; font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 17px; font-weight: 500; letter-spacing: -0.01em; text-decoration: none; transition: background 0.2s ease, transform 0.2s cubic-bezier(0.16,1,0.3,1); } .ds-btn:hover { background: #004f9e; } .ds-btn:active { transform: scale(0.98); } .ds-btn:focus-visible { outline: 2px solid #0066cc; outline-offset: 3px; }"
     },
     {
-      "name": "Tag",
-      "kind": "chip",
-      "refersTo": "tag",
-      "description": "Technology tag shown on project cards. Bordered, never filled.",
-      "html": "<span class=\"ds-tag\">LightGBM</span>",
-      "css": ".ds-tag { display: inline-block; padding: 3px 10px; background: transparent; color: var(--ink-soft); font-family: 'Fragment Mono', monospace; font-size: 11px; letter-spacing: 0.03em; border: 1px solid var(--line); border-radius: 3px; }"
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Outlined pill for secondary actions; fills blue on hover.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">LinkedIn</a>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border-radius: 980px; background: transparent; color: #0066cc; box-shadow: inset 0 0 0 1px #0066cc; font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; transition: background 0.2s ease, color 0.2s ease; } .ds-btn-ghost:hover { background: #0066cc; color: #fff; } .ds-btn-ghost:focus-visible { outline: 2px solid #0066cc; outline-offset: 3px; }"
     },
     {
-      "name": "Project Tile",
+      "name": "Chevron Link",
+      "kind": "custom",
+      "refersTo": "chev-link",
+      "description": "Blue text link with a drawn chevron that nudges right on hover.",
+      "html": "<a class=\"ds-chev\" href=\"#\">Try the live app <svg width=\"7\" height=\"12\" viewBox=\"0 0 7 12\" aria-hidden=\"true\"><path d=\"M1 1l5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a>",
+      "css": ".ds-chev { display: inline-flex; align-items: center; gap: 6px; color: #0066cc; font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 17px; text-decoration: none; } .ds-chev svg { transition: transform 0.2s cubic-bezier(0.16,1,0.3,1); } .ds-chev:hover { text-decoration: underline; text-underline-offset: 3px; } .ds-chev:hover svg { transform: translateX(3px); }"
+    },
+    {
+      "name": "Screenshot Window",
       "kind": "card",
-      "refersTo": "project-tile",
-      "description": "The uniform card used for all five project entries: image slot, figure caption, then title/description/tags/links.",
-      "html": "<div class=\"ds-tile\"><div class=\"ds-tile-visual\"><img src=\"preview.jpg\" alt=\"\" /></div><div class=\"ds-tile-caption\">Fig. 01. Backtest results: model comparison and fold stability.</div><div class=\"ds-tile-body\"><div class=\"ds-tile-number\">Fig. 01</div><h3 class=\"ds-tile-title\">Retail Demand Forecasting</h3><p class=\"ds-tile-desc\">Weekly SKU-level demand forecasting on 1M+ real e-commerce transactions.</p></div></div>",
-      "css": ".ds-tile { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--paper); } .ds-tile-visual { width: 100%; aspect-ratio: 16/10; background: var(--paper-alt); overflow: hidden; } .ds-tile-visual img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; } .ds-tile-caption { padding: 0.7rem 1rem; border-top: 1px solid var(--line); font-family: 'Fragment Mono', monospace; font-size: 11px; letter-spacing: 0.04em; color: var(--ink-soft); } .ds-tile-body { padding: 1.8rem 1.9rem 2rem; } .ds-tile-number { font-family: 'Fragment Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.6rem; } .ds-tile-title { font-family: 'Spectral', serif; font-weight: 500; font-size: 1.3rem; margin: 0 0 0.9rem; } .ds-tile-desc { font-family: 'Spectral', serif; font-size: 1rem; line-height: 1.8; color: var(--ink-soft); margin: 0; }"
+      "refersTo": "window",
+      "description": "A real app screenshot in a white frame with the window shadow.",
+      "html": "<div class=\"ds-window\"><div class=\"ds-window-img\"></div></div>",
+      "css": ".ds-window { width: 320px; background: #fff; border-radius: 16px; border: 1px solid rgba(0,0,0,.08); overflow: hidden; box-shadow: 0 32px 64px -24px rgba(29,29,31,.28), 0 12px 24px -12px rgba(29,29,31,.14); } .ds-window-img { aspect-ratio: 16 / 10; background: #f5f5f7; }"
+    },
+    {
+      "name": "Bento Tile",
+      "kind": "card",
+      "refersTo": "tile",
+      "description": "White tile on the light-gray section: title, paragraph, link, image anchored to the bottom.",
+      "html": "<article class=\"ds-tile\"><h3>RNA-seq analysis dashboard.</h3><p>Differential expression, PCA, volcano and MA plots.</p><a class=\"ds-tile-link\" href=\"#\">Live app <svg width=\"7\" height=\"12\" viewBox=\"0 0 7 12\" aria-hidden=\"true\"><path d=\"M1 1l5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a></article>",
+      "css": ".ds-tile { background: #fff; border-radius: 28px; padding: 44px; font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1d1d1f; max-width: 420px; } .ds-tile h3 { margin: 0; font-size: 28px; font-weight: 700; line-height: 1.1; letter-spacing: -0.025em; } .ds-tile p { margin: 14px 0 0; font-size: 17px; line-height: 1.47; color: #6e6e73; } .ds-tile-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 20px; color: #0066cc; font-size: 15px; text-decoration: none; }"
     },
     {
       "name": "Navigation Bar",
       "kind": "nav",
       "refersTo": "nav",
-      "description": "Fixed top bar, translucent paper with backdrop blur, gains a hairline border once scrolled.",
-      "html": "<nav class=\"ds-nav\"><div class=\"ds-nav-logo\">Marwan El Saabi</div><ul class=\"ds-nav-links\"><li><a href=\"#\" class=\"ds-nav-link is-active\">Projects</a></li><li><a href=\"#\" class=\"ds-nav-link\">Skills</a></li></ul></nav>",
-      "css": ".ds-nav { display: flex; justify-content: space-between; align-items: center; padding: 1.6rem 5%; background: rgba(244, 240, 230, 0.88); backdrop-filter: blur(8px); border-bottom: 1px solid transparent; } .ds-nav-logo { font-family: 'Spectral', serif; font-style: italic; font-weight: 500; font-size: 18px; } .ds-nav-links { display: flex; gap: 2.2rem; list-style: none; margin: 0; padding: 0; } .ds-nav-link { text-decoration: none; color: var(--ink-soft); font-family: 'Fragment Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; position: relative; } .ds-nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.3s ease; } .ds-nav-link:hover, .ds-nav-link.is-active { color: var(--ink); } .ds-nav-link:hover::after, .ds-nav-link.is-active::after { width: 100%; }"
-    },
-    {
-      "name": "Ledger Row",
-      "kind": "custom",
-      "refersTo": "skill-row",
-      "description": "Signature component. The system's deliberate replacement for a percentage/progress-bar skill widget: serif name left, mono level right, hairline divider above, detail line below in Soft Ink.",
-      "html": "<div class=\"ds-ledger-row\"><span class=\"ds-ledger-name\">Python</span><span class=\"ds-ledger-level\">Advanced</span></div><div class=\"ds-ledger-detail\">NumPy, Pandas, Scikit-learn, OpenCV, Biopython</div>",
-      "css": ".ds-ledger-row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.9rem 0; border-top: 1px solid var(--line); } .ds-ledger-name { font-family: 'Spectral', serif; font-weight: 500; font-size: 1.06rem; color: var(--ink); } .ds-ledger-level { font-family: 'Fragment Mono', monospace; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap; } .ds-ledger-detail { font-family: 'Spectral', serif; font-size: 0.88rem; color: var(--ink-soft); margin-top: -0.5rem; margin-bottom: 0.9rem; }"
-    },
-    {
-      "name": "Figure Caption",
-      "kind": "custom",
-      "refersTo": "fig-caption",
-      "description": "Signature component. The evidentiary device under every real project image: 'Fig. 0N.' followed by a one-line factual description, never decorative.",
-      "html": "<div class=\"ds-fig-caption\">Fig. 02. Example segmentation (IoU 0.717); 0.735 mean IoU across the test set.</div>",
-      "css": ".ds-fig-caption { padding: 0.7rem 1rem; border-top: 1px solid var(--line); font-family: 'Fragment Mono', monospace; font-size: 11px; letter-spacing: 0.04em; color: var(--ink-soft); }"
+      "description": "Sticky 52px translucent bar: name, links, language switch, small CV pill.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-nav-name\">Marwan El Saabi</span><span class=\"ds-nav-links\"><a href=\"#\">Work</a><a href=\"#\">About</a><a href=\"#\">Toolkit</a></span><a class=\"ds-nav-cv\" href=\"#\">Download CV</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 52px; padding: 0 22px; background: rgba(255,255,255,.78); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(0,0,0,.06); font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif; } .ds-nav-name { font-size: 15px; font-weight: 600; color: #1d1d1f; } .ds-nav-links { display: flex; gap: 30px; } .ds-nav-links a { font-size: 13px; color: #1d1d1f; opacity: .8; text-decoration: none; } .ds-nav-links a:hover { opacity: 1; } .ds-nav-cv { display: inline-flex; align-items: center; min-height: 30px; padding: 0 14px; border-radius: 980px; background: #0066cc; color: #fff; font-size: 13px; text-decoration: none; }"
     },
     {
       "name": "Language Switch",
       "kind": "custom",
       "refersTo": "lang-switch",
-      "description": "EN / ES / GL toggle at the end of the nav bar. Hairline-separated mono buttons; the active one is Ink with an accent underline.",
+      "description": "EN / ES / GL plain buttons; the active one is ink and semibold.",
       "html": "<div class=\"ds-lang\" role=\"group\" aria-label=\"Language\"><button type=\"button\" aria-pressed=\"true\">EN</button><button type=\"button\" aria-pressed=\"false\">ES</button><button type=\"button\" aria-pressed=\"false\">GL</button></div>",
-      "css": ".ds-lang { display: flex; align-items: center; } .ds-lang button { background: none; border: none; border-left: 1px solid var(--line); padding: 0.15rem 0.6rem; font-family: 'Fragment Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); cursor: pointer; transition: color 0.3s ease; } .ds-lang button:first-child { border-left: none; padding-left: 0; } .ds-lang button:last-child { padding-right: 0; } .ds-lang button:hover { color: var(--ink); } .ds-lang button[aria-pressed=\"true\"] { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 6px; }"
+      "css": ".ds-lang { display: flex; } .ds-lang button { background: none; border: 0; font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; letter-spacing: 0.02em; color: #6e6e73; min-width: 30px; min-height: 32px; padding: 0 4px; border-radius: 6px; cursor: pointer; } .ds-lang button:hover { color: #1d1d1f; } .ds-lang button[aria-pressed=\"true\"] { color: #1d1d1f; font-weight: 600; }"
     }
   ],
   "narrative": {
-    "northStar": "The Lab Notebook",
-    "overview": "This is a data-science and bioinformatics portfolio built to be read the way a reviewer reads a methods section: claims are numbered, figures are captioned, and every result links back to the app or repo that produced it. The system borrows its authority from scientific publication rather than from product marketing — warm paper, a serif built for long reading, a monospace reserved for labels and data, and a single terracotta accent used the way a red pen marks a proof. Nothing is decorative; every mark on the page is either content or the structure that organizes it.\n\nIt is restrained and academic by deliberate contrast with the genre it replaced: this project previously used an emerald-on-white \"creative dev portfolio\" look (custom cursor, emoji icons, pill buttons, percentage-bar skill widgets). The rejection of that language is load-bearing, not incidental.",
+    "northStar": "The Product Page",
+    "overview": "The portfolio is presented the way a product launch page presents a product: one idea per section, a headline that states the result, and the real thing shown big. Here the \"products\" are the projects, and the imagery is always a real screenshot of the live app or a real figure from the project's repo. The layout is generous, light and quiet so the work carries the page.\n\nThis replaced an earlier editorial \"lab notebook\" look (warm paper, serif type, terracotta accent, \"Fig. NN\" captions). None of that vocabulary carries over.",
     "keyCharacteristics": [
-      "Warm paper background with a single burnt-terracotta accent; no second brand color, ever.",
-      "Spectral serif for both display and body copy; Fragment Mono reserved for labels, data, and UI chrome.",
-      "Flat by current implementation: zero shadows anywhere; depth comes from 1px hairline borders and paper/paper-alt tonal shifts.",
-      "Sharp-leaning corner radius (3-8px); no pill shapes.",
-      "Every project claim is evidence-backed: a real screenshot or a real methodology figure, a live-app link, a code link."
+      "White and light-gray sections alternating; one blue for links and buttons, nothing else colored.",
+      "One sans family (Geist) for everything, large and tightly tracked for headlines.",
+      "Two-tone headlines: the subject in ink, the claim in gray, inside the same sentence.",
+      "Real screenshots framed as soft-shadowed windows; no illustrations, no fake UI.",
+      "Projects get different compositions by importance: full-width feature, split feature, then a bento of the rest."
     ],
     "rules": [
       {
-        "name": "The One Accent Rule",
-        "body": "Terracotta is the only saturated color anywhere in the system. A second brand color, a status-color palette, or a gradient is a system violation, not a stylistic option.",
+        "name": "The Blue Means Click Rule",
+        "body": "Blue appears only on interactive elements. Never use it for emphasis, decoration or headings.",
         "section": "colors"
       },
       {
-        "name": "The No-Em-Dash Rule",
-        "body": "No em dash (—) or en-dash separator (–) appears anywhere in visible text: titles, captions, body copy, dates, attribution. Ranges and compounds use a plain hyphen. This was fixed once across the entire site; do not reintroduce it.",
+        "name": "The Two-Tone Headline Rule",
+        "body": "A section headline names the thing in ink and states the result in gray, in one sentence ending with a period: \"Retail demand forecasting. 4.8% better than the strongest baseline.\" No eyebrow label above it.",
         "section": "typography"
       },
       {
-        "name": "The No-Pill Rule",
-        "body": "Maximum corner radius anywhere in the system is 8px. A border-radius: 9999px / pill-shaped button or badge is a system violation.",
-        "section": "shapes"
+        "name": "The No-Em-Dash Rule",
+        "body": "No em dash or en-dash separator in visible text. Ranges use a plain hyphen (2025-2027).",
+        "section": "typography"
+      },
+      {
+        "name": "The Only Windows Float Rule",
+        "body": "Shadows belong to screenshot windows. Do not add shadows to tiles, buttons or text blocks.",
+        "section": "elevation"
       }
     ],
     "dos": [
-      "Do keep terracotta as the only saturated color on the page (The One Accent Rule).",
-      "Do use hairline borders and paper/paper-alt tonal shifts for depth; never a generic shadow.",
-      "Do back every project claim with a real screenshot, a real methodology figure, a live-app link, or a code link, never a placeholder panel standing in for evidence.",
-      "Do reserve Fragment Mono for labels, data, and UI chrome; keep prose in Spectral.",
-      "Do caption real images with the Fig. 0N. pattern, describing what's actually visible."
+      "Do state each project's real, verifiable result in its headline.",
+      "Do use real screenshots or real repo figures for every image, framed as windows or tile media.",
+      "Do keep blue for clickable things only (The Blue Means Click Rule).",
+      "Do give a new project a composition that fits its importance instead of copying an existing section."
     ],
     "donts": [
-      "Don't use an em dash or an en-dash separator anywhere in visible text (The No-Em-Dash Rule). Use a plain hyphen.",
-      "Don't introduce a second accent color, a status-color system, or a gradient (The One Accent Rule).",
-      "Don't use a pill-shaped or fully-rounded button/badge; the system caps at 8px radius (The No-Pill Rule).",
-      "Don't default any button to a filled/solid state; every button in this system is outline-at-rest, filled-on-hover.",
-      "Don't replace a real project image with an empty numbered placeholder panel when no screenshot exists yet; either source a real image (including a real figure from the project's own repo) or state plainly that there's no public demo, as the Alzheimer's ML Pipeline card does."
+      "Don't put an eyebrow or label above a headline; the two-tone headline carries it.",
+      "Don't use an em dash or en-dash separator in visible text.",
+      "Don't add a second accent color, gradients or gradient text.",
+      "Don't add shadows outside screenshot windows.",
+      "Don't use monospace for decoration; tabular figures handle numbers.",
+      "Don't fill an empty spot with a placeholder or a drawn fake interface; leave it out until there is a real image."
     ]
   }
 }
