@@ -15,1252 +15,800 @@
 <meta property="og:image:alt" content="Marwan El Saabi, biologist turned data scientist">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://marwansaabi.github.io/og-image.png">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%231B1712'/><text x='50' y='68' font-family='Georgia,serif' font-style='italic' font-size='58' fill='%23F4F0E6' text-anchor='middle'>M</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Fragment+Mono&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231d1d1f'/><text x='50' y='71' font-family='Helvetica Neue,Helvetica,Arial,sans-serif' font-weight='700' font-size='60' fill='%23ffffff' text-anchor='middle'>M</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --paper: #F4F0E6;
-    --paper-alt: #EAE2CE;
-    --ink: #1B1712;
-    --ink-soft: #6B6355;
-    --line: #D6CBAE;
-    --accent: #9C3B1D;
-    --accent-deep: #6E2A14;
+    --bg: #ffffff;
+    --bg-alt: #f5f5f7;
+    --ink: #1d1d1f;
+    --ink-2: #6e6e73;
+    --ink-3: #86868b;
+    --line: #d2d2d7;
+    --link: #0066cc;
+    --link-hover: #004f9e;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --shadow-window: 0 32px 64px -24px rgba(29, 29, 31, 0.28), 0 12px 24px -12px rgba(29, 29, 31, 0.14);
+    --radius-tile: 28px;
+    --radius-window: 16px;
+    --nav-h: 52px;
+    color-scheme: light;
+    accent-color: var(--link);
+    scrollbar-color: #c1c1c6 var(--bg);
   }
 
-  html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 100px;
-  }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 12px); }
 
   body {
-    font-family: 'Spectral', Georgia, serif;
-    background: var(--paper);
+    font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.47;
     color: var(--ink);
-    overflow-x: hidden;
-    line-height: 1.65;
+    background: var(--bg);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
   }
 
-  .mono {
-    font-family: 'Fragment Mono', 'Courier New', monospace;
+  body.menu-open { overflow: hidden; }
+
+  ::selection { background: rgba(0, 102, 204, 0.18); color: var(--ink); }
+
+  a { color: var(--link); text-decoration: none; text-underline-offset: 3px; }
+  a:hover { text-decoration: underline; }
+
+  :focus-visible {
+    outline: 2px solid var(--link);
+    outline-offset: 3px;
+    border-radius: 6px;
   }
 
-  #scroll-sentinel {
-    position: absolute;
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: sticky;
     top: 0;
-    left: 0;
-    width: 1px;
-    height: 100px;
-    pointer-events: none;
+    z-index: 10;
+    height: var(--nav-h);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-  }
-
-  /* HERO SECTION */
-  .hero-full {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 8rem 5% 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-full::before {
+  /* The blur lives on a pseudo-element: backdrop-filter on .nav itself would trap the fixed mobile menu inside the bar. */
+  .nav::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 64px 64px;
-    opacity: 0.35;
-    mask-image: radial-gradient(circle at 30% 20%, black 0%, transparent 68%);
-    pointer-events: none;
+    z-index: -1;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
   }
 
-  .hero-full::after {
-    content: '';
-    position: absolute;
-    top: -10%; right: -6%;
-    width: 46vw; height: 46vw;
-    max-width: 620px; max-height: 620px;
-    background: radial-gradient(circle, rgba(156, 59, 29, 0.10) 0%, transparent 72%);
-    pointer-events: none;
-  }
+  body.menu-open .nav::before { background: var(--bg); }
 
-  .hero-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-    position: relative;
-  }
-
-  .hero-label {
-    font-family: 'Fragment Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 2.2rem;
-    padding-bottom: 1.2rem;
-    border-bottom: 1px solid var(--line);
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(14px);
-    animation: fadeUp 0.7s ease forwards;
-  }
-
-  .hero-title {
-    font-family: 'Spectral', serif;
-    font-size: clamp(2.3rem, 5vw, 4.4rem);
-    font-weight: 400;
-    line-height: 1.15;
-    margin-bottom: 2.2rem;
-    letter-spacing: -0.01em;
-    max-width: 1150px;
-  }
-
-  .hero-title .line {
-    display: block;
-    overflow: hidden;
-    padding-bottom: 0.15em;
-    margin-bottom: -0.15em;
-  }
-
-  .hero-title .line span {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(100%);
-  }
-
-  .hero-title .line:nth-child(1) span { animation: slideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards; }
-  .hero-title .line:nth-child(2) span { animation: slideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.30s forwards; }
-
-  .hero-title em {
-    font-style: italic;
-    color: var(--accent);
-  }
-
-  .hero-subtitle {
-    font-size: clamp(1.02rem, 1.6vw, 1.18rem);
-    color: var(--ink-soft);
-    max-width: 560px;
-    margin-bottom: 2.8rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.55s forwards;
-  }
-
-  .hero-cta {
-    display: inline-flex;
+  .nav .wrap {
+    height: 100%;
+    display: flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 13px 28px;
-    background: transparent;
-    color: var(--ink);
-    text-decoration: none;
-    font-family: 'Fragment Mono', monospace;
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border: 1px solid var(--ink);
-    border-radius: 3px;
-    transition: all 0.3s ease;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.75s forwards;
-  }
-
-  .hero-cta:hover {
-    background: var(--ink);
-    color: var(--paper);
-    transform: translateY(-2px);
-  }
-
-  /* EXPERTISE STRIP */
-  .expertise-strip {
-    padding: 1.5rem 5%;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .expertise-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    font-family: 'Fragment Mono', monospace;
-    font-size: 11.5px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-  }
-
-  .expertise-inner span {
-    padding: 0.2rem 1.4rem;
-    border-left: 1px solid var(--line);
-  }
-
-  .expertise-inner span:first-child {
-    border-left: none;
-    padding-left: 0;
-  }
-
-  /* NAVIGATION */
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 1.6rem 5%;
-    display: flex;
     justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    background: rgba(244, 240, 230, 0.88);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid transparent;
-    transition: all 0.3s ease;
+    gap: 24px;
   }
 
-  nav.scrolled {
-    padding: 1.2rem 5%;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .logo {
-    white-space: nowrap;
-    font-family: 'Spectral', serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: 18px;
-    letter-spacing: 0.01em;
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 2.2rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    white-space: nowrap;
-    text-decoration: none;
-    color: var(--ink-soft);
-    font-family: 'Fragment Mono', monospace;
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    transition: color 0.3s ease;
-    position: relative;
-  }
-
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--accent);
-    transition: width 0.3s ease;
-  }
-
-  .nav-links a:hover,
-  .nav-links a.active {
+  .nav-name {
     color: var(--ink);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
   }
+  .nav-name:hover { text-decoration: none; }
 
-  .nav-links a:hover::after,
-  .nav-links a.active::after {
-    width: 100%;
+  .nav-links { display: flex; gap: 30px; list-style: none; }
+  .nav-links a {
+    color: var(--ink);
+    opacity: 0.8;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
   }
+  .nav-links a:hover { opacity: 1; text-decoration: none; }
+  .nav-links .menu-only { display: none; }
 
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 2.2rem;
-  }
+  .nav-actions { display: flex; align-items: center; gap: 18px; }
 
-  .lang-switch {
-    display: flex;
-    align-items: center;
-    position: relative;
-    z-index: 1001;
-  }
-
+  .lang-switch { display: flex; align-items: center; }
   .lang-switch button {
     background: none;
-    border: none;
-    border-left: 1px solid var(--line);
-    padding: 0.15rem 0.6rem;
-    font-family: 'Fragment Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    cursor: pointer;
-    transition: color 0.3s ease;
-  }
-
-  .lang-switch button:first-child {
-    border-left: none;
-    padding-left: 0;
-  }
-
-  .lang-switch button:last-child {
-    padding-right: 0;
-  }
-
-  .lang-switch button:hover {
-    color: var(--ink);
-  }
-
-  .lang-switch button[aria-pressed="true"] {
-    color: var(--ink);
-    text-decoration: underline;
-    text-decoration-color: var(--accent);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 6px;
-  }
-
-  @media (max-width: 1100px) {
-    .nav-links,
-    .nav-right {
-      gap: 1.4rem;
-    }
-  }
-
-  /* SECTION CONTAINERS */
-  section {
-    padding: 7rem 5%;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  /* SECTION HEADERS */
-  .section-header {
-    margin-bottom: 4rem;
-    max-width: 640px;
-  }
-
-  .section-title {
-    font-family: 'Spectral', serif;
-    font-size: clamp(2.1rem, 4.2vw, 3rem);
-    font-weight: 400;
-    margin-bottom: 1rem;
-  }
-
-  .section-desc {
-    font-size: 1.05rem;
-    color: var(--ink-soft);
-  }
-
-  /* PROJECTS: shared type/tag/link styles */
-  .project-number {
-    font-family: 'Fragment Mono', monospace;
+    border: 0;
+    font: inherit;
     font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 0.6rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-2);
+    min-width: 30px;
+    min-height: 32px;
+    padding: 0 4px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: color 0.2s ease;
   }
+  .lang-switch button:hover { color: var(--ink); }
+  .lang-switch button[aria-pressed="true"] { color: var(--ink); font-weight: 600; }
 
-  .project-title {
-    font-family: 'Spectral', serif;
-    font-weight: 500;
-    line-height: 1.25;
+  .nav-toggle {
+    display: none;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin-right: -10px;
+    background: none;
+    border: 0;
+    cursor: pointer;
   }
-
-  .project-desc {
-    font-size: 1rem;
-    color: var(--ink-soft);
-    line-height: 1.8;
-    margin-bottom: 1.2rem;
+  .nav-toggle span {
+    position: absolute;
+    left: 12px;
+    width: 16px;
+    height: 1.5px;
+    border-radius: 1px;
+    background: var(--ink);
+    transition: transform 0.4s var(--ease-out);
   }
+  .nav-toggle span:nth-child(1) { top: 16px; }
+  .nav-toggle span:nth-child(2) { top: 23px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(3.5px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { transform: translateY(-3.5px) rotate(-45deg); }
 
-  .project-tags {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-
-  .project-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    margin-top: 1.3rem;
-  }
-
-  .project-link {
+  /* ---------- BUTTONS & LINKS ---------- */
+  .btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.3rem;
-    color: var(--ink);
-    text-decoration: none;
-    font-family: 'Fragment Mono', monospace;
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--ink);
-    padding-bottom: 2px;
-    transition: all 0.3s ease;
-  }
-  .project-link:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-  }
-  .project-link.secondary {
-    color: var(--ink-soft);
-    border-color: var(--line);
-  }
-  .project-link.secondary:hover {
-    color: var(--ink);
-    border-color: var(--ink);
-  }
-
-  .tag {
-    padding: 3px 10px;
-    background: transparent;
-    color: var(--ink-soft);
-    font-family: 'Fragment Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.03em;
-    border: 1px solid var(--line);
-    border-radius: 3px;
-  }
-
-  .fig-caption {
-    padding: 0.7rem 1rem;
-    border-top: 1px solid var(--line);
-    font-family: 'Fragment Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    color: var(--ink-soft);
-  }
-
-  /* PROJECTS: uniform tile grid */
-  .projects-secondary {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem;
-  }
-
-  .project-tile {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .project-tile.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .tile-visual {
-    width: 100%;
-    aspect-ratio: 16/10;
-    background: var(--paper-alt);
-    overflow: hidden;
-  }
-
-  .tile-visual a {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .tile-visual img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
-    display: block;
-  }
-
-  .tile-visual.contain-fit img {
-    object-fit: contain;
-    padding: 0.9rem;
-  }
-
-  .tile-body {
-    padding: 1.8rem 1.9rem 2rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .tile-body .project-title {
-    font-size: 1.3rem;
-    margin-bottom: 0.9rem;
-  }
-
-  .project-tile.no-visual {
-    grid-column: 1 / -1;
-  }
-
-  .project-tile.no-visual .tile-body {
-    padding-top: 2.2rem;
-  }
-
-  .project-tile.no-visual .project-desc {
-    max-width: 65ch;
-  }
-
-  /* SKILLS - grouped ledger, no percentage bars */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 0;
-    margin-top: 1rem;
-    border-top: 1px solid var(--line);
-    border-left: 1px solid var(--line);
-  }
-
-  .skill-category {
-    padding: 2.4rem 2.4rem 2.6rem;
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .skill-category.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .skill-category-title {
-    font-family: 'Fragment Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.6rem;
-  }
-
-  .skill-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-    padding: 0.9rem 0;
-    border-top: 1px solid var(--line);
-  }
-
-  .skill-row:first-of-type {
-    border-top: none;
-  }
-
-  .skill-row-name {
-    font-family: 'Spectral', serif;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 22px;
+    border-radius: 980px;
+    background: var(--link);
+    color: #fff;
+    font-size: 17px;
     font-weight: 500;
-    font-size: 1.06rem;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s var(--ease-out);
   }
+  .btn:hover { background: var(--link-hover); text-decoration: none; }
+  .btn:active { transform: scale(0.98); }
 
-  .skill-row-level {
-    font-family: 'Fragment Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
+  .btn-small { min-height: 30px; padding: 0 14px; font-size: 13px; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--link);
+    box-shadow: inset 0 0 0 1px var(--link);
+  }
+  .btn-ghost:hover { background: var(--link); color: #fff; }
+
+  .chev-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 17px;
     white-space: nowrap;
   }
+  .chev-link svg { width: 7px; height: 12px; flex: none; transition: transform 0.2s var(--ease-out); }
+  .chev-link:hover svg { transform: translateX(3px); }
 
-  .skill-detail {
-    font-size: 0.88rem;
-    color: var(--ink-soft);
-    margin-top: -0.5rem;
-    margin-bottom: 0.9rem;
-  }
+  .link-row { display: flex; flex-wrap: wrap; gap: 14px 32px; }
 
-  /* ABOUT */
-  .about-body {
-    max-width: 760px;
-    font-size: 1.15rem;
-    line-height: 1.75;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  /* ---------- WINDOW FRAME (real screenshots) ---------- */
+  .window {
+    background: var(--bg);
+    border-radius: var(--radius-window);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    box-shadow: var(--shadow-window);
   }
-
-  .about-body.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .about-body p + p {
-    margin-top: 1.3rem;
-  }
-
-  .edu-degree a {
-    color: inherit;
-    text-decoration: underline;
-    text-decoration-color: var(--line);
-    text-underline-offset: 4px;
-  }
-
-  .edu-degree a:hover {
-    text-decoration-color: var(--accent);
-  }
-
-  /* EDUCATION */
-  .education-list {
-    margin-top: 1rem;
-    border-top: 1px solid var(--line);
-  }
-
-  .edu-item {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 2.5rem;
-    padding: 2.6rem 0;
-    border-bottom: 1px solid var(--line);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .edu-item.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .edu-year {
-    font-family: 'Fragment Mono', monospace;
-    font-size: 0.85rem;
-    font-weight: 400;
-    color: var(--accent);
-    letter-spacing: 0.04em;
-  }
-
-  .edu-degree {
-    font-family: 'Spectral', serif;
-    font-size: 1.3rem;
-    font-weight: 500;
-    margin-bottom: 0.4rem;
-  }
-
-  .edu-school {
-    color: var(--ink-soft);
-    font-size: 1rem;
-  }
-
-  /* CONTACT SECTION */
-  .contact-container {
-    padding: 5rem 3rem;
-    background: var(--paper-alt);
-    border: 1px solid var(--line);
-    border-top: 3px solid var(--accent);
-    border-radius: 6px;
-    position: relative;
-  }
-
-  .contact-title {
-    font-family: 'Spectral', serif;
-    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
-    font-weight: 400;
-    margin-bottom: 1.4rem;
-    max-width: 600px;
-  }
-
-  .contact-desc {
-    font-size: 1.05rem;
-    color: var(--ink-soft);
-    max-width: 560px;
-    margin-bottom: 2.6rem;
-  }
-
-  .contact-links {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .contact-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    padding: 11px 22px;
-    background: transparent;
-    color: var(--ink);
-    text-decoration: none;
-    font-family: 'Fragment Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    border: 1px solid var(--ink);
-    border-radius: 3px;
-    transition: all 0.3s ease;
-  }
-
-  .contact-link svg {
-    width: 14px;
-    height: 14px;
-    stroke: currentColor;
-    fill: none;
-  }
-
-  .contact-link:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: var(--paper);
-    transform: translateY(-2px);
-  }
-
-  /* FOOTER */
-  footer {
-    padding: 2.6rem 5%;
-    border-top: 1px solid var(--line);
-  }
-
-  .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--ink-soft);
-    font-family: 'Fragment Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.02em;
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes slideUp {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* MENU TOGGLE */
-  .menu-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    padding: 5px;
-    z-index: 1001;
-  }
-  .menu-toggle span {
+  .window img {
     display: block;
-    width: 22px;
-    height: 1px;
-    background: var(--ink);
-    transition: all 0.3s ease;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top;
   }
-  .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-  .menu-toggle.open span:nth-child(2) { opacity: 0; }
-  .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-  @media (max-width: 1024px) {
-    .menu-toggle { display: flex; }
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 88px 0 120px;
+    text-align: center;
+    overflow: clip;
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 8.4vw, 6rem);
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .hero h1 .muted { color: var(--ink-3); }
+
+  .lede {
+    max-width: 34ch;
+    margin: 28px auto 0;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: var(--ink-2);
+    text-wrap: balance;
+  }
+
+  .hero .cta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px 28px;
+    margin-top: 36px;
+  }
+
+  .stage {
+    position: relative;
+    max-width: 1000px;
+    margin: 80px auto 0;
+    aspect-ratio: 1000 / 470;
+  }
+
+  .stage .window {
+    position: absolute;
+    top: 0;
+    left: 19%;
+    width: 62%;
+    animation: fan 1.6s var(--ease-out) 0.25s both;
+  }
+  .stage .w-center { z-index: 2; animation-name: rise; }
+  .stage .w-left { z-index: 1; transform: translate(-48%, 9%) rotate(-5deg) scale(0.84); }
+  .stage .w-right { z-index: 1; transform: translate(48%, 9%) rotate(5deg) scale(0.84); }
+
+  @keyframes fan {
+    from { transform: translate(0, 4%) rotate(0deg) scale(0.9); }
+  }
+  @keyframes rise {
+    from { transform: translateY(4%) scale(0.96); }
+  }
+
+  /* ---------- SECTIONS ---------- */
+  .section { padding: 128px 0; }
+  .section.alt { background: var(--bg-alt); }
+
+  .headline {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.07;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .headline .muted { color: var(--ink-3); }
+
+  .copy {
+    margin-top: 24px;
+    max-width: 62ch;
+    font-size: 19px;
+    line-height: 1.47;
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+
+  .center { text-align: center; }
+  .center .copy { margin-left: auto; margin-right: auto; }
+  .center .link-row { justify-content: center; }
+
+  .section .link-row { margin-top: 28px; }
+
+  /* Feature: centered stack */
+  .feature-media {
+    margin: 72px auto 0;
+    max-width: 980px;
+  }
+  .caption {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+
+  /* Feature: split */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .split .headline { font-size: clamp(2rem, 3.4vw, 2.75rem); }
+  .split .window { transform: translateX(4%); }
+
+  /* Bento */
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+    margin-top: 72px;
+  }
+
+  .tile {
+    background: var(--bg);
+    border-radius: var(--radius-tile);
+    padding: 44px 44px 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .tile h3 {
+    font-size: clamp(1.6rem, 2.6vw, 2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+  .tile p {
+    margin-top: 14px;
+    font-size: 17px;
+    line-height: 1.47;
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+  .tile .link-row { margin-top: 20px; }
+  .tile .chev-link { font-size: 15px; }
+
+  .tile-media {
+    margin-top: auto;
+    padding-top: 40px;
+  }
+  .tile-media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 14px 14px 0 0;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: none;
+    transition: transform 0.6s var(--ease-out);
+  }
+  .tile:hover .tile-media img { transform: translateY(-6px); }
+
+  .tile-rnaseq { grid-column: span 7; }
+  .tile-rnaseq .tile-media img { aspect-ratio: 16 / 9; object-fit: cover; object-position: top left; }
+
+  .tile-alz { grid-column: span 5; }
+  .tile-alz .tile-media img { aspect-ratio: 5 / 4; object-fit: contain; background: #fff; padding: 12px; }
+
+  .tile-melanoma {
+    grid-column: span 12;
+    display: grid;
+    grid-template-columns: 4fr 8fr;
+    gap: 48px;
+    align-items: center;
+    padding: 44px;
+  }
+  .tile-melanoma .tile-media { margin: 0; padding: 0; }
+  .tile-melanoma .tile-media img {
+    border-radius: 14px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 12px;
+    background: #fff;
+  }
+  .tile-melanoma:hover .tile-media img { transform: none; }
+
+  /* About: statement */
+  .statement {
+    max-width: 920px;
+    font-size: clamp(1.6rem, 3.3vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.22;
+    letter-spacing: -0.022em;
+    color: var(--ink-3);
+    text-wrap: pretty;
+  }
+  .statement strong { color: var(--ink); font-weight: 600; }
+
+  /* Toolkit: spec columns */
+  .specs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    margin-top: 64px;
+  }
+  .specs h3 {
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .specs dl { margin-top: 8px; }
+  .specs dt { margin-top: 18px; font-size: 17px; font-weight: 600; }
+  .specs dd { margin-top: 2px; font-size: 15px; line-height: 1.45; color: var(--ink-2); }
+
+  /* Education */
+  .records { margin-top: 56px; border-top: 1px solid var(--line); }
+  .record {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 32px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .record-when { font-size: 15px; color: var(--ink-2); line-height: 1.5; }
+  .record-what { font-size: 21px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.3; }
+  .record-what a { color: var(--ink); }
+  .record-what a:hover { color: var(--link); }
+  .record-where { margin-top: 4px; font-size: 15px; color: var(--ink-2); }
+
+  /* Contact */
+  .contact .copy { max-width: 52ch; }
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 40px;
+  }
+  .contact-actions .btn { gap: 8px; }
+  .contact-actions svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+
+  /* Footer */
+  .footer {
+    background: var(--bg-alt);
+    border-top: 1px solid var(--line);
+    padding: 22px 0 28px;
+    font-size: 12px;
+    color: var(--ink-2);
+  }
+  .footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 1068px) {
+    .wrap { max-width: 860px; }
+    .nav .wrap { max-width: none; }
+    .nav-links { gap: 22px; }
+    .tile { padding: 36px 32px 0; }
+    .tile-melanoma { padding: 36px 32px; }
+  }
+
+  @media (max-width: 960px) {
+    .nav-toggle { display: block; }
+    .nav-actions { gap: 6px; }
+    .nav-actions .btn-small { display: none; }
+    .lang-switch button { min-width: 34px; min-height: 40px; }
+
     .nav-links {
       position: fixed;
-      top: 0; right: -100%;
-      width: 75%; max-width: 420px; height: 100vh;
-      background: var(--paper);
-      backdrop-filter: blur(20px);
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      bottom: 0;
       flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 2rem;
-      padding: 0 3rem;
-      border-left: 1px solid var(--line);
-      transition: right 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-      z-index: 999;
+      gap: 0;
+      padding: 20px 32px 40px;
+      background: var(--bg);
+      overflow-y: auto;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity 0.3s var(--ease-out), transform 0.4s var(--ease-out), visibility 0s linear 0.4s;
     }
-    .nav-links.open { right: 0; }
-    .nav-links a { font-size: 14px; }
-    .cv-btn-nav { font-size: 12px; }
-
-    .nav-right { gap: 0.9rem; }
-    .lang-switch button,
-    .lang-switch button:first-child,
-    .lang-switch button:last-child {
-      padding: 0 0.4rem;
-      min-height: 40px;
+    .nav-links.open {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      transition: opacity 0.3s var(--ease-out), transform 0.4s var(--ease-out), visibility 0s;
     }
-  }
-
-  @media (max-width: 768px) {
-    .projects-secondary {
-      grid-template-columns: 1fr;
+    .nav-links a {
+      display: block;
+      padding: 10px 0;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      opacity: 1;
     }
-
-    section {
-      padding: 4rem 5%;
-    }
-
-    .hero-full {
-      min-height: auto;
-      padding: 8rem 5% 4rem;
-    }
-
-    .expertise-inner {
-      gap: 0.5rem 1.2rem;
-    }
-
-    .expertise-inner span {
-      border-left: none;
-      padding: 0.2rem 0;
-    }
-
-    .section-header {
-      margin-bottom: 2.5rem;
+    .nav-links .menu-only { display: block; margin-top: 28px; }
+    .nav-links .menu-only a {
+      display: inline-flex;
+      padding: 0 22px;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: #fff;
     }
   }
 
-  /* RESPONSIVE */
-  @media (max-width: 968px) {
-    .edu-item {
-      grid-template-columns: 1fr;
-      gap: 0.6rem;
-    }
-
-    .skills-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .footer-content {
-      flex-direction: column;
-      gap: 0.8rem;
-      text-align: center;
-    }
+  @media (max-width: 834px) {
+    .section { padding: 96px 0; }
+    .split { grid-template-columns: 1fr; gap: 48px; }
+    .split .window { transform: none; }
+    .bento { grid-template-columns: 1fr; }
+    .tile-rnaseq, .tile-alz, .tile-melanoma { grid-column: auto; }
+    .tile-melanoma { grid-template-columns: 1fr; gap: 32px; }
+    .specs { grid-template-columns: 1fr; gap: 40px; }
   }
 
-  /* CV DOWNLOAD BUTTON IN NAV */
-  .cv-btn-nav {
-    padding: 7px 18px;
-    background: transparent;
-    color: var(--ink);
-    text-decoration: none;
-    font-family: 'Fragment Mono', monospace;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    border: 1px solid var(--ink);
-    border-radius: 3px;
-    transition: all 0.3s ease;
+  @media (max-width: 640px) {
+    .wrap { padding: 0 16px; }
+    .hero { padding: 64px 0 88px; }
+    .stage { margin-top: 56px; aspect-ratio: 1000 / 560; }
+    .stage .window { left: 12%; width: 76%; }
+    .stage .w-left { transform: translate(-30%, 12%) rotate(-5deg) scale(0.8); }
+    .stage .w-right { transform: translate(30%, 12%) rotate(5deg) scale(0.8); }
+    .section { padding: 80px 0; }
+    .copy { font-size: 17px; }
+    .feature-media { margin-top: 48px; }
+    .tile { padding: 32px 24px 0; border-radius: 22px; }
+    .tile-melanoma { padding: 32px 24px; }
+    .record { grid-template-columns: 1fr; gap: 6px; padding: 22px 0; }
+    .record-what { font-size: 19px; }
   }
 
-  .cv-btn-nav:hover {
-    background: var(--ink);
-    color: var(--paper);
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
   }
 </style>
 </head>
 <body>
 
-<div id="scroll-sentinel"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="chev" viewBox="0 0 7 12">
+    <path d="M1 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
 
-<!-- Navigation -->
-<nav id="nav">
-  <div class="logo">Marwan El Saabi</div>
-  <div class="nav-right">
-    <ul class="nav-links">
+<nav class="nav" aria-label="Primary">
+  <div class="wrap">
+    <a href="#top" class="nav-name">Marwan El Saabi</a>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="#projects" data-i18n="nav.work">Work</a></li>
       <li><a href="#about" data-i18n="nav.about">About</a></li>
-      <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
-      <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+      <li><a href="#skills" data-i18n="nav.toolkit">Toolkit</a></li>
       <li><a href="#education" data-i18n="nav.education">Education</a></li>
       <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
-      <li><a href="Marwan_El_Saabi_CV.pdf" class="cv-btn-nav" download data-i18n="cta.cv">Download CV</a></li>
+      <li class="menu-only"><a href="Marwan_El_Saabi_CV.pdf" class="btn" download data-i18n="cta.cv">Download CV</a></li>
     </ul>
-    <div class="lang-switch" role="group" aria-label="Language" data-i18n-aria="lang.group">
-      <button type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
-      <button type="button" data-lang="es" lang="es" aria-label="Español" aria-pressed="false">ES</button>
-      <button type="button" data-lang="gl" lang="gl" aria-label="Galego" aria-pressed="false">GL</button>
+    <div class="nav-actions">
+      <div class="lang-switch" role="group" aria-label="Language" data-i18n-aria="lang.group">
+        <button type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+        <button type="button" data-lang="es" lang="es" aria-label="Español" aria-pressed="false">ES</button>
+        <button type="button" data-lang="gl" lang="gl" aria-label="Galego" aria-pressed="false">GL</button>
+      </div>
+      <a href="Marwan_El_Saabi_CV.pdf" class="btn btn-small" download data-i18n="cta.cv">Download CV</a>
+      <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu" data-i18n-aria="nav.toggle">
+        <span></span>
+        <span></span>
+      </button>
     </div>
-    <button class="menu-toggle" aria-label="Toggle menu" data-i18n-aria="nav.toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
   </div>
 </nav>
 
-<!-- Hero Section -->
-<section class="hero-full">
-  <div class="hero-content">
-    <div class="hero-label" data-i18n="hero.label">MSc Bioinformatics · A Coruña, Spain</div>
+<main id="top">
 
-    <h1 class="hero-title">
-      <div class="line"><span data-i18n-html="hero.line1">Biologist turned</span></div>
-      <div class="line"><span data-i18n-html="hero.line2"><em>data scientist</em></span></div>
-    </h1>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap">
+      <h1 data-i18n-html="hero.title"><span class="muted">Biologist turned</span><br>data scientist.</h1>
+      <p class="lede" data-i18n="hero.lede">I build machine learning systems end to end, from messy raw data to an application you can actually use.</p>
+      <div class="cta">
+        <a href="#projects" class="btn" data-i18n="hero.cta">See the work</a>
+        <a href="https://github.com/marwansaabi" class="chev-link" target="_blank" rel="noopener"><span data-i18n="hero.github">GitHub profile</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+      </div>
 
-    <p class="hero-subtitle" data-i18n="hero.subtitle">
-      I build machine learning systems end to end — from messy raw data to a deployed application someone can actually click on.
-    </p>
+      <div class="stage" aria-hidden="true">
+        <div class="window w-left"><img src="rnaseq_preview.jpg" alt="" width="1400" height="741"></div>
+        <div class="window w-right"><img src="drugdesigner_preview.jpg" alt="" width="1100" height="707"></div>
+        <div class="window w-center"><img src="retail_preview.jpg" alt="" width="1100" height="1029" fetchpriority="high"></div>
+      </div>
+    </div>
+  </header>
 
-    <a href="#projects" class="hero-cta" data-i18n="hero.cta">
-      See the Work ↓
-    </a>
-  </div>
-</section>
+  <!-- FEATURE 1: FORECASTING -->
+  <section class="section alt center" id="projects" aria-labelledby="forecast-title">
+    <div class="wrap">
+      <h2 class="headline" id="forecast-title" data-i18n-html="forecast.title">Retail demand forecasting. <span class="muted"><span class="num">4.8%</span> better than the strongest baseline.</span></h2>
+      <p class="copy" data-i18n="forecast.copy">Weekly SKU-level forecasts on more than a million real e-commerce transactions. A global LightGBM model, benchmarked against naive, seasonal-naive and moving-average baselines under rolling-origin backtesting, with every feature read at the forecast origin to rule out leakage.</p>
+      <div class="link-row">
+        <a class="chev-link" href="https://marwan-retail-demand-forecasting.streamlit.app" target="_blank" rel="noopener"><span data-i18n="link.tryLive">Try the live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+        <a class="chev-link" href="https://github.com/marwansaabi/retail-demand-forecasting" target="_blank" rel="noopener"><span data-i18n="link.viewCode">View the code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+      </div>
+      <figure class="feature-media">
+        <div class="window"><img src="retail_preview.jpg" alt="Retail Demand Forecasting app: backtest metrics and model comparison table" data-i18n-alt="forecast.alt" width="1100" height="1029" loading="lazy"></div>
+        <figcaption class="caption" data-i18n="forecast.caption">Backtest results, averaged over every fold and SKU.</figcaption>
+      </figure>
+    </div>
+  </section>
 
-<!-- Expertise strip (moved out of the hero) -->
-<div class="expertise-strip">
-  <div class="expertise-inner">
-    <span>Machine Learning</span>
-    <span data-i18n="kw.ts">Time Series</span>
-    <span>Python &amp; SQL</span>
-    <span data-i18n="kw.genai">Generative AI</span>
-    <span data-i18n="kw.cv">Computer Vision</span>
-  </div>
-</div>
+  <!-- FEATURE 2: DRUG DESIGNER -->
+  <section class="section" aria-labelledby="drug-title">
+    <div class="wrap split">
+      <div>
+        <h2 class="headline" id="drug-title" data-i18n-html="drug.title">AI drug designer. <span class="muted">An LLM proposes. RDKit validates.</span></h2>
+        <p class="copy" data-i18n="drug.copy">Gemini generates candidate molecules as SMILES strings, a cheminformatics validation engine filters out physically impossible structures, and the survivors are rendered as optimized 3D models. Built with Python, Streamlit, the Gemini API and RDKit.</p>
+        <div class="link-row">
+          <a class="chev-link" href="https://marwan-drug-discovery.streamlit.app" target="_blank" rel="noopener"><span data-i18n="link.tryLive">Try the live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+          <a class="chev-link" href="https://github.com/marwansaabi/ai-drug-designer" target="_blank" rel="noopener"><span data-i18n="link.viewCode">View the code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+        </div>
+      </div>
+      <div class="window"><img src="drugdesigner_preview.jpg" alt="De Novo AI Drug Designer interface: molecule generation prompt and validation engine" data-i18n-alt="drug.alt" width="1100" height="707" loading="lazy"></div>
+    </div>
+  </section>
 
-<!-- About Section -->
-<section id="about">
-  <div class="section-header">
-    <h2 class="section-title" data-i18n="about.title">About</h2>
-  </div>
-  <div class="about-body scroll-reveal">
-    <p data-i18n="about.p1">I trained as a biologist, but the part I always enjoyed most was the data. Biostatistics was my favourite subject, and my undergraduate thesis came down to turning photographs of salamanders into a number that could be measured and compared, work that later became part of a peer-reviewed paper. That's what took me to the MSc in Bioinformatics, and to building projects in my own time, well beyond biology.</p>
-  </div>
-</section>
+  <!-- MORE WORK: BENTO -->
+  <section class="section alt" aria-labelledby="more-title">
+    <div class="wrap">
+      <div class="center">
+        <h2 class="headline" id="more-title" data-i18n-html="more.title">More work. <span class="muted">Genomics, computer vision and drug screening.</span></h2>
+      </div>
 
-<!-- Projects Section -->
-<section id="projects">
-  <div class="section-header">
-    <h2 class="section-title" data-i18n="projects.title">Selected Work</h2>
-    <p class="section-desc" data-i18n="projects.desc">
-      End-to-end machine learning projects, from generative AI and demand forecasting to computer vision.
-    </p>
-  </div>
+      <div class="bento">
+        <article class="tile tile-rnaseq">
+          <h3 data-i18n="rnaseq.title">RNA-seq analysis dashboard.</h3>
+          <p data-i18n="rnaseq.desc">Differential expression with Welch's t-test and Benjamini-Hochberg correction, PCA, volcano and MA plots and heatmaps, on synthetic data and the real airway dataset (Himes et al., 2014).</p>
+          <div class="link-row">
+            <a class="chev-link" href="https://marwan-rnaseq-dashboard.streamlit.app" target="_blank" rel="noopener"><span data-i18n="link.live">Live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+            <a class="chev-link" href="https://github.com/marwansaabi/rnaseq-dashboard" target="_blank" rel="noopener"><span data-i18n="link.code">Code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+          </div>
+          <div class="tile-media"><img src="rnaseq_preview.jpg" alt="RNA-seq dashboard with volcano and MA plots" data-i18n-alt="rnaseq.alt" width="1400" height="741" loading="lazy"></div>
+        </article>
 
-  <!-- Uniform tile grid, in order: AI Drug Designer, Forecasting, RNA-seq, Melanoma, Alzheimer's -->
-  <div class="projects-secondary">
-    <div class="project-tile scroll-reveal">
-      <div class="tile-visual">
-        <a href="https://marwan-drug-discovery.streamlit.app" target="_blank">
-          <img src="drugdesigner_preview.jpg" alt="De Novo AI Drug Designer interface: molecule generation prompt and validation engine" data-i18n-alt="p1.alt">
+        <article class="tile tile-alz">
+          <h3 data-i18n="alz.title">Alzheimer's drug classifier.</h3>
+          <p data-i18n-html="alz.desc">Virtual screening on curated ChEMBL IC50 data with Morgan fingerprints. Random Forest led four benchmarked models with <span class="num">0.96</span> AUROC under stratified 5-fold cross-validation.</p>
+          <div class="link-row">
+            <a class="chev-link" href="https://github.com/marwansaabi/ml-alzheimer-classifier" target="_blank" rel="noopener"><span data-i18n="link.code">Code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+          </div>
+          <div class="tile-media"><img src="alzheimer_preview.jpg" alt="ROC curves comparing KNN, SVM, Random Forest and XGBoost" data-i18n-alt="alz.alt" width="1100" height="899" loading="lazy"></div>
+        </article>
+
+        <article class="tile tile-melanoma">
+          <div>
+            <h3 data-i18n="mel.title">Melanoma detection, without deep learning.</h3>
+            <p data-i18n-html="mel.desc">Otsu, K-means and watershed segmentation selected by IoU, then 40 shape, colour and texture features and an SVM. <span class="num">90.2%</span> accuracy and <span class="num">84%</span> melanoma sensitivity on ISIC 2018.</p>
+            <div class="link-row">
+              <a class="chev-link" href="https://marwan-melanoma-detection.streamlit.app" target="_blank" rel="noopener"><span data-i18n="link.live">Live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+              <a class="chev-link" href="https://github.com/marwansaabi/melanoma-detection" target="_blank" rel="noopener"><span data-i18n="link.code">Code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+            </div>
+          </div>
+          <div class="tile-media"><img src="melanoma_preview.png" alt="Segmentation example: original lesion, ground truth mask and automatic segmentation" data-i18n-alt="mel.alt" width="1489" height="401" loading="lazy"></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="wrap">
+      <h2 class="visually-hidden" id="about-title" data-i18n="about.title">About</h2>
+      <p class="statement" data-i18n-html="about.statement"><strong>I trained as a biologist, but the part I always enjoyed most was the data.</strong> Biostatistics was my favourite subject, and my undergraduate thesis turned photographs of salamanders into a number that could be measured and compared, work that later became part of a peer-reviewed paper. <strong>That's what took me to the MSc in Bioinformatics,</strong> and to building projects well beyond biology.</p>
+    </div>
+  </section>
+
+  <!-- TOOLKIT -->
+  <section class="section alt" id="skills" aria-labelledby="toolkit-title">
+    <div class="wrap">
+      <h2 class="headline" id="toolkit-title" data-i18n="toolkit.title">The toolkit.</h2>
+      <div class="specs">
+        <div>
+          <h3 data-i18n="toolkit.lang">Languages</h3>
+          <dl>
+            <dt>Python</dt><dd>NumPy, Pandas, Scikit-learn, OpenCV, Matplotlib</dd>
+            <dt>SQL</dt><dd data-i18n="sk.sql">Relational modelling, ER design, querying</dd>
+            <dt>R / Bioconductor</dt><dd>Tidyverse, DESeq2, ggplot2</dd>
+            <dt>MATLAB</dt><dd data-i18n="sk.matlab">Neural networks, SVMs and image processing</dd>
+          </dl>
+        </div>
+        <div>
+          <h3 data-i18n="toolkit.model">Modelling</h3>
+          <dl>
+            <dt>Machine learning</dt><dd data-i18n="sk.ml">LightGBM, XGBoost, model benchmarking, cross-validation</dd>
+            <dt data-i18n="sk.ts">Time series forecasting</dt><dd data-i18n="sk.tsd">Rolling-origin backtesting, demand models, wMAPE / MASE</dd>
+            <dt data-i18n="sk.genai">Generative AI</dt><dd data-i18n="sk.genaid">LLM APIs (Google Gemini), generation with rule-based validation</dd>
+          </dl>
+        </div>
+        <div>
+          <h3 data-i18n="toolkit.tools">Tools and infrastructure</h3>
+          <dl>
+            <dt>Streamlit</dt><dd data-i18n="sk.streamlit">Interactive data applications</dd>
+            <dt>Git / GitHub</dt><dd data-i18n="sk.git">Version control, GitHub Actions</dd>
+            <dt>Nextflow</dt><dd data-i18n="sk.nextflow">Bioinformatics pipeline orchestration</dd>
+            <dt data-i18n="sk.hpcname">Linux and HPC</dt><dd data-i18n="sk.hpc">Bash, Docker, Conda, SLURM on the FinisTerrae III supercomputer (CESGA)</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section" id="education" aria-labelledby="edu-title">
+    <div class="wrap">
+      <h2 class="headline" id="edu-title" data-i18n="edu.title">Education and research.</h2>
+      <div class="records">
+        <div class="record">
+          <div class="record-when" data-i18n-html="edu.y1"><span class="num">2025-2027</span><br>In progress</div>
+          <div>
+            <div class="record-what" data-i18n="edu.msc">MSc in Bioinformatics Applied to Health Sciences</div>
+            <div class="record-where" data-i18n="edu.udc">University of A Coruña</div>
+          </div>
+        </div>
+        <div class="record">
+          <div class="record-when" data-i18n-html="edu.y3"><span class="num">2026</span><br>Publication</div>
+          <div>
+            <div class="record-what"><a href="https://doi.org/10.1111/jzo.70133" target="_blank" rel="noopener">Melanism in salamanders: effects of insularity, sex and size on dorsal colouration in <em>Salamandra salamandra</em></a></div>
+            <div class="record-where">Alarcón-Ríos, L., Saabi González, M. and Velo-Antón, G. Journal of Zoology</div>
+          </div>
+        </div>
+        <div class="record">
+          <div class="record-when"><span class="num">2024</span></div>
+          <div>
+            <div class="record-what" data-i18n="edu.bsc">BSc in Biology (Mention: Biotechnology)</div>
+            <div class="record-where" data-i18n="edu.uvigo">University of Vigo</div>
+          </div>
+        </div>
+        <div class="record">
+          <div class="record-when" data-i18n-html="edu.y4"><span class="num">2026</span><br>Training badge</div>
+          <div>
+            <div class="record-what"><a href="https://www.credly.com/badges/3cf1a744-9997-4403-88ce-6b1f8856dcfd" target="_blank" rel="noopener">AWS Cloud Quest: Cloud Practitioner</a></div>
+            <div class="record-where">Amazon Web Services Training and Certification</div>
+          </div>
+        </div>
+        <div class="record">
+          <div class="record-when" data-i18n-html="edu.y5"><span class="num">2025</span><br>Certification</div>
+          <div>
+            <div class="record-what" data-i18n="edu.english">English B2 (CertAcles)</div>
+            <div class="record-where" data-i18n="edu.uvigo">University of Vigo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section alt center contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <h2 class="headline" id="contact-title" data-i18n="contact.title">Let's work together.</h2>
+      <p class="copy" data-i18n="contact.desc">Currently looking for a data internship or junior role for 2026-27, in data analysis, data science or machine learning, with a particular interest in health and life sciences data. Available in English, Spanish and Galician.</p>
+      <div class="contact-actions">
+        <a href="mailto:marwansaabi@gmail.com" class="btn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg>
+          <span data-i18n="contact.email">Email me</span>
+        </a>
+        <a href="https://www.linkedin.com/in/marwansaabi/" class="btn btn-ghost" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7.5 10.5v6M7.5 7.5v.01M12 16.5v-4a2 2 0 0 1 4 0v4M12 12.5v4"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/marwansaabi" class="btn btn-ghost" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-2.85 17.54c.45.08.61-.2.61-.43v-1.5c-2.5.55-3.03-1.2-3.03-1.2-.41-1.04-1-1.32-1-1.32-.82-.56.06-.55.06-.55.9.06 1.38.93 1.38.93.8 1.38 2.1.98 2.61.75.08-.58.31-.98.57-1.21-2-.23-4.1-1-4.1-4.45 0-.98.35-1.79.92-2.42-.09-.23-.4-1.15.09-2.4 0 0 .75-.24 2.46.92a8.5 8.5 0 0 1 4.48 0c1.71-1.16 2.46-.92 2.46-.92.49 1.25.18 2.17.09 2.4.57.63.92 1.44.92 2.42 0 3.46-2.11 4.22-4.12 4.44.32.28.61.83.61 1.68v2.48c0 .24.16.52.62.43A9 9 0 0 0 12 3z"/></svg>
+          GitHub
+        </a>
+        <a href="Marwan_El_Saabi_CV.pdf" class="btn btn-ghost" download>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+          <span data-i18n="cta.cv">Download CV</span>
         </a>
       </div>
-      <div class="fig-caption" data-i18n="p1.caption">Fig. 01. Generation interface and validation engine.</div>
-      <div class="tile-body project-content">
-        <div class="project-number">Fig. 01</div>
-        <h3 class="project-title" data-i18n="p1.title">AI-Powered De Novo Drug Designer</h3>
-        <p class="project-desc" data-i18n="p1.desc">
-          Interactive web application leveraging generative LLMs to design molecules de novo.
-          Features a cheminformatics validation engine to filter physically impossible structures
-          and generates optimized 3D models of viable candidates.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Python</span>
-          <span class="tag">Streamlit</span>
-          <span class="tag">Gemini API</span>
-          <span class="tag">RDKit</span>
-        </div>
-        <div class="project-links">
-          <a href="https://marwan-drug-discovery.streamlit.app" class="project-link" target="_blank" data-i18n="link.live">View Live App →</a>
-          <a href="https://github.com/marwansaabi/ai-drug-designer" class="project-link secondary" target="_blank" data-i18n="link.code">View Code →</a>
-        </div>
-      </div>
     </div>
+  </section>
 
-    <div class="project-tile scroll-reveal">
-      <div class="tile-visual">
-        <a href="https://marwan-retail-demand-forecasting.streamlit.app" target="_blank">
-          <img src="retail_preview.jpg" alt="Retail Demand Forecasting app: backtest metrics and model comparison charts" data-i18n-alt="p2.alt">
-        </a>
-      </div>
-      <div class="fig-caption" data-i18n="p2.caption">Fig. 02. Backtest results: model comparison and fold stability.</div>
-      <div class="tile-body project-content">
-        <div class="project-number">Fig. 02</div>
-        <h3 class="project-title" data-i18n="p2.title">Retail Demand Forecasting</h3>
-        <p class="project-desc" data-i18n="p2.desc">
-          Weekly SKU-level demand forecasting on 1M+ real e-commerce transactions.
-          A global LightGBM model benchmarked against naive, seasonal-naive and
-          moving-average baselines under rolling-origin backtesting, 4.8% better
-          wMAPE than the strongest baseline, with every feature read at the
-          forecast origin to rule out leakage.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Python</span>
-          <span class="tag">LightGBM</span>
-          <span class="tag" data-i18n="kw.ts">Time Series</span>
-          <span class="tag">Streamlit</span>
-        </div>
-        <div class="project-links">
-          <a href="https://marwan-retail-demand-forecasting.streamlit.app" class="project-link" target="_blank" data-i18n="link.live">View Live App →</a>
-          <a href="https://github.com/marwansaabi/retail-demand-forecasting" class="project-link secondary" target="_blank" data-i18n="link.code">View Code →</a>
-        </div>
-      </div>
-    </div>
+</main>
 
-    <div class="project-tile scroll-reveal">
-      <div class="tile-visual">
-        <a href="https://marwan-rnaseq-dashboard.streamlit.app" target="_blank">
-          <img src="rnaseq_preview.jpg" alt="RNA-seq Dashboard Preview" data-i18n-alt="p3.alt">
-        </a>
-      </div>
-      <div class="fig-caption" data-i18n="p3.caption">Fig. 03. PCA, volcano plot and heatmap views.</div>
-      <div class="tile-body project-content">
-        <div class="project-number">Fig. 03</div>
-        <h3 class="project-title" data-i18n="p3.title">RNA-seq Analysis Dashboard</h3>
-        <p class="project-desc" data-i18n="p3.desc">
-          Interactive Streamlit application for exploratory RNA-seq analysis.
-          Differential expression with Welch's t-test and BH FDR correction, PCA,
-          volcano/MA plots and heatmaps, on both synthetic and real airway
-          data (Himes et al., 2014).
-        </p>
-        <div class="project-tags">
-          <span class="tag">Python</span>
-          <span class="tag">Streamlit</span>
-          <span class="tag">Plotly</span>
-          <span class="tag">Pandas</span>
-        </div>
-        <div class="project-links">
-          <a href="https://marwan-rnaseq-dashboard.streamlit.app" class="project-link" target="_blank" data-i18n="link.live">View Live App →</a>
-          <a href="https://github.com/marwansaabi/rnaseq-dashboard" class="project-link secondary" target="_blank" data-i18n="link.code">View Code →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="project-tile scroll-reveal">
-      <div class="tile-visual contain-fit">
-        <a href="https://marwan-melanoma-detection.streamlit.app" target="_blank">
-          <img src="melanoma_preview.png" alt="Segmentation example: original lesion, ground truth mask, and automatic segmentation output" data-i18n-alt="p4.alt">
-        </a>
-      </div>
-      <div class="fig-caption" data-i18n="p4.caption">Fig. 04. Example segmentation (IoU 0.717); 0.735 mean IoU across the test set.</div>
-      <div class="tile-body project-content">
-        <div class="project-number">Fig. 04</div>
-        <h3 class="project-title" data-i18n="p4.title">Melanoma Detection (Classical CV)</h3>
-        <p class="project-desc" data-i18n="p4.desc">
-          Fully automatic segmentation and classification of dermoscopic skin
-          lesions (benign vs. melanoma) using only classical computer vision,
-          no deep learning. An ensemble of Otsu, K-means and watershed
-          segmentation selected by IoU, then 40 shape, color and texture
-          (LBP/GLCM) features classified with SVM under 5-fold cross-validation.
-          0.735 mean IoU, 90.2% accuracy, 84% melanoma sensitivity on the
-          ISIC 2018 dataset.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Python</span>
-          <span class="tag">OpenCV</span>
-          <span class="tag">Scikit-learn</span>
-          <span class="tag">Scikit-image</span>
-        </div>
-        <div class="project-links">
-          <a href="https://marwan-melanoma-detection.streamlit.app" class="project-link" target="_blank" data-i18n="link.live">View Live App →</a>
-          <a href="https://github.com/marwansaabi/melanoma-detection" class="project-link secondary" target="_blank" data-i18n="link.code">View Code →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="project-tile scroll-reveal">
-      <div class="tile-visual contain-fit">
-        <a href="https://github.com/marwansaabi/ml-alzheimer-classifier" target="_blank">
-          <img src="alzheimer_preview.jpg" alt="ROC curves comparing KNN, SVM, Random Forest and XGBoost; Random Forest and XGBoost reach AUC 0.96" data-i18n-alt="p5.alt">
-        </a>
-      </div>
-      <div class="fig-caption" data-i18n="p5.caption">Fig. 05. ROC comparison of the four models (5-fold CV, 300 selected features).</div>
-      <div class="tile-body project-content">
-        <div class="project-number">Fig. 05</div>
-        <h3 class="project-title" data-i18n="p5.title">Alzheimer's Drug Classifier</h3>
-        <p class="project-desc" data-i18n="p5.desc">
-          Virtual screening pipeline on curated ChEMBL IC50 bioactivity data: compounds
-          encoded as 1024-bit Morgan fingerprints, with Random Forest, SVM, XGBoost and
-          KNN benchmarked under stratified 5-fold cross-validation and leakage control.
-          Random Forest led with 0.96 AUROC.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Python</span>
-          <span class="tag">Scikit-learn</span>
-          <span class="tag">XGBoost</span>
-          <span class="tag">RDKit</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/marwansaabi/ml-alzheimer-classifier" class="project-link" target="_blank" data-i18n="link.github">View on GitHub →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Skills Section -->
-<section id="skills">
-  <div class="section-header">
-    <h2 class="section-title" data-i18n="skills.title">Technical Expertise</h2>
-    <p class="section-desc" data-i18n="skills.desc">
-      Grouped by area of application.
-    </p>
-  </div>
-
-  <div class="skills-grid">
-    <div class="skill-category scroll-reveal">
-      <div class="skill-category-title" data-i18n="sk.cat.lang">Languages</div>
-
-      <div class="skill-row">
-        <span class="skill-row-name">Python</span>
-      </div>
-      <div class="skill-detail">NumPy, Pandas, Scikit-learn, OpenCV, Matplotlib</div>
-
-      <div class="skill-row">
-        <span class="skill-row-name">SQL</span>
-      </div>
-      <div class="skill-detail" data-i18n="sk.sql">Relational modelling, ER design, querying</div>
-
-      <div class="skill-row">
-        <span class="skill-row-name">R / Bioconductor</span>
-      </div>
-      <div class="skill-detail">Tidyverse, DESeq2, ggplot2</div>
-
-      <div class="skill-row">
-        <span class="skill-row-name">MATLAB</span>
-      </div>
-      <div class="skill-detail" data-i18n="sk.matlab">Neural networks, SVMs &amp; image processing</div>
-    </div>
-
-    <div class="skill-category scroll-reveal">
-      <div class="skill-category-title" data-i18n="sk.cat.model">Modelling</div>
-
-      <div class="skill-row">
-        <span class="skill-row-name">Machine Learning</span>
-      </div>
-      <div class="skill-detail" data-i18n="sk.ml">LightGBM, XGBoost, model benchmarking, cross-validation</div>
-
-      <div class="skill-row">
-        <span class="skill-row-name" data-i18n="sk.ts">Time Series Forecasting</span>
-      </div>
-      <div class="skill-detail" data-i18n="sk.tsd">Rolling-origin backtesting, demand models, wMAPE / MASE</div>
-
-      <div class="skill-row">
-        <span class="skill-row-name" data-i18n="sk.genai">Generative AI</span>
-      </div>
-      <div class="skill-detail" data-i18n="sk.genaid">LLM APIs (Google Gemini), generation with rule-based validation</div>
-    </div>
-
-    <div class="skill-category scroll-reveal">
-      <div class="skill-category-title" data-i18n="sk.cat.tools">Tools &amp; Infrastructure</div>
-
-      <div class="skill-row">
-        <span class="skill-row-name">Streamlit</span>
-      </div>
-      <div class="skill-detail" data-i18n="sk.streamlit">Interactive data applications</div>
-
-      <div class="skill-row">
-        <span class="skill-row-name">Git / GitHub</span>
-      </div>
-      <div class="skill-detail" data-i18n="sk.git">Version control, GitHub Actions</div>
-
-      <div class="skill-row">
-        <span class="skill-row-name">Nextflow</span>
-      </div>
-      <div class="skill-detail" data-i18n="sk.nextflow">Bioinformatics pipeline orchestration</div>
-
-      <div class="skill-row">
-        <span class="skill-row-name">Linux &amp; HPC</span>
-      </div>
-      <div class="skill-detail" data-i18n="sk.hpc">Bash, Docker, Conda, SLURM on the FinisTerrae III supercomputer (CESGA)</div>
-    </div>
-  </div>
-</section>
-
-<!-- Education Section -->
-<section id="education">
-  <div class="section-header">
-    <h2 class="section-title" data-i18n="edu.title">Academic Background</h2>
-  </div>
-
-  <div class="education-list">
-    <div class="edu-item scroll-reveal">
-      <div class="edu-year" data-i18n-html="edu.y1">2025-2027<br>In Progress</div>
-      <div>
-        <div class="edu-degree" data-i18n="edu.msc">MSc in Bioinformatics Applied to Health Sciences</div>
-        <div class="edu-school" data-i18n="edu.udc">University of A Coruña</div>
-      </div>
-    </div>
-
-    <div class="edu-item scroll-reveal">
-      <div class="edu-year">2024</div>
-      <div>
-        <div class="edu-degree" data-i18n="edu.bsc">BSc in Biology (Mention: Biotechnology)</div>
-        <div class="edu-school" data-i18n="edu.uvigo">University of Vigo</div>
-      </div>
-    </div>
-
-    <div class="edu-item scroll-reveal">
-      <div class="edu-year" data-i18n-html="edu.y3">2026<br>Publication</div>
-      <div>
-        <div class="edu-degree"><a href="https://doi.org/10.1111/jzo.70133" target="_blank">Melanism in salamanders: effects of insularity, sex and size on dorsal colouration in <em>Salamandra salamandra</em></a></div>
-        <div class="edu-school">Alarcón-Ríos, L., Saabi González, M. &amp; Velo-Antón, G. · Journal of Zoology</div>
-      </div>
-    </div>
-
-    <div class="edu-item scroll-reveal">
-      <div class="edu-year" data-i18n-html="edu.y4">2026<br>Training Badge</div>
-      <div>
-        <div class="edu-degree"><a href="https://www.credly.com/badges/3cf1a744-9997-4403-88ce-6b1f8856dcfd" target="_blank">AWS Cloud Quest: Cloud Practitioner</a></div>
-        <div class="edu-school">Amazon Web Services Training and Certification</div>
-      </div>
-    </div>
-
-    <div class="edu-item scroll-reveal">
-      <div class="edu-year" data-i18n-html="edu.y5">2025<br>Certification</div>
-      <div>
-        <div class="edu-degree" data-i18n="edu.english">English B2 (CertAcles)</div>
-        <div class="edu-school" data-i18n="edu.uvigo">University of Vigo</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Contact Section -->
-<section id="contact">
-  <div class="contact-container">
-    <h2 class="contact-title" data-i18n="contact.title">Let's Work Together</h2>
-    <p class="contact-desc" data-i18n="contact.desc">
-      Currently looking for a data internship or junior role for 2026-27, in data analysis,
-      data science or machine learning, with a particular interest in health and life sciences
-      data. Available in English, Spanish, and Galician.
-    </p>
-    <div class="contact-links">
-      <a href="mailto:marwansaabi@gmail.com" class="contact-link">
-        <svg viewBox="0 0 24 24" stroke-width="1.6"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg>
-        <span data-i18n="contact.email">Email</span>
-      </a>
-      <a href="https://www.linkedin.com/in/marwansaabi/" class="contact-link" target="_blank">
-        <svg viewBox="0 0 24 24" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7.5 10.5v6M7.5 7.5v.01M12 16.5v-4a2 2 0 0 1 4 0v4M12 12.5v4"/></svg>
-        LinkedIn
-      </a>
-      <a href="https://github.com/marwansaabi" class="contact-link" target="_blank">
-        <svg viewBox="0 0 24 24" stroke-width="1.6"><path d="M12 3a9 9 0 0 0-2.85 17.54c.45.08.61-.2.61-.43v-1.5c-2.5.55-3.03-1.2-3.03-1.2-.41-1.04-1-1.32-1-1.32-.82-.56.06-.55.06-.55.9.06 1.38.93 1.38.93.8 1.38 2.1.98 2.61.75.08-.58.31-.98.57-1.21-2-.23-4.1-1-4.1-4.45 0-.98.35-1.79.92-2.42-.09-.23-.4-1.15.09-2.4 0 0 .75-.24 2.46.92a8.5 8.5 0 0 1 4.48 0c1.71-1.16 2.46-.92 2.46-.92.49 1.25.18 2.17.09 2.4.57.63.92 1.44.92 2.42 0 3.46-2.11 4.22-4.12 4.44.32.28.61.83.61 1.68v2.48c0 .24.16.52.62.43A9 9 0 0 0 12 3z"/></svg>
-        GitHub
-      </a>
-      <a href="Marwan_El_Saabi_CV.pdf" class="contact-link" download>
-        <svg viewBox="0 0 24 24" stroke-width="1.6"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-        <span data-i18n="cta.cv">Download CV</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer>
-  <div class="footer-content">
+<footer class="footer">
+  <div class="wrap">
     <span>© 2026 Marwan El Saabi González</span>
-    <span data-i18n="footer.tagline">Data Analysis &amp; Machine Learning · A Coruña, Spain</span>
+    <span data-i18n="footer.tagline">Data analysis and machine learning. A Coruña, Spain.</span>
   </div>
 </footer>
 
@@ -1270,156 +818,140 @@ const I18N = {
   es: {
     "meta.title": "Marwan El Saabi - Analista de datos | Python, SQL y machine learning",
     "meta.description": "Portfolio de Marwan El Saabi, de la biología a la ciencia de datos: sistemas de machine learning de principio a fin, previsión de demanda, aplicaciones de IA generativa, visión por computador y análisis de datos biomédicos.",
+    "nav.work": "Proyectos",
     "nav.about": "Sobre mí",
-    "nav.projects": "Proyectos",
-    "nav.skills": "Competencias",
+    "nav.toolkit": "Herramientas",
     "nav.education": "Formación",
     "nav.contact": "Contacto",
     "nav.toggle": "Abrir o cerrar el menú",
-    "cta.cv": "Descargar CV",
     "lang.group": "Idioma",
-    "hero.label": "Máster en Bioinformática · A Coruña, España",
-    "hero.line1": "De la biología",
-    "hero.line2": "<em>a la ciencia de datos</em>",
-    "hero.subtitle": "Construyo sistemas de machine learning de principio a fin: desde datos en bruto y desordenados hasta una aplicación desplegada en la que alguien pueda hacer clic de verdad.",
-    "hero.cta": "Ver proyectos ↓",
-    "kw.ts": "Series temporales",
-    "kw.genai": "IA generativa",
-    "kw.cv": "Visión por computador",
+    "cta.cv": "Descargar CV",
+    "hero.title": "<span class=\"muted\">De la biología</span><br>a la ciencia de datos.",
+    "hero.lede": "Construyo sistemas de machine learning de principio a fin, desde datos en bruto y desordenados hasta una aplicación que se puede usar de verdad.",
+    "hero.cta": "Ver proyectos",
+    "hero.github": "Perfil de GitHub",
+    "link.tryLive": "Probar la app",
+    "link.viewCode": "Ver el código",
+    "link.live": "App en vivo",
+    "link.code": "Código",
+    "forecast.title": "Previsión de demanda en retail. <span class=\"muted\"><span class=\"num\">4.8%</span> mejor que el baseline más fuerte.</span>",
+    "forecast.copy": "Previsiones semanales por SKU sobre más de un millón de transacciones reales de e-commerce. Un modelo global LightGBM comparado con baselines naive, naive estacional y de media móvil mediante backtesting con origen móvil, con cada variable leída en el origen de la previsión para descartar fugas de información.",
+    "forecast.alt": "App de previsión de demanda en retail: métricas del backtest y tabla de comparación de modelos",
+    "forecast.caption": "Resultados del backtest, promediados en todos los folds y SKUs.",
+    "drug.title": "Diseñador de fármacos con IA. <span class=\"muted\">Un LLM propone. RDKit valida.</span>",
+    "drug.copy": "Gemini genera moléculas candidatas como cadenas SMILES, un motor de validación quimioinformática descarta las estructuras físicamente imposibles y las que superan el filtro se representan como modelos 3D optimizados. Hecho con Python, Streamlit, la API de Gemini y RDKit.",
+    "drug.alt": "Interfaz del diseñador de fármacos de novo con IA: prompt de generación de moléculas y motor de validación",
+    "more.title": "Más proyectos. <span class=\"muted\">Genómica, visión por computador y cribado de fármacos.</span>",
+    "rnaseq.title": "Panel de análisis de RNA-seq.",
+    "rnaseq.desc": "Expresión diferencial con el test t de Welch y corrección de Benjamini-Hochberg, PCA, volcano y MA plots y heatmaps, con datos sintéticos y con el dataset real airway (Himes et al., 2014).",
+    "rnaseq.alt": "Panel de RNA-seq con volcano plot y MA plot",
+    "alz.title": "Clasificador de fármacos para el Alzheimer.",
+    "alz.desc": "Cribado virtual sobre datos curados de IC50 de ChEMBL con fingerprints de Morgan. Random Forest lideró los cuatro modelos comparados, con un AUROC de <span class=\"num\">0.96</span> en validación cruzada estratificada de 5 particiones.",
+    "alz.alt": "Curvas ROC que comparan KNN, SVM, Random Forest y XGBoost",
+    "mel.title": "Detección de melanoma, sin deep learning.",
+    "mel.desc": "Segmentación Otsu, K-means y watershed seleccionada por IoU, y después 40 características de forma, color y textura y un SVM. Exactitud del <span class=\"num\">90.2%</span> y sensibilidad para melanoma del <span class=\"num\">84%</span> en ISIC 2018.",
+    "mel.alt": "Ejemplo de segmentación: lesión original, máscara de referencia y segmentación automática",
     "about.title": "Sobre mí",
-    "about.p1": "Me formé en biología, pero lo que siempre más disfruté fueron los datos. La bioestadística era mi asignatura favorita, y mi trabajo de fin de grado consistió en convertir fotografías de salamandras en un número que se pudiera medir y comparar, un trabajo que después formó parte de un artículo revisado por pares. Eso es lo que me llevó al Máster en Bioinformática, y a desarrollar proyectos en mi tiempo libre, mucho más allá de la biología.",
-    "projects.title": "Trabajo seleccionado",
-    "projects.desc": "Proyectos de machine learning de principio a fin, desde la IA generativa y la previsión de demanda hasta la visión por computador.",
-    "link.live": "Ver app en vivo →",
-    "link.code": "Ver código →",
-    "link.github": "Ver en GitHub →",
-    "p1.alt": "Interfaz del diseñador de fármacos de novo con IA: prompt de generación de moléculas y motor de validación",
-    "p1.caption": "Fig. 01. Interfaz de generación y motor de validación.",
-    "p1.title": "Diseñador de fármacos de novo con IA",
-    "p1.desc": "Aplicación web interactiva que usa LLMs generativos para diseñar moléculas de novo. Incluye un motor de validación quimioinformática que descarta estructuras físicamente imposibles y genera modelos 3D optimizados de los candidatos viables.",
-    "p2.alt": "App de previsión de demanda en retail: métricas del backtest y gráficos de comparación de modelos",
-    "p2.caption": "Fig. 02. Resultados del backtest: comparación de modelos y estabilidad entre folds.",
-    "p2.title": "Previsión de demanda en retail",
-    "p2.desc": "Previsión semanal de la demanda por SKU sobre más de 1M de transacciones reales de e-commerce. Un modelo global LightGBM comparado con baselines naive, naive estacional y de media móvil mediante backtesting con origen móvil, con un wMAPE un 4.8% mejor que el baseline más fuerte y cada variable leída en el origen de la previsión para descartar fugas de información.",
-    "p3.alt": "Vista previa del panel de análisis de RNA-seq",
-    "p3.caption": "Fig. 03. Vistas de PCA, volcano plot y heatmap.",
-    "p3.title": "Panel de análisis de RNA-seq",
-    "p3.desc": "Aplicación interactiva en Streamlit para el análisis exploratorio de RNA-seq. Expresión diferencial con el test t de Welch y corrección FDR de Benjamini-Hochberg, PCA, volcano/MA plots y heatmaps, con datos sintéticos y con los datos reales airway (Himes et al., 2014).",
-    "p4.alt": "Ejemplo de segmentación: lesión original, máscara de referencia y segmentación automática",
-    "p4.caption": "Fig. 04. Segmentación de ejemplo (IoU 0.717); IoU medio de 0.735 en el conjunto de prueba.",
-    "p4.title": "Detección de melanoma (visión clásica)",
-    "p4.desc": "Segmentación y clasificación totalmente automáticas de lesiones cutáneas dermatoscópicas (benignas frente a melanoma) usando solo visión por computador clásica, sin deep learning. Un ensemble de segmentaciones Otsu, K-means y watershed seleccionado por IoU, y después 40 características de forma, color y textura (LBP/GLCM) clasificadas con SVM mediante validación cruzada de 5 particiones. IoU medio de 0.735, exactitud del 90.2% y sensibilidad para melanoma del 84% en el dataset ISIC 2018.",
-    "p5.alt": "Curvas ROC que comparan KNN, SVM, Random Forest y XGBoost; Random Forest y XGBoost alcanzan un AUC de 0.96",
-    "p5.caption": "Fig. 05. Comparación ROC de los cuatro modelos (CV de 5 particiones, 300 variables seleccionadas).",
-    "p5.title": "Clasificador de fármacos para el Alzheimer",
-    "p5.desc": "Pipeline de cribado virtual sobre datos curados de bioactividad IC50 de ChEMBL: compuestos codificados como fingerprints de Morgan de 1024 bits, con Random Forest, SVM, XGBoost y KNN comparados mediante validación cruzada estratificada de 5 particiones y control de fugas de información. Random Forest obtuvo el mejor resultado, con un AUROC de 0.96.",
-    "skills.title": "Competencias técnicas",
-    "skills.desc": "Agrupadas por área de aplicación.",
-    "sk.cat.lang": "Lenguajes",
-    "sk.cat.model": "Modelado",
-    "sk.cat.tools": "Herramientas e infraestructura",
-    "sk.ts": "Previsión de series temporales",
-    "sk.genai": "IA generativa",
+    "about.statement": "<strong>Me formé en biología, pero lo que siempre más disfruté fueron los datos.</strong> La bioestadística era mi asignatura favorita, y mi trabajo de fin de grado convirtió fotografías de salamandras en un número que se podía medir y comparar, un trabajo que después formó parte de un artículo revisado por pares. <strong>Eso es lo que me llevó al Máster en Bioinformática,</strong> y a desarrollar proyectos mucho más allá de la biología.",
+    "toolkit.title": "Herramientas.",
+    "toolkit.lang": "Lenguajes",
+    "toolkit.model": "Modelado",
+    "toolkit.tools": "Herramientas e infraestructura",
     "sk.sql": "Modelado relacional, diseño ER, consultas",
     "sk.matlab": "Redes neuronales, SVM y procesamiento de imágenes",
     "sk.ml": "LightGBM, XGBoost, comparación de modelos, validación cruzada",
+    "sk.ts": "Previsión de series temporales",
     "sk.tsd": "Backtesting con origen móvil, modelos de demanda, wMAPE / MASE",
+    "sk.genai": "IA generativa",
     "sk.genaid": "APIs de LLM (Google Gemini), generación con validación basada en reglas",
     "sk.streamlit": "Aplicaciones de datos interactivas",
     "sk.git": "Control de versiones, GitHub Actions",
     "sk.nextflow": "Orquestación de pipelines bioinformáticos",
+    "sk.hpcname": "Linux y HPC",
     "sk.hpc": "Bash, Docker, Conda, SLURM en el supercomputador FinisTerrae III (CESGA)",
-    "edu.title": "Formación académica",
-    "edu.y1": "2025-2027<br>En curso",
+    "edu.title": "Formación e investigación.",
+    "edu.y1": "<span class=\"num\">2025-2027</span><br>En curso",
+    "edu.y3": "<span class=\"num\">2026</span><br>Publicación",
+    "edu.y4": "<span class=\"num\">2026</span><br>Insignia de formación",
+    "edu.y5": "<span class=\"num\">2025</span><br>Certificación",
     "edu.msc": "Máster Universitario en Bioinformática aplicada a las Ciencias de la Salud",
     "edu.udc": "Universidade da Coruña",
     "edu.bsc": "Grado en Biología (mención en Biotecnología)",
     "edu.uvigo": "Universidade de Vigo",
-    "edu.y3": "2026<br>Publicación",
-    "edu.y4": "2026<br>Insignia de formación",
-    "edu.y5": "2025<br>Certificación",
     "edu.english": "Inglés B2 (CertAcles)",
-    "contact.title": "Trabajemos juntos",
+    "contact.title": "Trabajemos juntos.",
     "contact.desc": "Busco unas prácticas o un puesto junior en datos para 2026-27, en análisis de datos, ciencia de datos o machine learning, con especial interés en los datos de salud y de ciencias de la vida. Disponible en inglés, español y gallego.",
-    "contact.email": "Correo",
-    "footer.tagline": "Análisis de datos y machine learning · A Coruña, España"
+    "contact.email": "Escríbeme",
+    "footer.tagline": "Análisis de datos y machine learning. A Coruña, España."
   },
   gl: {
     "meta.title": "Marwan El Saabi - Analista de datos | Python, SQL e machine learning",
     "meta.description": "Portfolio de Marwan El Saabi, da bioloxía á ciencia de datos: sistemas de machine learning de principio a fin, previsión de demanda, aplicacións de IA xerativa, visión por computador e análise de datos biomédicos.",
+    "nav.work": "Proxectos",
     "nav.about": "Sobre min",
-    "nav.projects": "Proxectos",
-    "nav.skills": "Competencias",
+    "nav.toolkit": "Ferramentas",
     "nav.education": "Formación",
     "nav.contact": "Contacto",
     "nav.toggle": "Abrir ou pechar o menú",
-    "cta.cv": "Descargar CV",
     "lang.group": "Idioma",
-    "hero.label": "Máster en Bioinformática · A Coruña, España",
-    "hero.line1": "Da bioloxía",
-    "hero.line2": "<em>á ciencia de datos</em>",
-    "hero.subtitle": "Constrúo sistemas de machine learning de principio a fin: desde datos en bruto e desordenados ata unha aplicación despregada na que alguén poida facer clic de verdade.",
-    "hero.cta": "Ver proxectos ↓",
-    "kw.ts": "Series temporais",
-    "kw.genai": "IA xerativa",
-    "kw.cv": "Visión por computador",
+    "cta.cv": "Descargar CV",
+    "hero.title": "<span class=\"muted\">Da bioloxía</span><br>á ciencia de datos.",
+    "hero.lede": "Constrúo sistemas de machine learning de principio a fin, desde datos en bruto e desordenados ata unha aplicación que se pode usar de verdade.",
+    "hero.cta": "Ver proxectos",
+    "hero.github": "Perfil de GitHub",
+    "link.tryLive": "Probar a app",
+    "link.viewCode": "Ver o código",
+    "link.live": "App en directo",
+    "link.code": "Código",
+    "forecast.title": "Previsión de demanda en retail. <span class=\"muted\"><span class=\"num\">4.8%</span> mellor que o baseline máis forte.</span>",
+    "forecast.copy": "Previsións semanais por SKU sobre máis dun millón de transaccións reais de e-commerce. Un modelo global LightGBM comparado con baselines naive, naive estacional e de media móbil mediante backtesting con orixe móbil, con cada variable lida na orixe da previsión para descartar fugas de información.",
+    "forecast.alt": "App de previsión de demanda en retail: métricas do backtest e táboa de comparación de modelos",
+    "forecast.caption": "Resultados do backtest, promediados en todos os folds e SKUs.",
+    "drug.title": "Deseñador de fármacos con IA. <span class=\"muted\">Un LLM propón. RDKit valida.</span>",
+    "drug.copy": "Gemini xera moléculas candidatas como cadeas SMILES, un motor de validación quimioinformática descarta as estruturas fisicamente imposibles e as que superan o filtro represéntanse como modelos 3D optimizados. Feito con Python, Streamlit, a API de Gemini e RDKit.",
+    "drug.alt": "Interface do deseñador de fármacos de novo con IA: prompt de xeración de moléculas e motor de validación",
+    "more.title": "Máis proxectos. <span class=\"muted\">Xenómica, visión por computador e cribado de fármacos.</span>",
+    "rnaseq.title": "Panel de análise de RNA-seq.",
+    "rnaseq.desc": "Expresión diferencial co test t de Welch e corrección de Benjamini-Hochberg, PCA, volcano e MA plots e heatmaps, con datos sintéticos e co dataset real airway (Himes et al., 2014).",
+    "rnaseq.alt": "Panel de RNA-seq con volcano plot e MA plot",
+    "alz.title": "Clasificador de fármacos para o Alzheimer.",
+    "alz.desc": "Cribado virtual sobre datos curados de IC50 de ChEMBL con fingerprints de Morgan. Random Forest liderou os catro modelos comparados, cun AUROC de <span class=\"num\">0.96</span> en validación cruzada estratificada de 5 particións.",
+    "alz.alt": "Curvas ROC que comparan KNN, SVM, Random Forest e XGBoost",
+    "mel.title": "Detección de melanoma, sen deep learning.",
+    "mel.desc": "Segmentación Otsu, K-means e watershed seleccionada por IoU, e despois 40 características de forma, cor e textura e un SVM. Exactitude do <span class=\"num\">90.2%</span> e sensibilidade para melanoma do <span class=\"num\">84%</span> en ISIC 2018.",
+    "mel.alt": "Exemplo de segmentación: lesión orixinal, máscara de referencia e segmentación automática",
     "about.title": "Sobre min",
-    "about.p1": "Formeime en bioloxía, pero o que sempre máis me gustou foron os datos. A bioestatística era a miña materia favorita, e o meu traballo de fin de grao consistiu en converter fotografías de píntegas nun número que se puidese medir e comparar, un traballo que despois formou parte dun artigo revisado por pares. Iso foi o que me levou ao Máster en Bioinformática, e a desenvolver proxectos no meu tempo libre, moito máis alá da bioloxía.",
-    "projects.title": "Traballo seleccionado",
-    "projects.desc": "Proxectos de machine learning de principio a fin, desde a IA xerativa e a previsión de demanda ata a visión por computador.",
-    "link.live": "Ver app en directo →",
-    "link.code": "Ver código →",
-    "link.github": "Ver en GitHub →",
-    "p1.alt": "Interface do deseñador de fármacos de novo con IA: prompt de xeración de moléculas e motor de validación",
-    "p1.caption": "Fig. 01. Interface de xeración e motor de validación.",
-    "p1.title": "Deseñador de fármacos de novo con IA",
-    "p1.desc": "Aplicación web interactiva que usa LLMs xerativos para deseñar moléculas de novo. Inclúe un motor de validación quimioinformática que descarta estruturas fisicamente imposibles e xera modelos 3D optimizados dos candidatos viables.",
-    "p2.alt": "App de previsión de demanda en retail: métricas do backtest e gráficos de comparación de modelos",
-    "p2.caption": "Fig. 02. Resultados do backtest: comparación de modelos e estabilidade entre folds.",
-    "p2.title": "Previsión de demanda en retail",
-    "p2.desc": "Previsión semanal da demanda por SKU sobre máis de 1M de transaccións reais de e-commerce. Un modelo global LightGBM comparado con baselines naive, naive estacional e de media móbil mediante backtesting con orixe móbil, cun wMAPE un 4.8% mellor que o baseline máis forte e cada variable lida na orixe da previsión para descartar fugas de información.",
-    "p3.alt": "Vista previa do panel de análise de RNA-seq",
-    "p3.caption": "Fig. 03. Vistas de PCA, volcano plot e heatmap.",
-    "p3.title": "Panel de análise de RNA-seq",
-    "p3.desc": "Aplicación interactiva en Streamlit para a análise exploratoria de RNA-seq. Expresión diferencial co test t de Welch e corrección FDR de Benjamini-Hochberg, PCA, volcano/MA plots e heatmaps, con datos sintéticos e cos datos reais airway (Himes et al., 2014).",
-    "p4.alt": "Exemplo de segmentación: lesión orixinal, máscara de referencia e segmentación automática",
-    "p4.caption": "Fig. 04. Segmentación de exemplo (IoU 0.717); IoU medio de 0.735 no conxunto de proba.",
-    "p4.title": "Detección de melanoma (visión clásica)",
-    "p4.desc": "Segmentación e clasificación totalmente automáticas de lesións cutáneas dermatoscópicas (benignas fronte a melanoma) usando só visión por computador clásica, sen deep learning. Un ensemble de segmentacións Otsu, K-means e watershed seleccionado por IoU, e despois 40 características de forma, cor e textura (LBP/GLCM) clasificadas con SVM mediante validación cruzada de 5 particións. IoU medio de 0.735, exactitude do 90.2% e sensibilidade para melanoma do 84% no dataset ISIC 2018.",
-    "p5.alt": "Curvas ROC que comparan KNN, SVM, Random Forest e XGBoost; Random Forest e XGBoost acadan un AUC de 0.96",
-    "p5.caption": "Fig. 05. Comparación ROC dos catro modelos (CV de 5 particións, 300 variables seleccionadas).",
-    "p5.title": "Clasificador de fármacos para o Alzheimer",
-    "p5.desc": "Pipeline de cribado virtual sobre datos curados de bioactividade IC50 de ChEMBL: compostos codificados como fingerprints de Morgan de 1024 bits, con Random Forest, SVM, XGBoost e KNN comparados mediante validación cruzada estratificada de 5 particións e control de fugas de información. Random Forest obtivo o mellor resultado, cun AUROC de 0.96.",
-    "skills.title": "Competencias técnicas",
-    "skills.desc": "Agrupadas por área de aplicación.",
-    "sk.cat.lang": "Linguaxes",
-    "sk.cat.model": "Modelado",
-    "sk.cat.tools": "Ferramentas e infraestrutura",
-    "sk.ts": "Previsión de series temporais",
-    "sk.genai": "IA xerativa",
+    "about.statement": "<strong>Formeime en bioloxía, pero o que sempre máis me gustou foron os datos.</strong> A bioestatística era a miña materia favorita, e o meu traballo de fin de grao converteu fotografías de píntegas nun número que se podía medir e comparar, un traballo que despois formou parte dun artigo revisado por pares. <strong>Iso foi o que me levou ao Máster en Bioinformática,</strong> e a desenvolver proxectos moito máis alá da bioloxía.",
+    "toolkit.title": "Ferramentas.",
+    "toolkit.lang": "Linguaxes",
+    "toolkit.model": "Modelado",
+    "toolkit.tools": "Ferramentas e infraestrutura",
     "sk.sql": "Modelado relacional, deseño ER, consultas",
     "sk.matlab": "Redes neuronais, SVM e procesamento de imaxes",
     "sk.ml": "LightGBM, XGBoost, comparación de modelos, validación cruzada",
+    "sk.ts": "Previsión de series temporais",
     "sk.tsd": "Backtesting con orixe móbil, modelos de demanda, wMAPE / MASE",
+    "sk.genai": "IA xerativa",
     "sk.genaid": "APIs de LLM (Google Gemini), xeración con validación baseada en regras",
     "sk.streamlit": "Aplicacións de datos interactivas",
     "sk.git": "Control de versións, GitHub Actions",
     "sk.nextflow": "Orquestración de pipelines bioinformáticos",
+    "sk.hpcname": "Linux e HPC",
     "sk.hpc": "Bash, Docker, Conda, SLURM no supercomputador FinisTerrae III (CESGA)",
-    "edu.title": "Formación académica",
-    "edu.y1": "2025-2027<br>En curso",
+    "edu.title": "Formación e investigación.",
+    "edu.y1": "<span class=\"num\">2025-2027</span><br>En curso",
+    "edu.y3": "<span class=\"num\">2026</span><br>Publicación",
+    "edu.y4": "<span class=\"num\">2026</span><br>Insignia de formación",
+    "edu.y5": "<span class=\"num\">2025</span><br>Certificación",
     "edu.msc": "Máster Universitario en Bioinformática aplicada ás Ciencias da Saúde",
     "edu.udc": "Universidade da Coruña",
     "edu.bsc": "Grao en Bioloxía (mención en Biotecnoloxía)",
     "edu.uvigo": "Universidade de Vigo",
-    "edu.y3": "2026<br>Publicación",
-    "edu.y4": "2026<br>Insignia de formación",
-    "edu.y5": "2025<br>Certificación",
     "edu.english": "Inglés B2 (CertAcles)",
-    "contact.title": "Traballemos xuntos",
+    "contact.title": "Traballemos xuntos.",
     "contact.desc": "Busco unhas prácticas ou un posto júnior en datos para 2026-27, en análise de datos, ciencia de datos ou machine learning, con especial interese nos datos de saúde e de ciencias da vida. Dispoñible en inglés, español e galego.",
-    "contact.email": "Correo",
-    "footer.tagline": "Análise de datos e machine learning · A Coruña, España"
+    "contact.email": "Escríbeme",
+    "footer.tagline": "Análise de datos e machine learning. A Coruña, España."
   }
 };
 
@@ -1486,80 +1018,20 @@ langButtons.forEach(btn => {
   });
 });
 
-// Navbar scroll effect via IntersectionObserver (no scroll listener)
-const nav = document.getElementById('nav');
-const scrollSentinel = document.getElementById('scroll-sentinel');
-const navObserver = new IntersectionObserver((entries) => {
-  nav.classList.toggle('scrolled', !entries[0].isIntersecting);
-}, { threshold: 0 });
-navObserver.observe(scrollSentinel);
+// Mobile menu
+const navToggle = document.querySelector('.nav-toggle');
+const navMenu = document.getElementById('nav-menu');
 
-// Scroll reveal animations
-const observerOptions = {
-  threshold: 0.15,
-  rootMargin: '0px 0px -100px 0px'
-};
+function setMenu(open) {
+  navToggle.setAttribute('aria-expanded', String(open));
+  navMenu.classList.toggle('open', open);
+  document.body.classList.toggle('menu-open', open);
+}
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, index) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => {
-        entry.target.classList.add('visible');
-      }, index * 100);
-    }
-  });
-}, observerOptions);
-
-document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
-
-// Smooth scroll for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    if (this.getAttribute('href') !== '#') {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-  });
-});
-
-// Active section indicator in nav
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-
-const sectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === '#' + entry.target.id) {
-          link.classList.add('active');
-        }
-      });
-    }
-  });
-}, { threshold: 0.2, rootMargin: '-80px 0px -50% 0px' });
-
-sections.forEach(section => sectionObserver.observe(section));
-
-// Mobile menu toggle
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinksContainer = document.querySelector('.nav-links');
-
-menuToggle.addEventListener('click', () => {
-  menuToggle.classList.toggle('open');
-  navLinksContainer.classList.toggle('open');
-});
-
-// Close mobile menu when clicking a link
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', () => {
-    menuToggle.classList.remove('open');
-    navLinksContainer.classList.remove('open');
-  });
-});
+navToggle.addEventListener('click', () => setMenu(navToggle.getAttribute('aria-expanded') !== 'true'));
+navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+matchMedia('(min-width: 961px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
 </script>
 
 </body>
