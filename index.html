@@ -531,6 +531,122 @@
     }
   }
 
+  /* ---------- LIVE APP VIEWER ---------- */
+  .has-try { position: relative; }
+  .has-try::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 42%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.94) 72%);
+    pointer-events: none;
+  }
+  .try-btn {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    z-index: 1;
+    gap: 8px;
+    transform: translateX(-50%);
+  }
+  .try-btn svg { width: 10px; height: 12px; fill: currentColor; }
+  .try-btn:active { transform: translateX(-50%) scale(0.98); }
+  .tile:hover .tile-media .try-btn { transform: translateX(-50%); }
+
+  body:has(.viewer[open]) { overflow: hidden; }
+
+  .viewer {
+    width: min(1320px, 94vw);
+    height: min(880px, 90dvh);
+    max-width: none;
+    max-height: none;
+    margin: auto;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-window);
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--ink);
+    box-shadow: var(--shadow-window);
+  }
+  .viewer[open] {
+    display: flex;
+    flex-direction: column;
+    animation: viewer-in 0.45s var(--ease-out);
+  }
+  .viewer::backdrop {
+    background: rgba(29, 29, 31, 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  @keyframes viewer-in {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  }
+
+  .viewer-bar {
+    flex: none;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 12px 0 22px;
+    border-bottom: 1px solid var(--line);
+  }
+  .viewer-title {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .viewer-actions { display: flex; align-items: center; gap: 18px; }
+  .viewer-open { font-size: 14px; }
+  .viewer-close {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--bg-alt);
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .viewer-close:hover { background: #e8e8ed; }
+  .viewer-close svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+
+  .viewer-body { position: relative; flex: 1; background: var(--bg-alt); }
+  .viewer-loading {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    text-align: center;
+    font-size: 15px;
+    color: var(--ink-2);
+  }
+  .viewer-frame {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .viewer-frame.loaded { opacity: 1; }
+
+  @media (max-width: 834px) {
+    .try-btn { display: none; }
+    .has-try::after { display: none; }
+  }
+
   @media (max-width: 834px) {
     .section { padding: 96px 0; }
     .split { grid-template-columns: 1fr; gap: 48px; }
@@ -623,11 +739,11 @@
       <h2 class="headline" id="forecast-title" data-i18n-html="forecast.title">Retail demand forecasting. <span class="muted"><span class="num">4.8%</span> better than the strongest baseline.</span></h2>
       <p class="copy" data-i18n="forecast.copy">Weekly SKU-level forecasts on more than a million real e-commerce transactions. A global LightGBM model, benchmarked against naive, seasonal-naive and moving-average baselines under rolling-origin backtesting, with every feature read at the forecast origin to rule out leakage.</p>
       <div class="link-row">
-        <a class="chev-link" href="https://marwan-retail-demand-forecasting.streamlit.app" target="_blank" rel="noopener"><span data-i18n="link.tryLive">Try the live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+        <a class="chev-link" href="https://marwan-retail-demand-forecasting.streamlit.app" target="_blank" rel="noopener" data-embed="forecast"><span data-i18n="link.tryLive">Try the live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
         <a class="chev-link" href="https://github.com/marwansaabi/retail-demand-forecasting" target="_blank" rel="noopener"><span data-i18n="link.viewCode">View the code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
       </div>
       <figure class="feature-media">
-        <div class="window"><img src="retail_preview.jpg" alt="Retail Demand Forecasting app: backtest metrics and model comparison table" data-i18n-alt="forecast.alt" width="1600" height="960" loading="lazy"></div>
+        <div class="window has-try"><a class="btn try-btn" href="https://marwan-retail-demand-forecasting.streamlit.app" target="_blank" rel="noopener" data-embed="forecast"><svg viewBox="0 0 12 14" aria-hidden="true"><path d="M1.5 1.6v10.8a.6.6 0 0 0 .9.5l9-5.4a.6.6 0 0 0 0-1L2.4 1.1a.6.6 0 0 0-.9.5z"/></svg><span data-i18n="viewer.try">Try it here</span></a><img src="retail_preview.jpg" alt="Retail Demand Forecasting app: backtest metrics and model comparison table" data-i18n-alt="forecast.alt" width="1600" height="960" loading="lazy"></div>
         <figcaption class="caption" data-i18n="forecast.caption">Backtest results, averaged over every fold and SKU.</figcaption>
       </figure>
     </div>
@@ -640,7 +756,7 @@
         <h2 class="headline" id="drug-title" data-i18n-html="drug.title">AI drug designer. <span class="muted">An LLM proposes. RDKit validates.</span></h2>
         <p class="copy" data-i18n="drug.copy">Gemini generates candidate molecules as SMILES strings, a cheminformatics validation engine filters out physically impossible structures, and the survivors are rendered as optimized 3D models. Built with Python, Streamlit, the Gemini API and RDKit.</p>
         <div class="link-row">
-          <a class="chev-link" href="https://marwan-drug-discovery.streamlit.app" target="_blank" rel="noopener"><span data-i18n="link.tryLive">Try the live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+          <a class="chev-link" href="https://marwan-drug-discovery.streamlit.app" target="_blank" rel="noopener" data-embed="drug"><span data-i18n="link.tryLive">Try the live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
           <a class="chev-link" href="https://github.com/marwansaabi/ai-drug-designer" target="_blank" rel="noopener"><span data-i18n="link.viewCode">View the code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
         </div>
       </div>
@@ -660,10 +776,10 @@
           <h3 data-i18n="rnaseq.title">RNA-seq analysis dashboard.</h3>
           <p data-i18n="rnaseq.desc">Differential expression with Welch's t-test and Benjamini-Hochberg correction, PCA, volcano and MA plots and heatmaps, on synthetic data and the real airway dataset (Himes et al., 2014).</p>
           <div class="link-row">
-            <a class="chev-link" href="https://marwan-rnaseq-dashboard.streamlit.app" target="_blank" rel="noopener"><span data-i18n="link.live">Live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+            <a class="chev-link" href="https://marwan-rnaseq-dashboard.streamlit.app" target="_blank" rel="noopener" data-embed="rnaseq"><span data-i18n="link.live">Live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
             <a class="chev-link" href="https://github.com/marwansaabi/rnaseq-dashboard" target="_blank" rel="noopener"><span data-i18n="link.code">Code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
           </div>
-          <div class="tile-media"><img src="rnaseq_preview.jpg" alt="RNA-seq dashboard with volcano and MA plots" data-i18n-alt="rnaseq.alt" width="1600" height="960" loading="lazy"></div>
+          <div class="tile-media has-try"><a class="btn try-btn" href="https://marwan-rnaseq-dashboard.streamlit.app" target="_blank" rel="noopener" data-embed="rnaseq"><svg viewBox="0 0 12 14" aria-hidden="true"><path d="M1.5 1.6v10.8a.6.6 0 0 0 .9.5l9-5.4a.6.6 0 0 0 0-1L2.4 1.1a.6.6 0 0 0-.9.5z"/></svg><span data-i18n="viewer.try">Try it here</span></a><img src="rnaseq_preview.jpg" alt="RNA-seq dashboard with volcano and MA plots" data-i18n-alt="rnaseq.alt" width="1600" height="960" loading="lazy"></div>
         </article>
 
         <article class="tile tile-alz">
@@ -680,7 +796,7 @@
             <h3 data-i18n="mel.title">Melanoma detection, without deep learning.</h3>
             <p data-i18n-html="mel.desc">Otsu, K-means and watershed segmentation selected by IoU, then 40 shape, colour and texture features and an SVM. <span class="num">90.2%</span> accuracy and <span class="num">84%</span> melanoma sensitivity on ISIC 2018.</p>
             <div class="link-row">
-              <a class="chev-link" href="https://marwan-melanoma-detection.streamlit.app" target="_blank" rel="noopener"><span data-i18n="link.live">Live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+              <a class="chev-link" href="https://marwan-melanoma-detection.streamlit.app" target="_blank" rel="noopener" data-embed="melanoma"><span data-i18n="link.live">Live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
               <a class="chev-link" href="https://github.com/marwansaabi/melanoma-detection" target="_blank" rel="noopener"><span data-i18n="link.code">Code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
             </div>
           </div>
@@ -805,6 +921,22 @@
 
 </main>
 
+<dialog class="viewer" id="app-viewer" aria-labelledby="viewer-title">
+  <div class="viewer-bar">
+    <h2 class="viewer-title" id="viewer-title"></h2>
+    <div class="viewer-actions">
+      <a class="chev-link viewer-open" href="#" target="_blank" rel="noopener"><span data-i18n="viewer.open">Open in new tab</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+      <button class="viewer-close" type="button" aria-label="Close" data-i18n-aria="viewer.close">
+        <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M1.5 1.5l11 11M12.5 1.5l-11 11"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="viewer-body">
+    <p class="viewer-loading" data-i18n="viewer.loading">Starting the live app. This can take a few seconds.</p>
+    <iframe class="viewer-frame" title="" allow="clipboard-write"></iframe>
+  </div>
+</dialog>
+
 <footer class="footer">
   <div class="wrap">
     <span>© 2026 Marwan El Saabi González</span>
@@ -882,7 +1014,15 @@ const I18N = {
     "contact.title": "Trabajemos juntos.",
     "contact.desc": "Busco unas prácticas o un puesto junior en datos para 2026-27, en análisis de datos, ciencia de datos o machine learning, con especial interés en los datos de salud y de ciencias de la vida. Disponible en inglés, español y gallego.",
     "contact.email": "Escríbeme",
-    "footer.tagline": "Análisis de datos y machine learning. A Coruña, España."
+    "footer.tagline": "Análisis de datos y machine learning. A Coruña, España.",
+    "viewer.try": "Pruébala aquí",
+    "viewer.open": "Abrir en una pestaña nueva",
+    "viewer.close": "Cerrar",
+    "viewer.loading": "Arrancando la app. Puede tardar unos segundos.",
+    "viewer.forecast": "Previsión de demanda en retail",
+    "viewer.drug": "Diseñador de fármacos con IA",
+    "viewer.rnaseq": "Panel de análisis de RNA-seq",
+    "viewer.melanoma": "Detección de melanoma"
   },
   gl: {
     "meta.title": "Marwan El Saabi - Analista de datos | Python, SQL e machine learning",
@@ -951,7 +1091,15 @@ const I18N = {
     "contact.title": "Traballemos xuntos.",
     "contact.desc": "Busco unhas prácticas ou un posto júnior en datos para 2026-27, en análise de datos, ciencia de datos ou machine learning, con especial interese nos datos de saúde e de ciencias da vida. Dispoñible en inglés, español e galego.",
     "contact.email": "Escríbeme",
-    "footer.tagline": "Análise de datos e machine learning. A Coruña, España."
+    "footer.tagline": "Análise de datos e machine learning. A Coruña, España.",
+    "viewer.try": "Próbaa aquí",
+    "viewer.open": "Abrir nunha pestana nova",
+    "viewer.close": "Pechar",
+    "viewer.loading": "Arrancando a app. Pode tardar uns segundos.",
+    "viewer.forecast": "Previsión de demanda en retail",
+    "viewer.drug": "Deseñador de fármacos con IA",
+    "viewer.rnaseq": "Panel de análise de RNA-seq",
+    "viewer.melanoma": "Detección de melanoma"
   }
 };
 
@@ -985,7 +1133,10 @@ const writeI18n = (el, kind, value) => {
 
 const langButtons = document.querySelectorAll('.lang-switch button');
 
+let currentLang = 'en';
+
 function setLanguage(lang) {
+  currentLang = lang;
   const dict = I18N[lang] || {};
   const t = key => dict[key] ?? i18nSource[key];
   i18nBindings.forEach(([el, kind, key]) => writeI18n(el, kind, t(key)));
@@ -1015,6 +1166,49 @@ langButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     setLanguage(btn.dataset.lang);
     try { localStorage.setItem('lang', btn.dataset.lang); } catch (e) {}
+  });
+});
+
+// Live app viewer: on desktop, live-app links open the app inside the page.
+const VIEWER_APPS = {
+  forecast: { url: 'https://marwan-retail-demand-forecasting.streamlit.app', name: 'Retail demand forecasting' },
+  drug: { url: 'https://marwan-drug-discovery.streamlit.app', name: 'AI drug designer' },
+  rnaseq: { url: 'https://marwan-rnaseq-dashboard.streamlit.app', name: 'RNA-seq analysis dashboard' },
+  melanoma: { url: 'https://marwan-melanoma-detection.streamlit.app', name: 'Melanoma detection' }
+};
+const viewer = document.getElementById('app-viewer');
+const viewerFrame = viewer.querySelector('.viewer-frame');
+const viewerTitle = viewer.querySelector('.viewer-title');
+const viewerOpen = viewer.querySelector('.viewer-open');
+const embedOnDesktop = matchMedia('(min-width: 835px)');
+
+function openViewer(key) {
+  const app = VIEWER_APPS[key];
+  const name = (I18N[currentLang] || {})[`viewer.${key}`] ?? app.name;
+  viewerTitle.textContent = name;
+  viewerFrame.title = name;
+  viewerOpen.href = app.url;
+  viewerFrame.classList.remove('loaded');
+  viewerFrame.src = `${app.url}/?embed=true`;
+  viewer.showModal();
+}
+
+viewerFrame.addEventListener('load', () => {
+  if (viewerFrame.getAttribute('src') !== 'about:blank') viewerFrame.classList.add('loaded');
+});
+viewer.addEventListener('close', () => {
+  viewerFrame.classList.remove('loaded');
+  viewerFrame.src = 'about:blank';
+});
+viewer.querySelector('.viewer-close').addEventListener('click', () => viewer.close());
+viewer.addEventListener('click', e => { if (e.target === viewer) viewer.close(); });
+viewerOpen.addEventListener('click', () => viewer.close());
+
+document.querySelectorAll('[data-embed]').forEach(link => {
+  link.addEventListener('click', e => {
+    if (!embedOnDesktop.matches || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    openViewer(link.dataset.embed);
   });
 });
 
