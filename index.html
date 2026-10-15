@@ -784,11 +784,11 @@
 
         <article class="tile tile-alz">
           <h3 data-i18n="alz.title">Alzheimer's drug classifier.</h3>
-          <p data-i18n-html="alz.desc">Virtual screening on curated ChEMBL IC50 data with Morgan fingerprints. Random Forest led four benchmarked models with <span class="num">0.96</span> AUROC under stratified 5-fold cross-validation.</p>
+          <p data-i18n-html="alz.desc">Virtual screening on curated ChEMBL IC50 data with Morgan fingerprints. Random Forest led four benchmarked models with <span class="num">0.92</span> AUROC under scaffold-split cross-validation, a stricter test on unseen chemical families than a random split (0.96).</p>
           <div class="link-row">
             <a class="chev-link" href="https://github.com/marwansaabi/ml-alzheimer-classifier" target="_blank" rel="noopener"><span data-i18n="link.code">Code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
           </div>
-          <div class="tile-media"><img src="alzheimer_preview.jpg" alt="ROC curves comparing KNN, SVM, Random Forest and XGBoost" data-i18n-alt="alz.alt" width="1100" height="899" loading="lazy"></div>
+          <div class="tile-media"><img src="alzheimer_preview.jpg" alt="ROC curves comparing KNN, SVM, Random Forest and XGBoost under scaffold-split validation" data-i18n-alt="alz.alt" width="1100" height="899" loading="lazy"></div>
         </article>
 
         <article class="tile tile-melanoma">
@@ -978,8 +978,8 @@ const I18N = {
     "rnaseq.desc": "Expresión diferencial con el test t de Welch y corrección de Benjamini-Hochberg, PCA, volcano y MA plots y heatmaps, con datos sintéticos y con el dataset real airway (Himes et al., 2014).",
     "rnaseq.alt": "Panel de RNA-seq con volcano plot y MA plot",
     "alz.title": "Clasificador de fármacos para el Alzheimer.",
-    "alz.desc": "Cribado virtual sobre datos curados de IC50 de ChEMBL con fingerprints de Morgan. Random Forest lideró los cuatro modelos comparados, con un AUROC de <span class=\"num\">0.96</span> en validación cruzada estratificada de 5 particiones.",
-    "alz.alt": "Curvas ROC que comparan KNN, SVM, Random Forest y XGBoost",
+    "alz.desc": "Cribado virtual sobre datos curados de IC50 de ChEMBL con fingerprints de Morgan. Random Forest lideró los cuatro modelos comparados, con un AUROC de <span class=\"num\">0.92</span> validando por scaffold, una prueba más exigente con familias químicas nuevas que el reparto aleatorio (0.96).",
+    "alz.alt": "Curvas ROC que comparan KNN, SVM, Random Forest y XGBoost validando por scaffold",
     "mel.title": "Detección de melanoma, sin deep learning.",
     "mel.desc": "Segmentación Otsu, K-means y watershed seleccionada por IoU, y después 40 características de forma, color y textura y un SVM. Exactitud del <span class=\"num\">90.2%</span> y sensibilidad para melanoma del <span class=\"num\">84%</span> en ISIC 2018.",
     "mel.alt": "Ejemplo de segmentación: lesión original, máscara de referencia y segmentación automática",
@@ -1055,8 +1055,8 @@ const I18N = {
     "rnaseq.desc": "Expresión diferencial co test t de Welch e corrección de Benjamini-Hochberg, PCA, volcano e MA plots e heatmaps, con datos sintéticos e co dataset real airway (Himes et al., 2014).",
     "rnaseq.alt": "Panel de RNA-seq con volcano plot e MA plot",
     "alz.title": "Clasificador de fármacos para o Alzheimer.",
-    "alz.desc": "Cribado virtual sobre datos curados de IC50 de ChEMBL con fingerprints de Morgan. Random Forest liderou os catro modelos comparados, cun AUROC de <span class=\"num\">0.96</span> en validación cruzada estratificada de 5 particións.",
-    "alz.alt": "Curvas ROC que comparan KNN, SVM, Random Forest e XGBoost",
+    "alz.desc": "Cribado virtual sobre datos curados de IC50 de ChEMBL con fingerprints de Morgan. Random Forest liderou os catro modelos comparados, cun AUROC de <span class=\"num\">0.92</span> validando por scaffold, unha proba máis esixente con familias químicas novas que o reparto aleatorio (0.96).",
+    "alz.alt": "Curvas ROC que comparan KNN, SVM, Random Forest e XGBoost validando por scaffold",
     "mel.title": "Detección de melanoma, sen deep learning.",
     "mel.desc": "Segmentación Otsu, K-means e watershed seleccionada por IoU, e despois 40 características de forma, cor e textura e un SVM. Exactitude do <span class=\"num\">90.2%</span> e sensibilidade para melanoma do <span class=\"num\">84%</span> en ISIC 2018.",
     "mel.alt": "Exemplo de segmentación: lesión orixinal, máscara de referencia e segmentación automática",
