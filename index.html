@@ -696,7 +696,7 @@
       <li><a href="#skills" data-i18n="nav.toolkit">Toolkit</a></li>
       <li><a href="#education" data-i18n="nav.education">Education</a></li>
       <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
-      <li class="menu-only"><a href="Marwan_El_Saabi_CV.pdf" class="btn" download data-i18n="cta.cv">Download CV</a></li>
+      <li class="menu-only"><a href="Marwan_El_Saabi_CV.pdf" data-cv class="btn" download data-i18n="cta.cv">Download CV</a></li>
     </ul>
     <div class="nav-actions">
       <div class="lang-switch" role="group" aria-label="Language" data-i18n-aria="lang.group">
@@ -704,7 +704,7 @@
         <button type="button" data-lang="es" lang="es" aria-label="Español" aria-pressed="false">ES</button>
         <button type="button" data-lang="gl" lang="gl" aria-label="Galego" aria-pressed="false">GL</button>
       </div>
-      <a href="Marwan_El_Saabi_CV.pdf" class="btn btn-small" download data-i18n="cta.cv">Download CV</a>
+      <a href="Marwan_El_Saabi_CV.pdf" data-cv class="btn btn-small" download data-i18n="cta.cv">Download CV</a>
       <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu" data-i18n-aria="nav.toggle">
         <span></span>
         <span></span>
@@ -911,7 +911,7 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-2.85 17.54c.45.08.61-.2.61-.43v-1.5c-2.5.55-3.03-1.2-3.03-1.2-.41-1.04-1-1.32-1-1.32-.82-.56.06-.55.06-.55.9.06 1.38.93 1.38.93.8 1.38 2.1.98 2.61.75.08-.58.31-.98.57-1.21-2-.23-4.1-1-4.1-4.45 0-.98.35-1.79.92-2.42-.09-.23-.4-1.15.09-2.4 0 0 .75-.24 2.46.92a8.5 8.5 0 0 1 4.48 0c1.71-1.16 2.46-.92 2.46-.92.49 1.25.18 2.17.09 2.4.57.63.92 1.44.92 2.42 0 3.46-2.11 4.22-4.12 4.44.32.28.61.83.61 1.68v2.48c0 .24.16.52.62.43A9 9 0 0 0 12 3z"/></svg>
           GitHub
         </a>
-        <a href="Marwan_El_Saabi_CV.pdf" class="btn btn-ghost" download>
+        <a href="Marwan_El_Saabi_CV.pdf" data-cv class="btn btn-ghost" download>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
           <span data-i18n="cta.cv">Download CV</span>
         </a>
@@ -1135,6 +1135,9 @@ const langButtons = document.querySelectorAll('.lang-switch button');
 
 let currentLang = 'en';
 
+// There is no Galician CV, so Galician visitors get the Spanish one.
+const CV_FILES = { en: 'Marwan_El_Saabi_CV.pdf', es: 'Marwan_El_Saabi_CV_ES.pdf', gl: 'Marwan_El_Saabi_CV_ES.pdf' };
+
 function setLanguage(lang) {
   currentLang = lang;
   const dict = I18N[lang] || {};
@@ -1143,6 +1146,7 @@ function setLanguage(lang) {
   document.title = t('meta.title');
   metaDescription.content = t('meta.description');
   document.documentElement.lang = lang;
+  document.querySelectorAll('a[data-cv]').forEach(a => { a.href = CV_FILES[lang] || CV_FILES.en; });
   langButtons.forEach(btn => btn.setAttribute('aria-pressed', String(btn.dataset.lang === lang)));
 }
 
