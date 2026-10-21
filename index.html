@@ -226,6 +226,8 @@
     object-fit: cover;
     object-position: top;
   }
+  /* charts are shown whole on white instead of cropped like screenshots */
+  .window.chart img { object-fit: contain; background: #fff; padding: 3% 4%; }
 
   /* ---------- HERO ---------- */
   .hero {
@@ -385,7 +387,9 @@
   }
   .tile:hover .tile-media img { transform: translateY(-6px); }
 
-  .tile-rnaseq { grid-column: span 7; }
+  .tile-rnaseq { grid-column: span 5; }
+  .tile-drug { grid-column: span 7; }
+  .tile-drug .tile-media img { aspect-ratio: 16 / 9; object-fit: cover; object-position: top left; }
   .tile-rnaseq .tile-media img { aspect-ratio: 16 / 9; object-fit: cover; object-position: top left; }
 
   .tile-alz { grid-column: span 5; }
@@ -652,7 +656,7 @@
     .split { grid-template-columns: 1fr; gap: 48px; }
     .split .window { transform: none; }
     .bento { grid-template-columns: 1fr; }
-    .tile-rnaseq, .tile-alz, .tile-melanoma { grid-column: auto; }
+    .tile-rnaseq, .tile-drug, .tile-melanoma { grid-column: auto; }
     .tile-melanoma { grid-template-columns: 1fr; gap: 32px; }
     .specs { grid-template-columns: 1fr; gap: 40px; }
   }
@@ -726,7 +730,7 @@
       </div>
 
       <div class="stage" aria-hidden="true">
-        <div class="window w-left"><img src="rnaseq_preview.jpg" alt="" width="1600" height="960"></div>
+        <div class="window w-left chart"><img src="alzheimer_preview.jpg" alt="" width="1100" height="899"></div>
         <div class="window w-right"><img src="drugdesigner_preview.jpg" alt="" width="1600" height="1000"></div>
         <div class="window w-center"><img src="retail_preview.jpg" alt="" width="1600" height="960" fetchpriority="high"></div>
       </div>
@@ -749,18 +753,17 @@
     </div>
   </section>
 
-  <!-- FEATURE 2: DRUG DESIGNER -->
-  <section class="section" aria-labelledby="drug-title">
+  <!-- FEATURE 2: ALZHEIMER CLASSIFIER -->
+  <section class="section" aria-labelledby="alz-title">
     <div class="wrap split">
       <div>
-        <h2 class="headline" id="drug-title" data-i18n-html="drug.title">AI drug designer. <span class="muted">An LLM proposes. RDKit validates.</span></h2>
-        <p class="copy" data-i18n="drug.copy">Gemini generates candidate molecules as SMILES strings, a cheminformatics validation engine filters out physically impossible structures, and the survivors are rendered as optimized 3D models. Built with Python, Streamlit, the Gemini API and RDKit.</p>
+        <h2 class="headline" id="alz-title" data-i18n-html="alzf.title">Alzheimer's drug classifier. <span class="muted">Tested on chemistry it had never seen.</span></h2>
+        <p class="copy" data-i18n-html="alzf.copy">A virtual screening model on 4,310 curated ChEMBL molecules encoded as Morgan fingerprints. Four models compared; Random Forest reached <span class="num">0.92</span> AUROC under scaffold-split cross-validation, a stricter and more honest test than a random split, which inflates it to <span class="num">0.96</span>. Built with Python, scikit-learn, XGBoost and RDKit.</p>
         <div class="link-row">
-          <a class="chev-link" href="https://marwan-drug-discovery.streamlit.app" target="_blank" rel="noopener" data-embed="drug"><span data-i18n="link.tryLive">Try the live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
-          <a class="chev-link" href="https://github.com/marwansaabi/ai-drug-designer" target="_blank" rel="noopener"><span data-i18n="link.viewCode">View the code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+          <a class="chev-link" href="https://github.com/marwansaabi/ml-alzheimer-classifier" target="_blank" rel="noopener"><span data-i18n="link.viewCode">View the code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
         </div>
       </div>
-      <div class="window"><img src="drugdesigner_preview.jpg" alt="AI drug designer results: five generated molecules validated by RDKit, the first shown as a 2D structure and a 3D model" data-i18n-alt="drug.alt" width="1600" height="1000" loading="lazy"></div>
+      <div class="window chart"><img src="alzheimer_preview.jpg" alt="ROC curves comparing KNN, SVM, Random Forest and XGBoost under scaffold-split validation" data-i18n-alt="alz.alt" width="1100" height="899" loading="lazy"></div>
     </div>
   </section>
 
@@ -768,29 +771,10 @@
   <section class="section alt" aria-labelledby="more-title">
     <div class="wrap">
       <div class="center">
-        <h2 class="headline" id="more-title" data-i18n-html="more.title">More work. <span class="muted">Genomics, computer vision and drug screening.</span></h2>
+        <h2 class="headline" id="more-title" data-i18n-html="more.title">More work. <span class="muted">Computer vision, generative AI and genomics.</span></h2>
       </div>
 
       <div class="bento">
-        <article class="tile tile-rnaseq">
-          <h3 data-i18n="rnaseq.title">RNA-seq analysis dashboard.</h3>
-          <p data-i18n="rnaseq.desc">Differential expression with Welch's t-test and Benjamini-Hochberg correction, PCA, volcano and MA plots and heatmaps, on synthetic data and the real airway dataset (Himes et al., 2014).</p>
-          <div class="link-row">
-            <a class="chev-link" href="https://marwan-rnaseq-dashboard.streamlit.app" target="_blank" rel="noopener" data-embed="rnaseq"><span data-i18n="link.live">Live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
-            <a class="chev-link" href="https://github.com/marwansaabi/rnaseq-dashboard" target="_blank" rel="noopener"><span data-i18n="link.code">Code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
-          </div>
-          <div class="tile-media has-try"><a class="btn try-btn" href="https://marwan-rnaseq-dashboard.streamlit.app" target="_blank" rel="noopener" data-embed="rnaseq"><svg viewBox="0 0 12 14" aria-hidden="true"><path d="M1.5 1.6v10.8a.6.6 0 0 0 .9.5l9-5.4a.6.6 0 0 0 0-1L2.4 1.1a.6.6 0 0 0-.9.5z"/></svg><span data-i18n="viewer.try">Try it here</span></a><img src="rnaseq_preview.jpg" alt="RNA-seq dashboard with volcano and MA plots" data-i18n-alt="rnaseq.alt" width="1600" height="960" loading="lazy"></div>
-        </article>
-
-        <article class="tile tile-alz">
-          <h3 data-i18n="alz.title">Alzheimer's drug classifier.</h3>
-          <p data-i18n-html="alz.desc">Virtual screening on curated ChEMBL IC50 data with Morgan fingerprints. Random Forest led four benchmarked models with <span class="num">0.92</span> AUROC under scaffold-split cross-validation, a stricter test on unseen chemical families than a random split (0.96).</p>
-          <div class="link-row">
-            <a class="chev-link" href="https://github.com/marwansaabi/ml-alzheimer-classifier" target="_blank" rel="noopener"><span data-i18n="link.code">Code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
-          </div>
-          <div class="tile-media"><img src="alzheimer_preview.jpg" alt="ROC curves comparing KNN, SVM, Random Forest and XGBoost under scaffold-split validation" data-i18n-alt="alz.alt" width="1100" height="899" loading="lazy"></div>
-        </article>
-
         <article class="tile tile-melanoma">
           <div>
             <h3 data-i18n="mel.title">Melanoma detection, without deep learning.</h3>
@@ -801,6 +785,26 @@
             </div>
           </div>
           <div class="tile-media"><img src="melanoma_preview.png" alt="Segmentation example: original lesion, ground truth mask and automatic segmentation" data-i18n-alt="mel.alt" width="1489" height="401" loading="lazy"></div>
+        </article>
+
+        <article class="tile tile-drug">
+          <h3 data-i18n="drugt.title">AI drug designer.</h3>
+          <p data-i18n="drugt.desc">Gemini proposes candidate molecules as SMILES strings and RDKit rejects the chemically invalid ones before the rest are rendered in 3D.</p>
+          <div class="link-row">
+            <a class="chev-link" href="https://marwan-drug-discovery.streamlit.app" target="_blank" rel="noopener" data-embed="drug"><span data-i18n="link.live">Live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+            <a class="chev-link" href="https://github.com/marwansaabi/ai-drug-designer" target="_blank" rel="noopener"><span data-i18n="link.code">Code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+          </div>
+          <div class="tile-media has-try"><a class="btn try-btn" href="https://marwan-drug-discovery.streamlit.app" target="_blank" rel="noopener" data-embed="drug"><svg viewBox="0 0 12 14" aria-hidden="true"><path d="M1.5 1.6v10.8a.6.6 0 0 0 .9.5l9-5.4a.6.6 0 0 0 0-1L2.4 1.1a.6.6 0 0 0-.9.5z"/></svg><span data-i18n="viewer.try">Try it here</span></a><img src="drugdesigner_preview.jpg" alt="AI drug designer results: five generated molecules validated by RDKit, the first shown as a 2D structure and a 3D model" data-i18n-alt="drug.alt" width="1600" height="1000" loading="lazy"></div>
+        </article>
+
+        <article class="tile tile-rnaseq">
+          <h3 data-i18n="rnaseq.title">RNA-seq analysis dashboard.</h3>
+          <p data-i18n="rnaseq.desc">Explore RNA-seq data in the browser: quality control, PCA, differential expression with FDR correction, and volcano and MA plots.</p>
+          <div class="link-row">
+            <a class="chev-link" href="https://marwan-rnaseq-dashboard.streamlit.app" target="_blank" rel="noopener" data-embed="rnaseq"><span data-i18n="link.live">Live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+            <a class="chev-link" href="https://github.com/marwansaabi/rnaseq-dashboard" target="_blank" rel="noopener"><span data-i18n="link.code">Code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+          </div>
+          <div class="tile-media has-try"><a class="btn try-btn" href="https://marwan-rnaseq-dashboard.streamlit.app" target="_blank" rel="noopener" data-embed="rnaseq"><svg viewBox="0 0 12 14" aria-hidden="true"><path d="M1.5 1.6v10.8a.6.6 0 0 0 .9.5l9-5.4a.6.6 0 0 0 0-1L2.4 1.1a.6.6 0 0 0-.9.5z"/></svg><span data-i18n="viewer.try">Try it here</span></a><img src="rnaseq_preview.jpg" alt="RNA-seq dashboard with volcano and MA plots" data-i18n-alt="rnaseq.alt" width="1600" height="960" loading="lazy"></div>
         </article>
       </div>
     </div>
@@ -973,9 +977,13 @@ const I18N = {
     "drug.title": "Diseñador de fármacos con IA. <span class=\"muted\">Un LLM propone. RDKit valida.</span>",
     "drug.copy": "Gemini genera moléculas candidatas como cadenas SMILES, un motor de validación quimioinformática descarta las estructuras físicamente imposibles y las que superan el filtro se representan como modelos 3D optimizados. Hecho con Python, Streamlit, la API de Gemini y RDKit.",
     "drug.alt": "Resultados del diseñador de fármacos con IA: cinco moléculas generadas y validadas por RDKit, la primera en estructura 2D y modelo 3D",
-    "more.title": "Más proyectos. <span class=\"muted\">Genómica, visión por computador y cribado de fármacos.</span>",
+    "more.title": "Más proyectos. <span class=\"muted\">Visión por computador, IA generativa y genómica.</span>",
+    "alzf.title": "Clasificador de fármacos para el Alzheimer. <span class=\"muted\">Evaluado con química que nunca había visto.</span>",
+    "alzf.copy": "Un modelo de cribado virtual sobre 4.310 moléculas curadas de ChEMBL, codificadas con fingerprints de Morgan. Comparé cuatro modelos: Random Forest alcanzó un AUROC de <span class=\"num\">0.92</span> validando por scaffold, una prueba más exigente y honesta que el reparto aleatorio, que lo infla hasta <span class=\"num\">0.96</span>. Hecho con Python, scikit-learn, XGBoost y RDKit.",
+    "drugt.title": "Diseñador de fármacos con IA.",
+    "drugt.desc": "Gemini propone moléculas candidatas como cadenas SMILES y RDKit descarta las químicamente inválidas antes de mostrar el resto en 3D.",
     "rnaseq.title": "Panel de análisis de RNA-seq.",
-    "rnaseq.desc": "Expresión diferencial con el test t de Welch y corrección de Benjamini-Hochberg, PCA, volcano y MA plots y heatmaps, con datos sintéticos y con el dataset real airway (Himes et al., 2014).",
+    "rnaseq.desc": "Explora datos de RNA-seq en el navegador: control de calidad, PCA, expresión diferencial con corrección FDR y volcano y MA plots.",
     "rnaseq.alt": "Panel de RNA-seq con volcano plot y MA plot",
     "alz.title": "Clasificador de fármacos para el Alzheimer.",
     "alz.desc": "Cribado virtual sobre datos curados de IC50 de ChEMBL con fingerprints de Morgan. Random Forest lideró los cuatro modelos comparados, con un AUROC de <span class=\"num\">0.92</span> validando por scaffold, una prueba más exigente con familias químicas nuevas que el reparto aleatorio (0.96).",
@@ -1050,9 +1058,13 @@ const I18N = {
     "drug.title": "Deseñador de fármacos con IA. <span class=\"muted\">Un LLM propón. RDKit valida.</span>",
     "drug.copy": "Gemini xera moléculas candidatas como cadeas SMILES, un motor de validación quimioinformática descarta as estruturas fisicamente imposibles e as que superan o filtro represéntanse como modelos 3D optimizados. Feito con Python, Streamlit, a API de Gemini e RDKit.",
     "drug.alt": "Resultados do deseñador de fármacos con IA: cinco moléculas xeradas e validadas por RDKit, a primeira en estrutura 2D e modelo 3D",
-    "more.title": "Máis proxectos. <span class=\"muted\">Xenómica, visión por computador e cribado de fármacos.</span>",
+    "more.title": "Máis proxectos. <span class=\"muted\">Visión por computador, IA xerativa e xenómica.</span>",
+    "alzf.title": "Clasificador de fármacos para o Alzheimer. <span class=\"muted\">Avaliado con química que nunca vira.</span>",
+    "alzf.copy": "Un modelo de cribado virtual sobre 4.310 moléculas curadas de ChEMBL, codificadas con fingerprints de Morgan. Comparei catro modelos: Random Forest acadou un AUROC de <span class=\"num\">0.92</span> validando por scaffold, unha proba máis esixente e honesta que o reparto aleatorio, que o infla ata <span class=\"num\">0.96</span>. Feito con Python, scikit-learn, XGBoost e RDKit.",
+    "drugt.title": "Deseñador de fármacos con IA.",
+    "drugt.desc": "Gemini propón moléculas candidatas como cadeas SMILES e RDKit descarta as quimicamente inválidas antes de amosar o resto en 3D.",
     "rnaseq.title": "Panel de análise de RNA-seq.",
-    "rnaseq.desc": "Expresión diferencial co test t de Welch e corrección de Benjamini-Hochberg, PCA, volcano e MA plots e heatmaps, con datos sintéticos e co dataset real airway (Himes et al., 2014).",
+    "rnaseq.desc": "Explora datos de RNA-seq no navegador: control de calidade, PCA, expresión diferencial con corrección FDR e volcano e MA plots.",
     "rnaseq.alt": "Panel de RNA-seq con volcano plot e MA plot",
     "alz.title": "Clasificador de fármacos para o Alzheimer.",
     "alz.desc": "Cribado virtual sobre datos curados de IC50 de ChEMBL con fingerprints de Morgan. Random Forest liderou os catro modelos comparados, cun AUROC de <span class=\"num\">0.92</span> validando por scaffold, unha proba máis esixente con familias químicas novas que o reparto aleatorio (0.96).",
