@@ -338,6 +338,8 @@
   }
   .split .headline { font-size: clamp(2rem, 3.4vw, 2.75rem); }
   .split .window { transform: translateX(4%); }
+  .split.reverse > :first-child { order: 2; }
+  .split.reverse .window { transform: translateX(-4%); }
 
   /* Bento */
   .bento {
@@ -655,6 +657,7 @@
     .section { padding: 96px 0; }
     .split { grid-template-columns: 1fr; gap: 48px; }
     .split .window { transform: none; }
+    .split.reverse > :first-child { order: 0; }
     .bento { grid-template-columns: 1fr; }
     .tile-rnaseq, .tile-drug, .tile-melanoma { grid-column: auto; }
     .tile-melanoma { grid-template-columns: 1fr; gap: 32px; }
@@ -753,9 +756,23 @@
     </div>
   </section>
 
-  <!-- FEATURE 2: ALZHEIMER CLASSIFIER -->
-  <section class="section" aria-labelledby="alz-title">
+  <!-- FEATURE 2: CLINICAL TRIALS -->
+  <section class="section" aria-labelledby="clin-title">
     <div class="wrap split">
+      <div>
+        <h2 class="headline" id="clin-title" data-i18n-html="clin.title">Why do clinical trials fail? <span class="muted">Mostly for lack of patients, not safety.</span></h2>
+        <p class="copy" data-i18n-html="clin.copy">A SQL analysis of more than 600,000 studies from ClinicalTrials.gov: an ETL from the AACT PostgreSQL database into DuckDB, reusable views, data-quality fixes and 39,000 free-text stop reasons grouped into categories. <span class="num">38%</span> of failed trials that give a reason stopped because they could not recruit enough patients. Built with SQL, DuckDB, Python and Streamlit.</p>
+        <div class="link-row">
+          <a class="chev-link" href="https://github.com/marwansaabi/clinical-trials-analysis" target="_blank" rel="noopener"><span data-i18n="link.viewCode">View the code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
+        </div>
+      </div>
+      <div class="window chart"><img src="clinical_preview.png" alt="Bar chart: low recruitment is the most common reason why clinical trials stop early (38%)" data-i18n-alt="clin.alt" width="1600" height="1000" loading="lazy"></div>
+    </div>
+  </section>
+
+  <!-- FEATURE 3: ALZHEIMER CLASSIFIER -->
+  <section class="section alt" aria-labelledby="alz-title">
+    <div class="wrap split reverse">
       <div>
         <h2 class="headline" id="alz-title" data-i18n-html="alzf.title">Alzheimer's drug classifier. <span class="muted">Tested on chemistry it had never seen.</span></h2>
         <p class="copy" data-i18n-html="alzf.copy">A virtual screening model on 4,310 curated ChEMBL molecules encoded as Morgan fingerprints. Four models compared; Random Forest reached <span class="num">0.92</span> AUROC under scaffold-split cross-validation, a stricter and more honest test than a random split, which inflates it to <span class="num">0.96</span>. Built with Python, scikit-learn, XGBoost and RDKit.</p>
@@ -768,7 +785,7 @@
   </section>
 
   <!-- MORE WORK: BENTO -->
-  <section class="section alt" aria-labelledby="more-title">
+  <section class="section" aria-labelledby="more-title">
     <div class="wrap">
       <div class="center">
         <h2 class="headline" id="more-title" data-i18n-html="more.title">More work. <span class="muted">Computer vision, generative AI and genomics.</span></h2>
@@ -811,7 +828,7 @@
   </section>
 
   <!-- ABOUT -->
-  <section class="section" id="about" aria-labelledby="about-title">
+  <section class="section alt" id="about" aria-labelledby="about-title">
     <div class="wrap">
       <h2 class="visually-hidden" id="about-title" data-i18n="about.title">About</h2>
       <p class="statement" data-i18n-html="about.statement"><strong>I trained as a biologist, but the part I always enjoyed most was the data.</strong> Biostatistics was my favourite subject, and my undergraduate thesis turned photographs of salamanders into a number that could be measured and compared, work that later became part of a peer-reviewed paper. <strong>That's what took me to the MSc in Bioinformatics,</strong> and to building projects well beyond biology.</p>
@@ -819,7 +836,7 @@
   </section>
 
   <!-- TOOLKIT -->
-  <section class="section alt" id="skills" aria-labelledby="toolkit-title">
+  <section class="section" id="skills" aria-labelledby="toolkit-title">
     <div class="wrap">
       <h2 class="headline" id="toolkit-title" data-i18n="toolkit.title">The toolkit.</h2>
       <div class="specs">
@@ -854,7 +871,7 @@
   </section>
 
   <!-- EDUCATION -->
-  <section class="section" id="education" aria-labelledby="edu-title">
+  <section class="section alt" id="education" aria-labelledby="edu-title">
     <div class="wrap">
       <h2 class="headline" id="edu-title" data-i18n="edu.title">Education and research.</h2>
       <div class="records">
@@ -898,7 +915,7 @@
   </section>
 
   <!-- CONTACT -->
-  <section class="section alt center contact" id="contact" aria-labelledby="contact-title">
+  <section class="section center contact" id="contact" aria-labelledby="contact-title">
     <div class="wrap">
       <h2 class="headline" id="contact-title" data-i18n="contact.title">Let's work together.</h2>
       <p class="copy" data-i18n="contact.desc">I'm looking for a data analyst or data science internship or junior role in 2027, with a particular interest in health and life sciences data. Available in English, Spanish and Galician.</p>
@@ -978,6 +995,9 @@ const I18N = {
     "drug.copy": "Gemini genera moléculas candidatas como cadenas SMILES, un motor de validación quimioinformática descarta las estructuras físicamente imposibles y las que superan el filtro se representan como modelos 3D optimizados. Hecho con Python, Streamlit, la API de Gemini y RDKit.",
     "drug.alt": "Resultados del diseñador de fármacos con IA: cinco moléculas generadas y validadas por RDKit, la primera en estructura 2D y modelo 3D",
     "more.title": "Más proyectos. <span class=\"muted\">Visión por computador, IA generativa y genómica.</span>",
+    "clin.title": "¿Por qué fracasan los ensayos clínicos? <span class=\"muted\">Sobre todo por falta de pacientes, no por seguridad.</span>",
+    "clin.copy": "Un análisis con SQL de más de 600.000 estudios de ClinicalTrials.gov: ETL desde la base de datos PostgreSQL de AACT a DuckDB, vistas reutilizables, limpieza de datos y 39.000 motivos de parada en texto libre agrupados en categorías. El <span class=\"num\">38%</span> de los ensayos fracasados que dan un motivo se paró por no conseguir suficientes pacientes. Hecho con SQL, DuckDB, Python y Streamlit.",
+    "clin.alt": "Gráfico de barras: la falta de pacientes es el motivo más frecuente por el que se paran los ensayos clínicos (38 %)",
     "alzf.title": "Clasificador de fármacos para el Alzheimer. <span class=\"muted\">Evaluado con química que nunca había visto.</span>",
     "alzf.copy": "Un modelo de cribado virtual sobre 4.310 moléculas curadas de ChEMBL, codificadas con fingerprints de Morgan. Comparé cuatro modelos: Random Forest alcanzó un AUROC de <span class=\"num\">0.92</span> validando por scaffold, una prueba más exigente y honesta que el reparto aleatorio, que lo infla hasta <span class=\"num\">0.96</span>. Hecho con Python, scikit-learn, XGBoost y RDKit.",
     "drugt.title": "Diseñador de fármacos con IA.",
@@ -1059,6 +1079,9 @@ const I18N = {
     "drug.copy": "Gemini xera moléculas candidatas como cadeas SMILES, un motor de validación quimioinformática descarta as estruturas fisicamente imposibles e as que superan o filtro represéntanse como modelos 3D optimizados. Feito con Python, Streamlit, a API de Gemini e RDKit.",
     "drug.alt": "Resultados do deseñador de fármacos con IA: cinco moléculas xeradas e validadas por RDKit, a primeira en estrutura 2D e modelo 3D",
     "more.title": "Máis proxectos. <span class=\"muted\">Visión por computador, IA xerativa e xenómica.</span>",
+    "clin.title": "Por que fracasan os ensaios clínicos? <span class=\"muted\">Sobre todo por falta de pacientes, non por seguridade.</span>",
+    "clin.copy": "Unha análise con SQL de máis de 600.000 estudos de ClinicalTrials.gov: ETL dende a base de datos PostgreSQL de AACT a DuckDB, vistas reutilizables, limpeza de datos e 39.000 motivos de parada en texto libre agrupados en categorías. O <span class=\"num\">38%</span> dos ensaios fracasados que dan un motivo parou por non conseguir abondo pacientes. Feito con SQL, DuckDB, Python e Streamlit.",
+    "clin.alt": "Gráfico de barras: a falta de pacientes é o motivo máis frecuente polo que se paran os ensaios clínicos (38 %)",
     "alzf.title": "Clasificador de fármacos para o Alzheimer. <span class=\"muted\">Avaliado con química que nunca vira.</span>",
     "alzf.copy": "Un modelo de cribado virtual sobre 4.310 moléculas curadas de ChEMBL, codificadas con fingerprints de Morgan. Comparei catro modelos: Random Forest acadou un AUROC de <span class=\"num\">0.92</span> validando por scaffold, unha proba máis esixente e honesta que o reparto aleatorio, que o infla ata <span class=\"num\">0.96</span>. Feito con Python, scikit-learn, XGBoost e RDKit.",
     "drugt.title": "Deseñador de fármacos con IA.",
