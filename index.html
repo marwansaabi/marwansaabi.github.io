@@ -763,6 +763,7 @@
         <h2 class="headline" id="clin-title" data-i18n-html="clin.title">Why do clinical trials fail? <span class="muted">Mostly for lack of patients, not safety.</span></h2>
         <p class="copy" data-i18n-html="clin.copy">A SQL analysis of more than 600,000 studies from ClinicalTrials.gov: an ETL from the AACT PostgreSQL database into DuckDB, reusable views, data-quality fixes and 39,000 free-text stop reasons grouped into categories. <span class="num">38%</span> of failed trials that give a reason stopped because they could not recruit enough patients. Built with SQL, DuckDB, Python and Streamlit.</p>
         <div class="link-row">
+          <a class="chev-link" href="https://marwan-clinical-trials.streamlit.app" target="_blank" rel="noopener" data-embed="clinical"><span data-i18n="link.tryLive">Try the live app</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
           <a class="chev-link" href="https://github.com/marwansaabi/clinical-trials-analysis" target="_blank" rel="noopener"><span data-i18n="link.viewCode">View the code</span> <svg aria-hidden="true"><use href="#chev"/></svg></a>
         </div>
       </div>
@@ -1048,6 +1049,7 @@ const I18N = {
     "viewer.close": "Cerrar",
     "viewer.loading": "Arrancando la app. Puede tardar unos segundos.",
     "viewer.forecast": "Previsión de demanda en retail",
+    "viewer.clinical": "¿Por qué fracasan los ensayos clínicos?",
     "viewer.drug": "Diseñador de fármacos con IA",
     "viewer.rnaseq": "Panel de análisis de RNA-seq",
     "viewer.melanoma": "Detección de melanoma"
@@ -1132,6 +1134,7 @@ const I18N = {
     "viewer.close": "Pechar",
     "viewer.loading": "Arrancando a app. Pode tardar uns segundos.",
     "viewer.forecast": "Previsión de demanda en retail",
+    "viewer.clinical": "Por que fracasan os ensaios clínicos?",
     "viewer.drug": "Deseñador de fármacos con IA",
     "viewer.rnaseq": "Panel de análise de RNA-seq",
     "viewer.melanoma": "Detección de melanoma"
@@ -1211,6 +1214,7 @@ langButtons.forEach(btn => {
 // Live app viewer: on desktop, live-app links open the app inside the page.
 const VIEWER_APPS = {
   forecast: { url: 'https://marwan-retail-demand-forecasting.streamlit.app', name: 'Retail demand forecasting' },
+  clinical: { url: 'https://marwan-clinical-trials.streamlit.app', name: 'Why do clinical trials fail?' },
   drug: { url: 'https://marwan-drug-discovery.streamlit.app', name: 'AI drug designer' },
   rnaseq: { url: 'https://marwan-rnaseq-dashboard.streamlit.app', name: 'RNA-seq analysis dashboard' },
   melanoma: { url: 'https://marwan-melanoma-detection.streamlit.app', name: 'Melanoma detection' }
